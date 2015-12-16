@@ -1,0 +1,13 @@
+html_document:
+  keep_md: true
+  toc: yes
+  css:
+    - libs/local/main.css
+    - libs/local/nav.css
+    - https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css
+  self_contained: false
+  lib_dir: libs
+  includes:
+    in_header: include/google_analytics.html
+    before_body: include/nav.html
+    after_body: include/after_body.html

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>R Setup</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8298649-8', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <!-- <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/> -->
+      <img src="img/logo-100px.jpg" width="80px" height="80px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">R Setup</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#basic-r-setup">Basic R Setup</a></li>
+<li><a href="#bioconductor">Bioconductor</a></li>
+<li><a href="#additional-steps-for-reproducible-research-classes">Additional steps for Reproducible Research classes</a></li>
+</ul>
+</div>
+
+<div id="basic-r-setup" class="section level2">
+<h2>Basic R Setup</h2>
+<p><strong>Note:</strong> R and RStudio are separate downloads and installations. <strong>R</strong> is the underlying statistical computing environment, but using R alone is no fun. <strong>RStudio</strong> is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.</p>
+<ol style="list-style-type: decimal">
+<li>Download data. fixme.</li>
+<li><strong>Install R.</strong> You’ll need R version 3.1.2 or higher. Download and install R for <a href="http://cran.r-project.org/bin/windows/base/">Windows</a> or <a href="http://cran.r-project.org/bin/macosx/">Mac OS X</a> (download the latest R-3.x.x.pkg file for your appropriate version of OS X).</li>
+<li><strong>Install RStudio.</strong> Download and install the latest stable version of <a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a>.</li>
+<li><strong>Install R packages.</strong> Launch RStudio (RStudio, <em>not R itself</em>). Ensure that you have internet access, then enter the following commands into the <strong>Console</strong> panel (usually the lower-left panel, by default). Note that these commands are case-sensitive. At any point (especially if you’ve used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking <code>Update all/some/none? [a/s/n]:</code>. If you see this, type <code>a</code> at the propt and hit <code>Enter</code> to update any old packages. If you’re using a Windows machine you might get some errors about not having permission to modify the existing libraries – don’t worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click “run as administrator”).</li>
+</ol>
+<pre class="r"><code>install.packages(&quot;dplyr&quot;)
+install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;tidyr&quot;)
+install.packages(&quot;readr&quot;)
+install.packages(&quot;stringr&quot;)
+install.packages(&quot;knitr&quot;)
+install.packages(&quot;broom&quot;)
+install.packages(&quot;rmarkdown&quot;)</code></pre>
+<p>You can check that you’ve installed everything correctly by closing and reopening RStudio and entering the following commands at the console window:</p>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(readr)
+library(stringr)
+library(knitr)
+library(broom)
+library(rmarkdown)</code></pre>
+<p>These commands may produce some notes or other output, but as long as they work without an error message, you’re good to go. If you get a message that says something like: <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the required packages did not install correctly. Please do not hesitate to email me <em>prior to the course</em> if you are still having difficulty.</p>
+</div>
+<div id="bioconductor" class="section level2">
+<h2>Bioconductor</h2>
+<p>Additionally, you’ll need to install a few <a href="http://bioconductor.org/">Bioconductor</a> packages. These packages are installed differently than “regular” R packages from CRAN. Copy and paste these lines of code into your R console.</p>
+<pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
+biocLite()
+biocLite(&quot;DESeq2&quot;)</code></pre>
+<p>You can check that you’ve installed everything correctly by closing and reopening RStudio and entering the following commands at the console window:</p>
+<pre class="r"><code>library(DESeq2)</code></pre>
+<p>If you get a message that says something like: <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the required packages did not install correctly. Please do not hesitate to email me <em>prior to the course</em> if you are still having difficulty.</p>
+</div>
+<div id="additional-steps-for-reproducible-research-classes" class="section level2">
+<h2>Additional steps for Reproducible Research classes</h2>
+<p>A few additional setup steps required for the reproducible research / dynamic documents class.</p>
+<ol style="list-style-type: decimal">
+<li>First, launch RStudio (not R). Click File, New File, R Markdown. This may tell you that you need to install additional packages (knitr, yaml, htmltools, caTools, bitops, and rmarkdown). Click “Yes” to install these.</li>
+<li>Sign up for a free account at <strong><a href="http://rpubs.com/">RPubs.com</a></strong>.</li>
+<li>If you want to convert to PDF, you will need to install a <strong>LaTeX</strong> typesetting engine. This differs on Mac and Windows. <strong>Note that this part of the installation may take up to several hours, and isn’t strictly required for the class.</strong>
+<ul>
+<li><strong>Windows LaTeX instructions</strong>:
+<ol style="list-style-type: decimal">
+<li>Download the installer <a href="http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5721.exe">using this link</a>. It is important to use the full installer, not the basic installer. Run the installer .exe that you downloaded.</li>
+<li>Run the installer <em>twice</em>, making sure to use the Complete, not Basic, installation:
+<ol style="list-style-type: decimal">
+<li>First, When prompted, select the box to “Download MiKTeX.” Select the closest mirror to your location. If you’re doing this from Charlottesville, the United States / JMU mirror is likely the closest. This may take a while.</li>
+<li>Run the installer again, but this time select “Install” instead of “Download.” When prompted <em>“Install missing packages on-the-fly”</em>, drag your selection up to “Yes.”</li>
+</ol></li>
+</ol></li>
+<li><strong>Mac LaTeX instructions</strong>:
+<ol style="list-style-type: decimal">
+<li>Download the installer .pkg file <a href="http://tug.org/cgi-bin/mactex-download/MacTeX.pkg">using this link</a>. This is a very large download (&gt;2 gigabytes). It can take a while depending on your network speed.</li>
+<li>Run the installer package.</li>
+</ol></li>
+</ul></li>
+</ol>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.<br>
+For more information, visit <a href="https://www.bioconnector.virginia.edu/">bioconnector.virginia.edu</a>.<br>
+<a href="https://twitter.com/genetics_blog"><i class="fa fa-twitter fa-lg"></i></a>&nbsp;
+<a href="https://github.com/stephenturner/"><i class="fa fa-github fa-lg"></i></a>&nbsp;
+<a href="http://gettinggeneticsdone.com"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

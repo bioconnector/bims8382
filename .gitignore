@@ -1,0 +1,7 @@
+ignore/
+.Rproj.user
+.Rhistory
+.RData
+.Rprofile
+*.Rproj
+*.psd
