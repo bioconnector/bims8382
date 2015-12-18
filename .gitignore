@@ -5,3 +5,4 @@ ignore/
 .Rprofile
 *.Rproj
 *.psd
+dev/
