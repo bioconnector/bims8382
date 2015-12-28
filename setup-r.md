@@ -9,7 +9,11 @@ title: 'R Setup'
 1. Download data. fixme.
 1. **Install R.** You'll need R version 3.1.2 or higher. Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac OS X](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of OS X).
 1. **Install RStudio.** Download and install the latest stable version of [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/).
-1. **Install R packages.** Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then enter the following commands into the **Console** panel (usually the lower-left panel, by default). Note that these commands are case-sensitive. At any point (especially if you've used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking `Update all/some/none? [a/s/n]:`. If you see this, type `a` at the propt and hit `Enter` to update any old packages. If you're using a Windows machine you might get some errors about not having permission to modify the existing libraries -- don't worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click "run as administrator").
+1. **Install R packages.** Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then enter the following commands into the **Console** panel (usually the lower-left panel, by default). _A few notes_:
+    - These commands are case-sensitive. 
+    - Even if you've installed these packages in the past, go ahead and re-install the most recent version. Many of these packages are updated often. For instance, [ggplot2 2.0](http://blog.rstudio.org/2015/12/21/ggplot2-2-0-0/) (released December 2015) came with many new features and changes.
+    - At any point (especially if you've used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking `Update all/some/none? [a/s/n]:`. If you see this, type `a` at the propt and hit `Enter` to update any old packages. 
+    - If you're using a Windows machine you might get some errors about not having permission to modify the existing libraries -- don't worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click "run as administrator").
 
 ```r
 install.packages("dplyr")
