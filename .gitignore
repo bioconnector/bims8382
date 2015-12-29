@@ -1,11 +1,18 @@
+# R project, history, etc.
 .Rproj.user
 .Rhistory
 .RData
 .Rprofile
 *.Rproj
+
+# photoshop files
 *.psd
-dev/
+
+# Unfinished lessons
 Untitled*
+
+# development notes
+dev/
 
 # temporary
 data/
