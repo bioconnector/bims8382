@@ -121,7 +121,7 @@ Look closely at that! LEU1 is _highly expressed_ when starved of leucine because
 1. Display the data where the gene ontology biological process (the `bp` variable) is "leucine biosynthesis" (case-sensitive) _and_ the limiting nutrient was Leucine. (Answer should return a 24-by-7 data frame -- 4 genes $\times$ 6 growth rates).
 1. Gene/rate combinations had high expression (in the top 1% of expressed genes)? _Hint:_ see `?quantile` and try `quantile(ydat$expression, probs=.99)` to see the expression value which is higher than 99% of all the data, then `filter()` based on that. Try wrapping your answer with a `View()` function so you can see the whole thing. What does it look like those genes are doing? Answer should return a 1971-by-7 data frame.
 
-```{r include=F}
+```{r ex_filter, include=F}
 filter(ydat, nutrient=="Leucine" & bp=="leucine biosynthesis")
 
 quantile(ydat$expression, probs=.99)
@@ -178,11 +178,32 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal))
 
 Again, don't worry about the code here to make the plot -- we'll learn about this later. Why do you think we log-transform the data prior to analysis?
 
-```{r expression_unit_plots, fig.width=10, fig.height=4, cache=T}
+```{r demo_plot_expression_units, fig.width=10, fig.height=4, cache=T}
 library(tidyr)
 mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %>% 
   gather(unit, value, expression:sigsr) %>% 
   ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales="free")
+```
+
+### arrange()
+
+The `arrange()` function does what it sounds like. It takes a data frame or tbl and arranges (or sorts) by column(s) of interest. The first argument is the data, and subsequent arguments are columns to sort on. Use the `desc()` function to arrange by descending.
+
+```{r arrange}
+# arrange by gene symbol
+arrange(ydat, symbol)
+
+# arrange by expression (default: increasing)
+arrange(ydat, expression)
+
+# arrange by decreasing expression
+arrange(ydat, desc(expression))
+
+# combine filtering and arrange. 
+# First filter for leucine biosynthesis gene where leucine is limited, and arrange by gene.
+# Optionally wrap with View()
+# filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine")
+arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol)
 ```
 
 
@@ -200,13 +221,6 @@ ydat <- read_csv("data/brauer2007_tidy.csv")
 ################################################
 
   
-# arrange
-arrange(ydat, symbol)
-arrange(ydat, expression)
-arrange(ydat, desc(expression))
-filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine")
-arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol)
-View(arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol))
 # demo (leu4 responds to both glucose AND leucine starvartion. why?)
 filter(ydat, bp=="leucine biosynthesis") %>% 
   ggplot(aes(rate, expression, col=nutrient)) + geom_line() + facet_wrap(~symbol)
