@@ -5,6 +5,9 @@
 .Rprofile
 *.Rproj
 
+# knitr caches
+*_cache/
+
 # photoshop files
 *.psd
 
