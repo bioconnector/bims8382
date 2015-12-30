@@ -106,7 +106,7 @@ filter(ydat, symbol=="LEU1" & nutrient=="Glucose")
 
 Let's look at this graphically. Don't worry about what these commands are doing just yet - we'll cover that later on when we talk about ggplot2. Here's I'm taking the filtered dataset containing just expression estimates for LEU1 where I have 36 rows (one for each of 6 nutrients $\times$ 6 growth rates), and I'm _piping_ that dataset to the plotting function, where I'm plotting rate on the x-axis, expression on the y-axis, mapping the value of nutrient to the color, and using a line plot to display the data.
 
-```{r demo1, fig.align='center'}
+```{r demo_plot_expr_over_rate_singlegene, fig.align='center'}
 library(ggplot2)
 filter(ydat, symbol=="LEU1") %>% 
   ggplot(aes(rate, expression, colour=nutrient)) + geom_line(lwd=1.5)
