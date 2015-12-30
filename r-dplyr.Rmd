@@ -160,6 +160,30 @@ ydat
 ```
 
 
+### mutate()
+
+The `mutate()` function adds new columns to the data. Remember, it doesn't actually modify the data frame you're operating on, and the result is transient unless you assign it to a new object or reassign it back to itself (generally, not always a good practice). 
+
+The expression level reported here is the $log_2$ of the sample signal divided by the signal in the reference channel, where the reference RNA for all samples was taken from the glucose-limited chemostat grown at a dilution rate of 0.25 $h^{-1}$. Let's mutate this data to add a new variable called "signal" that's the actual raw signal ratio instead of the log-transformed signal.
+
+```{r mutate, eval=F}
+mutate(nogo, signal=2^expression)
+```
+
+Mutate has a nice little feature too in that it's "lazy." You can mutate and add one variable, then continue mutating to add more variables based on that variable. Let's make another column that's the square root of the signal ratio.
+
+```{r mutatelazy}
+mutate(nogo, signal=2^expression, sigsr=sqrt(signal))
+```
+
+Again, don't worry about the code here to make the plot -- we'll learn about this later. Why do you think we log-transform the data prior to analysis?
+
+```{r expression_unit_plots, fig.width=10, fig.height=4, cache=T}
+library(tidyr)
+mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %>% 
+  gather(unit, value, expression:sigsr) %>% 
+  ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales="free")
+```
 
 
 
@@ -175,24 +199,6 @@ theme_set(theme_bw())
 ydat <- read_csv("data/brauer2007_tidy.csv")
 ################################################
 
-# select
-select(ydat, symbol, systematic_name)
-select(ydat, -bp, -mf)
-ydat
-nogo <- select(ydat, -bp, -mf)
-nogo
-ydat
-filter(nogo, symbol=="LEU1" & rate==.05)
-
-# mutate
-# expression is log2 signal/ref (glu-lim at .25h-1)
-mutate(nogo, signal=2^expression)
-mutate(nogo, signal=2^expression) %>% ggplot(aes(signal, expression)) + geom_point()
-# demo (why use log?)
-library(tidyr)
-mutate(nogo, signal=2^expression)  %>% 
-  gather(unit, value, expression, signal) %>% 
-  ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales="free")
   
 # arrange
 arrange(ydat, symbol)
