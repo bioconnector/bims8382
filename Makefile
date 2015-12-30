@@ -16,6 +16,6 @@ html: $(HTML_FILES)
 clean:
 	$(RM) $(HTML_FILES)
 
-fixme: 
+fixme:
 	@echo "Remaining fixes?"
 	@grep --color -nri --include \*.md --include \*.Rmd fixme .
