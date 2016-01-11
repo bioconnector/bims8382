@@ -208,7 +208,7 @@ arrange(ydat, desc(expression))
 2. Wrap this entire filtered result with a call to `arrange()` where you'll arrange the result of #1 by the gene symbol.
 3. Wrap this entire result in a `View()` statement so you can see the entire result.
 
-```{r ex_filter, include=F}
+```{r ex_filterarrange, include=F}
 filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine")
 arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol)
 # View(arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol))
@@ -225,44 +225,63 @@ Notice that summarize takes a data frame and returns a data frame. In this case 
 ```{r summarize}
 # Get the mean expression for all genes
 summarize(ydat, mean(expression))
+
 # Use a more friendly name, e.g., meanexp, or whatever you want to call it.
 summarize(ydat, meanexp=mean(expression))
+
 # Measure the correlation between rate and expression 
 summarize(ydat, r=cor(rate, expression))
+
 # Get the number of observations
 summarize(ydat, n())
+
 # The number of distinct gene symbols in the data 
 summarize(ydat, n_distinct(symbol))
 ```
 
+### group_by()
 
-<!-- ####################################### -->
+We saw that `summarize()` isn't that useful on its own. Neither is `group_by()` All this does is takes an existing data frame and coverts it into a grouped data frame where operations are performed by group.
 
-```{r dplyrlesson, include=F, eval=F}
-################################################
-library(readr)
-library(dplyr)
-library(ggplot2)
-theme_set(theme_bw())
-
-ydat <- read_csv("data/brauer2007_tidy.csv")
-################################################
-
-  
-# demo (leu4 responds to both glucose AND leucine starvartion. why?)
-filter(ydat, bp=="leucine biosynthesis") %>% 
-  ggplot(aes(rate, expression, col=nutrient)) + geom_line() + facet_wrap(~symbol)
-
-
-# group_by
+```{r groupby}
+ydat
 group_by(ydat, nutrient)
 group_by(ydat, nutrient, rate)
+```
 
+The real power comes in where `group_by()` and `summarize()` are used together. First, write the `group_by()` statement. Then wrap the result of that with a call to `summarize()`.
 
-# combine
-summarize(group_by(ydat, nutrient, rate), meanexp=mean(expression))
+```{r gby_nopipe}
+# Get the mean expression for each gene
+# group_by(ydat, symbol)
+summarize(group_by(ydat, symbol), meanexp=mean(expression))
 
-# demo chain
+# Get the correlation between rate and expression for each nutrient
+# group_by(ydat, nutrient)
+summarize(group_by(ydat, nutrient), r=cor(rate, expression))
+```
+
+## The almighty pipe: **%>%**
+
+### How the pipe works
+
+This is where things get awesome. The dplyr package imports functionality from the [magrittr](https://github.com/smbache/magrittr) package that lets you _pipe_ the output of one function to the input of another, so you can avoid nesting functions. It looks like this: **`%>%`**. You don't have to load the magrittr package to use it since dplyr imports its functionality when you load the dplyr package.
+
+Here's the simplest way to use it. Remember the `tail()` function. It expects a data frame as input, and the next argument is the number of lines to print. These two commands are identical:
+
+```{r tailpipe}
+tail(ydat, 5)
+ydat %>% tail(5)
+```
+
+Let's use one of the dplyr verbs.
+
+```{r filterpipe}
+filter(ydat, nutrient=="Leucine")
+ydat %>% filter(nutrient=="Leucine")
+```
+
+```{r tmp, include=F}
 ydat %>% 
   filter(bp=="leucine biosynthesis") %>%
   group_by(nutrient) %>% 
@@ -271,3 +290,95 @@ ydat %>%
   arrange(r)
 ```
 
+### Nesting versus piping 
+
+So what? 
+
+Now, think about this for a minute. What if we wanted to get the correlation between the growth rate and expression separately for each limiting nutrient only for genes in the leucine biosynthesis pathway, and return a sorted list of those correlation coeffients rounded to two digits? Mentally we would do something like this:
+
+0. Take the `ydat` dataset
+0. _then_ `filter()` it for genes in the leucine biosynthesis pathway
+0. _then_ `group_by()` the limiting nutrient
+0. _then_ `summarize()` to get the correlation (`cor()`) between rate and expression 
+0. _then_ `mutate()` to round the result of the above calculation to two significant digits
+0. _then_ `arrange()` by the rounded correlation coefficient above
+
+But in code, it gets ugly. First, take the `ydat` dataset
+
+```{r, results='hide'}
+ydat
+```
+
+_then_ `filter()` it for genes in the leucine biosynthesis pathway
+
+```{r, results='hide'}
+filter(ydat, bp=="leucine biosynthesis")
+```
+
+_then_ `group_by()` the limiting nutrient
+
+```{r, results='hide'}
+group_by(filter(ydat, bp=="leucine biosynthesis"), nutrient)
+```
+
+_then_ `summarize()` to get the correlation (`cor()`) between rate and expression 
+
+```{r, results='hide', tidy=TRUE}
+summarize(group_by(filter(ydat, bp=="leucine biosynthesis"), nutrient), r=cor(rate, expression))
+```
+
+_then_ `mutate()` to round the result of the above calculation to two significant digits
+
+```{r, results='hide', tidy=TRUE}
+mutate(summarize(group_by(filter(ydat, bp=="leucine biosynthesis"), nutrient), r=cor(rate, expression)), r=round(r, 2))
+```
+
+_then_ `arrange()` by the rounded correlation coefficient above
+
+```{r ugly_nopipe}
+arrange(
+  mutate(
+    summarize(
+      group_by(
+        filter(ydat, bp=="leucine biosynthesis"), 
+      nutrient), 
+    r=cor(rate, expression)), 
+  r=round(r, 2)), 
+r)
+```
+
+Now compare that with the mental process of what you're actually trying to accomplish. The way you would do this without pipes is completely inside-out and backwards from the way you express in words and in thought what you want to do. The pipe operator `%>%` allows you to pass the output data frame from one function to the input data frame to another function.
+
+![Nesting functions versus piping](img/nest_vs_pipe.jpg)
+
+This is how we would do that in code. It's as simple as replacing the word "then" in words to the symbol `%>%` in code. (There's a keyboard shortcut that I'll use frequently to insert the `%>%` sequence -- you can see what it is by clicking the _Tools_ menu in RStudio, then selecting _Keyboard Shortcut Help_. On Mac, it's CMD-SHIFT-M.)
+
+```{r pipe}
+ydat %>% 
+  filter(bp=="leucine biosynthesis") %>%
+  group_by(nutrient) %>% 
+  summarize(r=cor(rate, expression)) %>% 
+  mutate(r=round(r,2)) %>% 
+  arrange(r)
+```
+
+### Piping exercises
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+Here's a warm-up round. Try the following.
+
+fixme
+
+
+----
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+That was easy, right? How about some tougher ones.
+
+----
