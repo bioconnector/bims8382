@@ -53,12 +53,12 @@ When you read in data with the readr package (`read_csv()`) and you had the dply
 
 The dplyr package gives you a handful of useful **verbs** for managing data. On their own they don't do anything that base R can't do. Here are some of the _single-table_ verbs we'll be working with in this lesson (single-table meaning that they only work on a single table -- contrast that to _two-table_ verbs used for joining data together, which we'll cover in a later lesson).
 
-1. filter
-1. select
-1. mutate
-1. arrange
-1. summarize
-1. group_by
+1. `filter()`
+1. `select()`
+1. `mutate()`
+1. `arrange()`
+1. `summarize()`
+1. `group_by()`
 
 They all take a `data.frame` or `tbl_df` as their input for the first argument, and they all return a `data.frame` or `tbl_df` as output.
 
@@ -364,16 +364,39 @@ ydat %>%
 
 ### Piping exercises
 
-----
-
 **EXERCISE `r .ex``r .ex=.ex+1`**
 
 Here's a warm-up round. Try the following.
 
-fixme
+Show the limiting nutrient and expression values for the gene ADH2 when the growth rate is restricted to 0.05. _Hint:_ 2 pipes: `filter` and `select`.
 
+```{r, echo=FALSE}
+ydat %>% filter(symbol=="ADH2" & rate==0.05) %>% select(nutrient, expression)
+```
 
-----
+What are the four most highly expressed genes when the growth rate is restricted to 0.05 by restricting glucose? Show only the symbol, expression value, and GO terms. _Hint:_ 4 pipes: `filter`, `arrange`, `head`, and `select`.
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(nutrient=="Glucose" & rate==.05) %>% 
+  arrange(desc(expression)) %>% 
+  head(4) %>% 
+  select(symbol, expression, bp, mf) 
+```
+
+When the growth rate is restricted to 0.05, what is the average expression level across all genes in the "response to stress" biological process, separately for each limiting nutrient? What about genes in the "protein biosynthesis" biological process? _Hint:_ 3 pipes: `filter`, `group_by`, `summarize`.
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(rate==.05 & bp=="response to stress") %>% 
+  group_by(nutrient) %>% 
+  summarize(meanexp=mean(expression))
+
+ydat %>% 
+  filter(rate==.05 & bp=="protein biosynthesis") %>% 
+  group_by(nutrient) %>% 
+  summarize(meanexp=mean(expression))
+```
 
 ----
 
@@ -381,4 +404,85 @@ fixme
 
 That was easy, right? How about some tougher ones.
 
-----
+First, some review. How do we see the number of distinct values of a variable? Use `n_distinct()` within a `summarize()` call.
+
+```{r}
+ydat %>% summarize(n_distinct(mf))
+```
+
+Which 10 biological process annotations have the most genes associated with them? What about molecular functions? _Hint:_ 4 pipes: `group_by`, `summarize` with `n_distinct`, `arrange`, `head`.
+
+```{r, echo=FALSE}
+ydat %>% 
+  group_by(bp) %>% 
+  summarize(n=n_distinct(symbol)) %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+
+ydat %>% 
+  group_by(mf) %>% 
+  summarize(n=n_distinct(symbol)) %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+```
+
+How many distinct genes are there where we know what process the gene is involved in but we don't know what it does? _Hint:_ 3 pipes; `filter` where `bp!="biological process unknown" & mf=="molecular function unknown"`, and after `select`ing columns of interest, pipe the output to `distinct()`. The answer should be **737**, and here are a few:
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(bp!="biological process unknown" & mf=="molecular function unknown") %>% 
+  select(symbol, bp, mf) %>% 
+  distinct()
+```
+
+When the growth rate is restricted to 0.05 by limiting Glucose, which biological processes are the most upregulated? Show a sorted list with the most upregulated BPs on top, displaying the biological process and the average expression of all genes in that process rounded to two digits. _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `mutate`, `arrange`.
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(nutrient=="Glucose" & rate==.05) %>% 
+  group_by(bp) %>% 
+  summarize(meanexp=mean(expression)) %>% 
+  mutate(meanexp=round(meanexp, 2)) %>% 
+  arrange(desc(meanexp))
+```
+
+Group the data by limiting nutrient (primarily) then by biological process. Get the average expression for all genes annotated with each process, separately for each limiting nutrient, where the growth rate is restricted to 0.05. Arrange the result to show the most upregulated processes on top. The initial result will look like the result below. Pipe this output to a `View()` statement. What's going on? Why didn't the `arrange()` work? _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `arrange`, `View`.
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(rate==0.05) %>% 
+  group_by(nutrient, bp) %>% 
+  summarize(meanexp=mean(expression)) %>% 
+  arrange(desc(meanexp))
+```
+
+Let's try to further process that result to get only the top three most upregulated biolgocal processes for each limiting nutrient. Google search "dplyr first result within group." You'll need a `filter(row_number()......)` in there somewhere. _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `arrange`, `filter(row_number()...`. _Note:_ dplyr's pipe syntax used to be `%.%` before it changed to `%>%`. So when looking around, you might still see some people use the old syntax. Now if you try to use the old syntax, you'll get a deprecation warning.
+
+```{r, echo=FALSE}
+ydat %>% 
+  filter(rate==0.05) %>% 
+  group_by(nutrient, bp) %>% 
+  summarize(meanexp=mean(expression)) %>% 
+  arrange(desc(meanexp)) %>% 
+  filter(row_number()<=3)
+```
+
+There's a slight problem with the examples above. We're getting the average expression of all the biological processes separately by each nutrient. But some of these biological processes only have a single gene in them! If we tried to do the same thing to get the correlation between rate and expression, the calculation would work, but we'd get a warning about a standard deviation being zero. The correlation coefficient value that results is `NA`, i.e., missing. While we're summarizing the correlation between rate and expression, let's also show the number of distinct genes within each grouping.
+
+```{r, echo=TRUE, warning=TRUE}
+ydat %>% 
+  group_by(nutrient, bp) %>% 
+  summarize(r=cor(rate, expression), ngenes=n_distinct(symbol))
+```
+
+Take the above code and continue to process the result to show only results where the process has at least 5 genes. Add a column corresponding to the absolute value of the correlation coefficient, and show for each nutrient the singular process with the highest correlation between rate and expression, regardless of direction. _Hint:_ 4 more pipes: `filter`, `mutate`, `arrange`, and `filter` again with `row_number()==1`. Ignore the warning.
+
+```{r, echo=FALSE}
+ydat %>% 
+  group_by(nutrient, bp) %>% 
+  summarize(r=round(cor(rate, expression), 2), ngenes=n_distinct(symbol)) %>% 
+  filter(ngenes>=5) %>% 
+  mutate(absr=abs(r)) %>% 
+  arrange(desc(absr)) %>% 
+  filter(row_number()==1)
+```
