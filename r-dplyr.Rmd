@@ -8,7 +8,7 @@ opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE)
 .ex <- 1
 
 library(ggplot2)
-theme_set(theme_bw() + theme(strip.background = element_blank()))
+theme_set(theme_bw(base_size=16) + theme(strip.background = element_blank()))
 ```
 
 Data analysis involves a large amount of [janitor work](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html) -- munging and cleaning data to facilitate downstream data analysis. This section assumes a [basic familiarity with R](r-basics.html) and [data frames](r-dataframes.html), and demonstrates techniques for advanced data manipulation and analysis with the split-apply-combine strategy. We will use the dplyr package in R to effectively manipulate and conditionally compute summary statistics over subsets of a "big" dataset containing many observations.
@@ -198,14 +198,42 @@ arrange(ydat, expression)
 
 # arrange by decreasing expression
 arrange(ydat, desc(expression))
-
-# combine filtering and arrange. 
-# First filter for leucine biosynthesis gene where leucine is limited, and arrange by gene.
-# Optionally wrap with View()
-# filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine")
-arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol)
 ```
 
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+1. First, re-run the command you used above to filter the data for genes involved in the "leucine biosynthesis" biological process _and_ where the limiting nutrient is Leucine. 
+2. Wrap this entire filtered result with a call to `arrange()` where you'll arrange the result of #1 by the gene symbol.
+3. Wrap this entire result in a `View()` statement so you can see the entire result.
+
+```{r ex_filter, include=F}
+filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine")
+arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol)
+# View(arrange(filter(ydat, bp=="leucine biosynthesis" & nutrient=="Leucine"), symbol))
+```
+
+----
+
+### summarize()
+
+The `summarize()` function summarizes multiple values to a single value. On its own the `summarize()` function doesn't seem to be all that useful. The dplyr package provides a few convenience functions called `n()` and `n_distinct()` that tell you the number of observations or the number of distinct values of a particular variable.
+
+Notice that summarize takes a data frame and returns a data frame. In this case it's a 1x1 data frame with a single row and a single column. The name of the column, by default is whatever the expression was used to summarize the data. This usually isn't pretty, and if we wanted to work with this resulting data frame later on, we'd want to name that returned value something easier to deal with.
+
+```{r summarize}
+# Get the mean expression for all genes
+summarize(ydat, mean(expression))
+# Use a more friendly name, e.g., meanexp, or whatever you want to call it.
+summarize(ydat, meanexp=mean(expression))
+# Measure the correlation between rate and expression 
+summarize(ydat, r=cor(rate, expression))
+# Get the number of observations
+summarize(ydat, n())
+# The number of distinct gene symbols in the data 
+summarize(ydat, n_distinct(symbol))
+```
 
 
 <!-- ####################################### -->
@@ -225,10 +253,6 @@ ydat <- read_csv("data/brauer2007_tidy.csv")
 filter(ydat, bp=="leucine biosynthesis") %>% 
   ggplot(aes(rate, expression, col=nutrient)) + geom_line() + facet_wrap(~symbol)
 
-# summarize
-summarize(ydat, mean(expression))
-summarize(ydat, meanexp=mean(expression))
-summarize(ydat, cor(rate, expression))
 
 # group_by
 group_by(ydat, nutrient)
