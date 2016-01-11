@@ -8,8 +8,9 @@
 # knitr caches
 *_cache/
 
-# photoshop files
+# image sources
 *.psd
+*.key
 
 # Unfinished lessons
 Untitled*
