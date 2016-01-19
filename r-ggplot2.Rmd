@@ -4,7 +4,7 @@ title: "Advanced Data Visualization with ggplot2"
 
 ```{r init, include=F}
 library(knitr)
-opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE)
+opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, fig.keep="none")
 .ex <- 1
 
 library(ggplot2)
@@ -103,3 +103,104 @@ _First, a note about `qplot()`._ The `qplot()` function is a quick and dirty way
 
 Finally, see [this course's help page](help.html#ggplot2-resources) for links to getting more help with ggplot2.
 
+## Plotting bivariate data: continuous Y by continuous X
+
+The `ggplot` function has two required arguments: the *data* used for creating the plot, and an *aesthetic* mapping to describe how variables in said data are mapped to things we can see on the plot.
+
+First let's load the package:
+
+```{r loadggplot2}
+library(ggplot2)
+```
+
+Now, let's lay out the plot. If we want to plot a continuous Y variable by a continuous X variable we're probably most interested in a scatter plot. Here, we're telling ggplot that we want to use the `gm` dataset, and the aesthetic mapping will map `gdpPercap` onto the x-axis and `lifeExp` onto the y-axis. Remember that the variable names are case sensitive! 
+
+```{r noLayers, eval=FALSE}
+ggplot(gm, aes(x = gdpPercap, y = lifeExp))
+```
+
+When we do that we get a blank canvas with no data showing (you might get an error if you're using an old version of ggplot2). That's because all we've done is laid out a two-dimensional plot specifying what goes on the x and y axes, but we haven't told it what kind of geometric object to plot. The obvious choice here is a point. Check out [docs.ggplot2.org](http://docs.ggplot2.org/) to see what kind of geoms are available.
+
+```{r}
+ggplot(gm, aes(x = gdpPercap, y = lifeExp)) + geom_point()
+```
+
+Here, we've built our plot in layers. First, we create a canvas for plotting layers to come using the `ggplot` function, specifying which **data** to use (here, the **gm** data frame), and an **aesthetic mapping** of `gdpPercap` to the x-axis and `lifeExp` to the y-axis. We next add a layer to the plot, specifying a **geom**, or a way of visually representing the aesthetic mapping. 
+
+Now, the typical workflow for building up a ggplot2 plot is to first construct the figure and save that to a variable (for example, `p`), and as you're experimenting, you can continue to re-define the `p` object as you develop "keeper commands".
+
+First, let's construct the graphic. Notice that we don't have to specify `x=` and `y=` if we specify the arguments in the correct order (x is first, y is second).
+
+```{r, eval=TRUE}
+p <- ggplot(gm, aes(gdpPercap, lifeExp))
+```
+
+The `p` object now contains the canvas, but nothing else. Try displaying it by just running `p`. Let's experiment with adding points and a different scale to the x-axis.
+
+```{r}
+# Experiment with adding poings
+p + geom_point()
+
+# Experiment with a different scale
+p + geom_point() + scale_x_log10()
+```
+
+I like the look of using a log scale for the x-axis. Let's make that stick.
+
+```{r}
+p <- p + scale_x_log10()
+```
+
+Now, if we re-ran `p` still nothing would show up because the `p` object just contains a blank canvas. Now, re-plot again with a layer of points:
+
+```{r}
+p + geom_point()
+```
+
+Now notice what I've saved to `p` at this point: only the basic plot layout and the log10 mapping on the x-axis. I didn't save any layers yet because I want to fiddle around with the points for a bit first.
+
+Above we implied the aesthetic mappings for the x- and y- axis should be `gdpPercap` and `lifeExp`, but we can also add aesthetic mappings to the geoms themselves. For instance, what if we wanted to color the points by the value of another variable in the dataset, say, continent?
+
+```{r}
+p + geom_point(aes(color=continent))
+```
+
+Notice the difference here. If I wanted the colors to be some static value, I wouldn't wrap that in a call to `aes()`. I would just specify it outright. Same thing with other features of the points. For example, lets make all the points huge (`size=8`) blue (`color="blue"`) semitransparent (`alpha=(1/4)`) triangles (`pch=17`):
+
+```{r}
+p + geom_point(color="blue", pch=17, size=8, alpha=1/4)
+```
+
+Now, this time, let's map the aesthetics of the point character to certain features of the data. For instance, let's give the points different colors and character shapes according to the continent, and map the size of the point onto the life Expectancy:
+
+```{r}
+p + geom_point(aes(col=continent, shape=continent, size=lifeExp))
+```
+
+Now, this isn't a great plot because there are several aesthetic mappings that are redundant. Life expectancy is mapped to both the y-axis and the size of the points -- the size mapping is superfluous. Similarly, continent is mapped to both the color and the point character (the shape is superfluous). Let's get rid of that, but let's make the points a little bigger outsize of an aesthetic mapping.
+
+```{r scatter_colContinent_size4, fig.keep="all"}
+p + geom_point(aes(col=continent), size=4)
+```
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+Re-create this same plot from scratch without saving anything to a variable. That is, start from the `ggplot` call. 
+
+* Start with the `ggplot()` function.
+* Use the gm data.
+* Map `gdpPercap` to the x-axis and `lifeExp` to the y-axis.
+* Add points to the plot
+  * Make the points size 4
+  * Map continent onto the aesthetics of the point
+* Use a log<sub>10</sub> scale for the x-axis.
+
+```{r, echo=FALSE}
+ggplot(gm, aes(gdpPercap, lifeExp)) + 
+  geom_point(aes(col=continent), size=4) + 
+  scale_x_log10()
+```
+
+----
