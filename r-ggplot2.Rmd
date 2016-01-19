@@ -398,3 +398,96 @@ p + geom_boxplot(outlier.colour="red") + geom_jitter(alpha=1/2)
 ----
 
 
+## Plotting univariate continuous data
+
+What if we just wanted to visualize distribution of a single continuous variable? A histogram is the usual go-to visualization. Here we only have one aesthetic mapping instead of two.
+
+```{r init_histogram, eval=TRUE}
+p <- ggplot(gm, aes(lifeExp))
+```
+
+```{r}
+p + geom_histogram()
+```
+
+When we do this ggplot lets us know that we're automatically selecting the width of the bins, and we might want to think about this a little further.
+
+```{r}
+p + geom_histogram(bins=30)
+p + geom_histogram(bins=10)
+p + geom_histogram(bins=200)
+```
+
+```{r histogram, eval=TRUE, fig.keep="last"}
+p + geom_histogram(bins=60)
+```
+
+Alternative we could plot a smoothed density curve instead of a histogram:
+
+```{r}
+p + geom_density()
+```
+
+Back to histograms. What if we wanted to color this by continent?
+
+```{r}
+p + geom_histogram(aes(color=continent))
+```
+
+That's not what we had in mind. That's just the outline of the bars. We want to change the _fill_ color of the bars.
+
+```{r}
+p + geom_histogram(aes(fill=continent))
+```
+
+Well, that's not exactly what we want either. If you look at the help for `?geom_histogram` you'll see that by default it stacks overlapping points. This isn't really an effective visualization. Let's change the position argument.
+
+```{r}
+p + geom_histogram(aes(fill=continent), position="identity")
+```
+
+But the problem there is that the histograms are blocking each other. What if we tried transparency?
+
+```{r}
+p + geom_histogram(aes(fill=continent), position="identity", alpha=1/3)
+```
+
+That's somewhat helpful, and might work for two distributions, but it gets cumbersome with 5. Let's go back and try this with density plots, first changing the color of the line:
+
+```{r}
+p + geom_density(aes(color=continent))
+```
+
+Then by changing the color of the fill and setting the transparency to 25%:
+
+```{r densityplot, eval=TRUE, fig.keep="last"}
+p + geom_density(aes(fill=continent), alpha=1/4)
+```
+
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+1. Plot a histogram of GDP Per Capita.
+1. Do the same but use a log<sub>10</sub> x-axis.
+1. Still on the log<sub>10</sub> x-axis scale, try a density plot mapping continent to the fill of each density distribution, and reduce the opacity.
+1. Still on the log<sub>10</sub> x-axis scale, make a histogram faceted by continent _and_ filled by continent. Facet with a single column (see `?facet_wrap` for help). 
+1. Save this figure to a 6x10 PDF file.
+
+
+```{r, echo=FALSE, eval=FALSE}
+p <- ggplot(gm, aes(gdpPercap))
+p + geom_histogram()
+
+p <- p + scale_x_log10()
+p + geom_histogram()
+p + geom_density(aes(fill=continent), alpha=1/4)
+p + geom_histogram(aes(fill=continent)) + facet_wrap(~continent, ncol=1)
+ggsave("myplot.pdf", width=6, height=10)
+```
+
+
+----
+
+
