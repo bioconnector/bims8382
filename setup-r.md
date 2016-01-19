@@ -6,7 +6,11 @@ title: 'R Setup'
 
 **Note:** R and RStudio are separate downloads and installations. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.
 
-1. Download data. fixme.
+1.  fixme **Download datasets** from [bioconnector.org/data](http://bioconnector.org/data/). Save in a folder easy to get to (E.g., in a folder on your desktop called "`bims8382data`"):
+    - [brauer2007_tidy.csv](http://bioconnector.org/data/brauer2007_tidy.csv)
+    - [brauer2007_messy.csv](http://bioconnector.org/data/brauer2007_messy.csv)
+    - [brauer2007_sysname2go.csv](http://bioconnector.org/data/brauer2007_sysname2go.csv)
+    - [gapminder.csv](http://bioconnector.org/data/gapminder.csv)
 1. **Install R.** You'll need R version 3.1.2 or higher. Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac OS X](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of OS X).
 1. **Install RStudio.** Download and install the latest stable version of [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/).
 1. **Install R packages.** Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then enter the following commands into the **Console** panel (usually the lower-left panel, by default). _A few notes_:
