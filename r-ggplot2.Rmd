@@ -4,7 +4,7 @@ title: "Advanced Data Visualization with ggplot2"
 
 ```{r init, include=F}
 library(knitr)
-opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, fig.keep="none")
+opts_chunk$set(message=FALSE, warning=FALSE, eval=FALSE, echo=TRUE, fig.keep="none")
 .ex <- 1
 
 library(ggplot2)
@@ -66,7 +66,7 @@ Additionally, the **`%>%`** operator allows you to "chain" operations together. 
 
 The `%>%` would allow us to do this:
 
-```{r pipe}
+```{r pipe, eval=TRUE}
 gm %>%
   mutate(gdp=gdpPercap*pop) %>%
   filter(continent=="Asia") %>%
@@ -76,7 +76,7 @@ gm %>%
 
 Instead of this:
 
-```{r nopipemess, results='hide'}
+```{r nopipemess, eval=TRUE, results='hide'}
 summarize(
   group_by(
     filter(
@@ -109,13 +109,13 @@ The `ggplot` function has two required arguments: the *data* used for creating t
 
 First let's load the package:
 
-```{r loadggplot2}
+```{r loadggplot2, eval=TRUE}
 library(ggplot2)
 ```
 
 Now, let's lay out the plot. If we want to plot a continuous Y variable by a continuous X variable we're probably most interested in a scatter plot. Here, we're telling ggplot that we want to use the `gm` dataset, and the aesthetic mapping will map `gdpPercap` onto the x-axis and `lifeExp` onto the y-axis. Remember that the variable names are case sensitive! 
 
-```{r noLayers, eval=FALSE}
+```{r noLayers}
 ggplot(gm, aes(x = gdpPercap, y = lifeExp))
 ```
 
@@ -147,7 +147,7 @@ p + geom_point() + scale_x_log10()
 
 I like the look of using a log scale for the x-axis. Let's make that stick.
 
-```{r}
+```{r, eval=TRUE}
 p <- p + scale_x_log10()
 ```
 
@@ -179,7 +179,7 @@ p + geom_point(aes(col=continent, shape=continent, size=lifeExp))
 
 Now, this isn't a great plot because there are several aesthetic mappings that are redundant. Life expectancy is mapped to both the y-axis and the size of the points -- the size mapping is superfluous. Similarly, continent is mapped to both the color and the point character (the shape is superfluous). Let's get rid of that, but let's make the points a little bigger outsize of an aesthetic mapping.
 
-```{r scatter_colContinent_size4, fig.keep="all"}
+```{r scatter_colContinent_size4, eval=TRUE, fig.keep="last"}
 p + geom_point(aes(col=continent), size=4)
 ```
 
@@ -210,7 +210,7 @@ ggplot(gm, aes(gdpPercap, lifeExp)) +
 
 Let's add a fitted curve to the points. Recreate the plot in the `p` object if you need to.
 
-```{r scatter_addsmoothlayer, fig.keep="last"}
+```{r scatter_addsmoothlayer, eval=TRUE, fig.keep="last"}
 p <- ggplot(gm, aes(gdpPercap, lifeExp)) + scale_x_log10()
 p + geom_point() + geom_smooth()
 ```
@@ -229,7 +229,7 @@ p + geom_point(aes(color = continent)) + geom_smooth()
 
 But notice what happens here: we make the call to `aes()` outside of the `geom_point()` call, and the continent variable gets mapped as an aesthetic to any further geoms. So here, we get separate smoothing lines for each continent. Let's do it again but remove the standard error stripes and make the lines a bit thicker.
 
-```{r scatter_final, fig.keep="last"}
+```{r scatter_final, eval=TRUE, fig.keep="last"}
 p + aes(color = continent) + geom_point() + geom_smooth()
 p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)
 ```
@@ -239,7 +239,7 @@ p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)
 
 Facets display subsets of the data in different panels. There are a couple ways to do this, but `facet_wrap()` tries to sensibly wrap a series of facets into a 2-dimensional grid of small multiples. Just give it a formula specifying which variables to facet by. We can continue adding more layers, such as smoothing. If you have a look at the help for `?facet_wrap()` you'll see that we can control how the wrapping is laid out.
 
-```{r scatter_facet1, fig.keep="last", fig.width=5, fig.height=12}
+```{r scatter_facet1, eval=TRUE, fig.keep="last", fig.width=5, fig.height=12}
 p + geom_point() + facet_wrap(~continent)
 p + geom_point() + geom_smooth() + facet_wrap(~continent)
 p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)
@@ -271,18 +271,17 @@ ggsave(pfinal, file="myplot.pdf", width=5, height=15)
 0. Add a fitted curve, smooth or lm, with and without facets.
 0. **Bonus**: using `geom_line()` and and aesthetic mapping `country` to `group=`, make a "spaghetti plot", showing _semitransparent_ lines connected for each country, faceted by continent. Add a smoothed loess curve with a thick (`lwd=3`) line with no standard error stripe. Reduce the opacity (`alpha=`) of the individual black lines. _Don't_ show Oceania countries (that is, `filter()` the data where `continent!="Oceania"` before you plot it).
 
-```{r, include=F, eval=F}
+```{r, include=FALSE, eval=FALSE}
 p <- ggplot(gm, aes(year, lifeExp))
 p + geom_point()
 p + geom_point() + geom_smooth()
 p + geom_point() + geom_smooth() + facet_wrap(~continent)
-
-p + facet_wrap(~continent) + geom_line()
-p + facet_wrap(~continent) + geom_line(aes(group=country))
 ```
 
-```{r spaghetti, echo=F, fig.keep="last", fig.width=8}
+```{r spaghetti, eval=TRUE, echo=F, fig.keep="last", fig.width=8}
 p <- ggplot(filter(gm, continent!="Oceania"), aes(year, lifeExp))
+# p + facet_wrap(~continent) + geom_line()
+# p + facet_wrap(~continent) + geom_line(aes(group=country))
 p + facet_wrap(~continent) + geom_line(aes(group=country), alpha=.5) + geom_smooth(lwd=3, se=FALSE)
 ```
 
