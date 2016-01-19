@@ -18,6 +18,6 @@ VP is a data scientist embedded within UVA’s Health Sciences Library, who runs
 - Email: <a href="http://www.google.com/recaptcha/mailhide/d?k=01Wp6BFjxhU6BE1ONDOeDAZg==&amp;c=L6Yf0_ZmAoCwCbPyxLxBbGrIq97gwXUiKEBKeJFEJ9k=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Wp6BFjxhU6BE1ONDOeDAZg\75\75\46c\75L6Yf0_ZmAoCwCbPyxLxBbGrIq97gwXUiKEBKeJFEJ9k\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">v...</a>@virginia.edu
 - GitHub: [github.com/vpnagraj](https://github.com/vpnagraj)
 
-**Administrative contacts:**
+----
 
-- fixme
+_Administrative contact_: Bart Ragon (<a href="http://www.google.com/recaptcha/mailhide/d?k=01Fpsn9fRqsAnOn2xvB6hPaw==&amp;c=gJBxKZodv6VkyiheH-XULOo6Hd2KyoERfhLPLohoLZE=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Fpsn9fRqsAnOn2xvB6hPaw\75\75\46c\75gJBxKZodv6VkyiheH-XULOo6Hd2KyoERfhLPLohoLZE\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">b...</a>@virginia.edu)
