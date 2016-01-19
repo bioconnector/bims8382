@@ -11,38 +11,43 @@ library(ggplot2)
 theme_set(theme_bw(base_size=16) + theme(strip.background = element_blank()))
 ```
 
-
 This section will cover fundamental concepts for creating effective data visualization and will introduce tools and techniques for visualizing large, high-dimensional data using R. We will review fundamental concepts for visually displaying quantitative information, such as using series of small multiples, avoiding "chart-junk," and maximizing the data-ink ratio. We will cover the grammar of graphics (geoms, aesthetics, stats, and faceting), and using the ggplot2 package to create plots layer-by-layer. This section assumes a [basic familiarity with R](r-basics.html), [data frames](r-dataframes.html), and [manipulating data with dplyr and `%>%`](r-dplyr.html).
 
 ## Review
 
-### Our data
+### Our data: Gapminder
 
-We're going to use the yeast gene expression dataset [described on the data frames lesson](r-dataframes.html#our-data). This is a cleaned up version of a gene expression dataset from [Brauer et al. Coordination of Growth Rate, Cell Cycle, Stress Response, and Metabolic Activity in Yeast (2008) _Mol Biol Cell_ 19:352-367](http://www.ncbi.nlm.nih.gov/pubmed/17959824). This data is from a gene expression microarray, and in this paper the authors are examining the relationship between growth rate and gene expression in yeast cultures limited by one of six different nutrients (glucose, leucine, ammonium, sulfate, phosphate, uracil). If you give yeast a rich media loaded with nutrients except restrict the supply of a _single_ nutrient, you can control the growth rate to any rate you choose. By starving yeast of specific nutrients you can find genes that: 
+We're going to work with a different dataset for this section. It's a [cleaned-up excerpt](https://github.com/jennybc/gapminder) from the [Gapminder data](http://www.gapminder.org/data/). Download this data at [bioconnector.org/data](http://bioconnector.org/data/) -- it's the [**gapminder.csv** file](http://bioconnector.org/data/gapminder.csv).
 
-1. **Raise or lower their expression in response to growth rate**. Growth-rate dependent expression patterns can tell us a lot about cell cycle control, and how the cell responds to stress. The authors found that expression of >25% of all yeast genes is linearly correlated with growth rate, independent of the limiting nutrient. They also found that the subset of negatively growth-correlated genes is enriched for peroxisomal functions, and positively correlated genes mainly encode ribosomal functions. 
-2. **Respond differently when different nutrients are being limited**. If you see particular genes that respond very differently when a nutrient is sharply restricted, these genes might be involved in the transport or metabolism of that specific nutrient.
+Let's read in the data to an object called `gm` and take a look with `View`. Remember, we need to load both the dplyr and readr packages for efficiently reading in and displaying this data. 
 
-You can download the cleaned up version of the data at [bioconnector.org/data](http://bioconnector.org/data). The file is called **brauer2007_tidy.csv**.
-
-### Reading in data
-
-We need to load both the dplyr and readr packages for efficiently reading in and displaying this data. We're also going to use many other functions from the dplyr package. Make sure you have these packages installed as described on the [setup page](setup-r.html).
-
-```{r loadpkgs, results='hold'}
+```{r readGapminder, eval=TRUE}
 # Load packages
 library(readr)
 library(dplyr)
 
-# Read in data
-ydat <- read_csv(file="data/brauer2007_tidy.csv")
+# You could read the data directly from the web:
+# gm <- read_csv("http://bioconnector.org/data/gapminder.csv")
 
-# Display the data
-ydat
+# Or better to download the data locally and read the file
+gm <- read_csv(file="data/gapminder.csv")
 
-# Optionally, bring up the data in a viewer window
-# View(ydat)
+# Show the first few lines of the data
+gm
+
+
+# Optionally bring up data in a viewer window.
+# View(gm)
 ```
+
+This particular excerpt has 1704 observations on six variables:
+
+* `country` a categorical variable 142 levels
+* `continent`, a categorical variable with 5 levels
+* `year`: going from 1952 to 2007 in increments of 5 years
+* `pop`: population
+* `gdpPercap`: GDP per capita
+* `lifeExp`: life expectancy
 
 ### dplyr review
 
@@ -55,26 +60,33 @@ The dplyr package gives you a handful of useful **verbs** for managing data. On 
 1. `summarize()`: summarizes multiple values to a single value, most useful when combined with...
 1. `group_by()`: groups a data frame by one or more variable. Most data operations are useful done on groups defined by variables in the the dataset. The `group_by` function takes an existing data frame and converts it into a grouped data frame where `summarize()` operations are performed _by group_.
 
-Additionally, the **`%>%`** operator allows you to "chain" operations together. Rather than nesting functions inside out, the `%>%` operator allows you to write operations left-to-right, top-to-bottom. That is, you can write:
+Additionally, the **`%>%`** operator allows you to "chain" operations together. Rather than nesting functions inside out, the `%>%` operator allows you to write operations left-to-right, top-to-bottom. Let's say we wanted to get the average life expectancy and GDP (not GDP per capita) for Asian countries for each year.
 
-```{r pipe, results='hide'}
-ydat %>% 
-  filter(bp=="leucine biosynthesis") %>%
-  group_by(nutrient) %>% 
-  summarize(meanexp=mean(expression))
+![](img/nest_vs_pipe_gm.png)
+
+The `%>%` would allow us to do this:
+
+```{r pipe}
+gm %>%
+  mutate(gdp=gdpPercap*pop) %>%
+  filter(continent=="Asia") %>%
+  group_by(year) %>%
+  summarize(mean(lifeExp), mean(gdp))
 ```
 
+Instead of this:
 
-```{r ugly_nopipe, results='hide'}
+```{r nopipemess, results='hide'}
 summarize(
   group_by(
-    filter(ydat, bp=="leucine biosynthesis"), 
-    nutrient), 
-  meanexp=mean(expression)
-)
+    filter(
+      mutate(gm, gdp=gdpPercap*pop), 
+    continent=="Asia"), 
+  year), 
+mean(lifeExp), mean(gdp))
 ```
 
-## ggplot2
+## About ggplot2
 
 **ggplot2** is a widely used R package that extends R's visualization capabilities. It takes the hassle out of things like creating legends, mapping other variables to scales like color, or faceting plots into small multiples. We'll learn about what all these things mean shortly. 
 
