@@ -74,3 +74,20 @@ summarize(
 )
 ```
 
+## ggplot2
+
+**ggplot2** is a widely used R package that extends R's visualization capabilities. It takes the hassle out of things like creating legends, mapping other variables to scales like color, or faceting plots into small multiples. We'll learn about what all these things mean shortly. 
+
+_Where does the "gg" in ggplot2 come from?_ The **ggplot2** package provides an R implementation of Leland Wilkinson's *Grammar of Graphics* (1999). The *Grammar of Graphics* allows you to think beyond the garden variety plot types (e.g. scatterplot, barplot) and the consider the components that make up a plot or graphic, such as how data are represented on the plot (as lines, points, etc.), how variables are mapped to coordinates or plotting shape or color, what transformation or statistical summary is required, and so on. 
+
+Specifically, **ggplot2** allows you to build a plot layer-by-layer by specifying:
+
+- a **geom**, which specifies how the data are represented on the plot (points, lines, bars, etc.),
+- **aesthetics** that map variables in the data to axes on the plot or to plotting size, shape, color, etc.,
+- a **stat**, a statistical transformation or summary of the data applied prior to plotting,
+- **facets**, which we've already seen above, that allow the data to be divided into chunks on the basis of other categorical or continuous variables and the same plot drawn for each chunk.
+
+_First, a note about `qplot()`._ The `qplot()` function is a quick and dirty way of making ggplot2 plots. You might see it if you look for help with ggplot2, and it's even covered extensively in the ggplot2 book. And if you're used to making plots with built-in base graphics, the `qplot()` function will probably feel more familiar. But the sooner you abandon the `qplot()` syntax the sooner you'll start to really understand ggplot2's approach to building up plots layer by layer. So we're not going to use it at all in this class.
+
+Finally, see [this course's help page](help.html#ggplot2-resources) for links to getting more help with ggplot2.
+
