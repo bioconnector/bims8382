@@ -435,7 +435,7 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %>%
   ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales="free")
 ```
 
-![](r-dplyr_files/figure-html/demo_plot_expression_units-1.png) 
+![](r-dplyr_files/figure-html/demo_plot_expression_units-1.png)\
 
 ### arrange()
 

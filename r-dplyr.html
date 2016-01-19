@@ -108,7 +108,6 @@ img {
 <li><a href="#filter">filter()</a></li>
 <li><a href="#select">select()</a></li>
 <li><a href="#mutate">mutate()</a></li>
-<li><a href="#arrange">arrange()</a></li>
 <li><a href="#summarize">summarize()</a></li>
 <li><a href="#group_by">group_by()</a></li>
 </ul></li>
@@ -438,10 +437,7 @@ ydat</code></pre>
 mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %&gt;% 
   gather(unit, value, expression:sigsr) %&gt;% 
   ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales=&quot;free&quot;)</code></pre>
-<p><img src="r-dplyr_files/figure-html/demo_plot_expression_units-1.png" /></p>
-</div>
-<div id="arrange" class="section level3">
-<h3>arrange()</h3>
+<p><img src="r-dplyr_files/figure-html/demo_plot_expression_units-1.png" /><br /> ### arrange()</p>
 <p>The <code>arrange()</code> function does what it sounds like. It takes a data frame or tbl and arranges (or sorts) by column(s) of interest. The first argument is the data, and subsequent arguments are columns to sort on. Use the <code>desc()</code> function to arrange by descending.</p>
 <pre class="r"><code># arrange by gene symbol
 arrange(ydat, symbol)</code></pre>

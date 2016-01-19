@@ -232,7 +232,7 @@ mean(ydat$expression)
 
 Now that's not too interesting. This is the average gene expression across all genes, across all conditions. The data is actually scaled/centered around zero:
 
-![](r-dataframes_files/figure-html/histogram_expression_values-1.png) 
+![](r-dataframes_files/figure-html/histogram_expression_values-1.png)\
 
 We might be interested in the average expression of genes with a particular biological function, and how that changes over different growth rates restricted by particular nutrients. This is the kind of thing we're going to do in the next section.
 
