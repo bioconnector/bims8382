@@ -204,3 +204,33 @@ ggplot(gm, aes(gdpPercap, lifeExp)) +
 ```
 
 ----
+
+### Adding layers to the plot
+
+Let's add a fitted curve to the points. Recreate the plot in the `p` object if you need to.
+
+```{r scatter_addsmoothlayer, fig.keep="last"}
+p <- ggplot(gm, aes(gdpPercap, lifeExp)) + scale_x_log10()
+p + geom_point() + geom_smooth()
+```
+
+By default `geom_smooth()` will try to lowess for data with n<1000 or generalized additive models for data with n>1000. We can change that behavior by tweaking the parameters to use a thick red line, use a linear model instead of a GAM, and to turn off the standard error stripes.
+
+```{r}
+p + geom_point() + geom_smooth(lwd=2, se=FALSE, method="lm", col="red")
+```
+
+But let's add back in our aesthetic mapping to the continents. Notice what happens here. We're mapping continent as an aesthetic mapping _to the color of the points only_ -- so `geom_smooth()` still works only on the entire data. 
+
+```{r}
+p + geom_point(aes(color = continent)) + geom_smooth()
+```
+
+But notice what happens here: we make the call to `aes()` outside of the `geom_point()` call, and the continent variable gets mapped as an aesthetic to any further geoms. So here, we get separate smoothing lines for each continent. Let's do it again but remove the standard error stripes and make the lines a bit thicker.
+
+```{r scatter_final, fig.keep="last"}
+p + aes(color = continent) + geom_point() + geom_smooth()
+p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)
+```
+
+
