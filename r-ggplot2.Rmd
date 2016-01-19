@@ -491,3 +491,63 @@ ggsave("myplot.pdf", width=6, height=10)
 ----
 
 
+## Publication-ready plots & themes
+
+Let's make a plot we made earlier (life expectancy versus the log of GDP per capita with points colored by continent with lowess smooth curves overlaid without the standard error ribbon):
+
+```{r, eval=TRUE}
+p <- ggplot(gm, aes(gdpPercap, lifeExp)) 
+p <- p + scale_x_log10()
+p <- p + aes(col=continent) + geom_point() + geom_smooth(lwd=2, se=FALSE)
+```
+
+Give the plot a title and axis labels:
+
+```{r, eval=TRUE}
+p <- p + ggtitle("Life expectancy vs GDP by Continent")
+p <- p + xlab("GDP Per Capita (USD)") + ylab("Life Expectancy (years)")
+```
+
+By default, the "gray" theme is the usual background (I've changed this course website to use the black and white background for all images).
+
+```{r theme_gray, eval=TRUE, fig.keep="last"}
+p + theme_gray()
+```
+
+We could also get a black and white background:
+
+```{r}
+p + theme_bw()
+```
+
+Or go a step further and remove the gridlines:
+
+```{r theme_classic, eval=TRUE, fig.keep="last"}
+p + theme_classic()
+```
+
+Finally, there's another package that gives us lots of different themes. This package isn't on CRAN, so you'll have to use devtools to install it directly from the source code on github.
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("jrnold/ggthemes")
+```
+
+```{r themes, eval=FALSE}
+library(ggthemes)
+p <- ggplot(gm, aes(gdpPercap, lifeExp)) 
+p <- p + scale_x_log10()
+p <- p + aes(col=continent) + geom_point() + geom_smooth(lwd=2, se=FALSE)
+p + theme_excel()
+p + theme_excel() + scale_colour_excel()
+p + theme_gdocs() + scale_colour_gdocs()
+p + theme_stata() + scale_colour_stata()
+p + theme_wsj() + scale_colour_wsj()
+p + theme_economist() 
+p + theme_fivethirtyeight()
+p + theme_tufte()
+```
+
+
+Don't forget - see [this course's help page](help.html#ggplot2-resources) for links to getting more help with ggplot2!
+
