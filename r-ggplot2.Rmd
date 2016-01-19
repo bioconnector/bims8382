@@ -183,6 +183,7 @@ Now, this isn't a great plot because there are several aesthetic mappings that a
 p + geom_point(aes(col=continent), size=3)
 ```
 
+
 ----
 
 **EXERCISE `r .ex``r .ex=.ex+1`**
@@ -202,6 +203,7 @@ ggplot(gm, aes(gdpPercap, lifeExp)) +
   geom_point(aes(col=continent), size=3) + 
   scale_x_log10()
 ```
+
 
 ----
 
@@ -261,6 +263,7 @@ pfinal <- p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)
 ggsave(pfinal, file="myplot.pdf", width=5, height=15)
 ```
 
+
 ----
 
 **EXERCISE `r .ex``r .ex=.ex+1`**
@@ -283,6 +286,7 @@ p <- ggplot(filter(gm, continent!="Oceania"), aes(year, lifeExp))
 # p + facet_wrap(~continent) + geom_line(aes(group=country))
 p + facet_wrap(~continent) + geom_line(aes(group=country), alpha=.5) + geom_smooth(lwd=3, se=FALSE)
 ```
+
 
 ----
 
