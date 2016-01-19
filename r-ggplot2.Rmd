@@ -268,10 +268,10 @@ ggsave(pfinal, file="myplot.pdf", width=5, height=15)
 
 **EXERCISE `r .ex``r .ex=.ex+1`**
 
-0. Make a scatter plot of `lifeExp` on the y-axis against `year` on the x.
-0. Make a series of small multiples faceting on continent.
-0. Add a fitted curve, smooth or lm, with and without facets.
-0. **Bonus**: using `geom_line()` and and aesthetic mapping `country` to `group=`, make a "spaghetti plot", showing _semitransparent_ lines connected for each country, faceted by continent. Add a smoothed loess curve with a thick (`lwd=3`) line with no standard error stripe. Reduce the opacity (`alpha=`) of the individual black lines. _Don't_ show Oceania countries (that is, `filter()` the data where `continent!="Oceania"` before you plot it).
+1. Make a scatter plot of `lifeExp` on the y-axis against `year` on the x.
+1. Make a series of small multiples faceting on continent.
+1. Add a fitted curve, smooth or lm, with and without facets.
+1. **Bonus**: using `geom_line()` and and aesthetic mapping `country` to `group=`, make a "spaghetti plot", showing _semitransparent_ lines connected for each country, faceted by continent. Add a smoothed loess curve with a thick (`lwd=3`) line with no standard error stripe. Reduce the opacity (`alpha=`) of the individual black lines. _Don't_ show Oceania countries (that is, `filter()` the data where `continent!="Oceania"` before you plot it).
 
 ```{r, include=FALSE, eval=FALSE}
 p <- ggplot(gm, aes(year, lifeExp))
@@ -289,4 +289,112 @@ p + facet_wrap(~continent) + geom_line(aes(group=country), alpha=.5) + geom_smoo
 
 
 ----
+
+
+## Plotting bivariate data: continuous Y by categorical X
+
+With the last example we examined the relationship between a continuous Y variable against a continuous X variable. A scatter plot was the obvious kind of data visualization. But what if we wanted to visualize a continuous Y variable against a categorical X variable? We sort of saw what that looked like in the last exercise. `year` is a continuous variable, but in this dataset, it's broken up into 5-year segments, so you could almost think of each year as a categorical variable. But a better example would be life expectancy against continent or country. 
+
+First, let's set up the basic plot:
+
+```{r, eval=TRUE}
+p <- ggplot(gm, aes(continent, lifeExp)) 
+```
+
+Then add points:
+
+```{r}
+p + geom_point()
+```
+
+That's not terribly useful. There's a big overplotting problem. We can try to solve with transparency:
+
+```{r}
+p + geom_point(alpha=1/4)
+```
+
+But that really only gets us so far. What if we spread things out by adding a little bit of horizontal noise (aka "jitter") to the data.
+
+```{r}
+p + geom_jitter()
+```
+
+Note that the little bit of horizontal noise that's added to the jitter is random. If you run that command over and over again, each time it will look slightly different. The idea is to visualize the density at each vertical position, and spreading out the points horizontally allows you to do that. If there were still lots of over-plotting you might think about adding some transparency by setting the `alpha=` value for the jitter.
+
+```{r}
+p + geom_jitter(alpha=1/2)
+```
+
+Probably a more common visualization is to show a box plot:
+
+```{r}
+p + geom_boxplot()
+```
+
+But why not show the summary and the raw data?
+
+```{r}
+p + geom_jitter() + geom_boxplot()
+```
+
+Notice how in that example we first added the jitter layer then added the boxplot layer. But the boxplot is now superimposed over the jitter layer. Let's make the jitter layer go on top. Also, go back to just the boxplots. Notice that the outliers are represented as points. But there's no distinction between the outlier point from the boxplot geom and all the other points from the jitter geom. Let's change that. Notice the British spelling.
+
+```{r}
+p + geom_boxplot(outlier.colour = "red") + geom_jitter(alpha=1/2)
+```
+
+There's another geom that's useful here, called a voilin plot.
+
+```{r}
+p + geom_violin()
+
+p + geom_violin() + geom_jitter(alpha=1/2)
+```
+
+Let's go back to our boxplot for a moment.
+
+```{r}
+p + geom_boxplot()
+```
+
+This plot would be a lot more effective if the continents were shown in some sort of order other than alphabetical. To do that, we'll have to go back to our basic build of the plot again and use the `reorder` function in our original aesthetic mapping. Here, reorder is taking the first variable, which is some categorical variable, and ordering it by the level of the mean of the second variable, which is a continuous variable. It looks like this
+
+```{r, eval=TRUE}
+p <- ggplot(gm, aes(x=reorder(continent, lifeExp), y=lifeExp))
+```
+
+```{r boxplot, eval=TRUE, fig.keep='last'}
+p + geom_boxplot()
+```
+
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+1. Make a jittered strip plot of GDP per capita against continent.
+1. Make a box plot of GDP per capita against continent.
+1. Using a log<sub>10</sub> y-axis scale, overlay semitransparent jittered points on top of box plots, where outlying points are colored. 
+1. **BONUS**: Try to reorder the continents on the x-axis by GDP per capita. Why isn't this working as expected? See `?reorder` for clues.
+
+```{r, echo=FALSE}
+p <- ggplot(gm, aes(continent, gdpPercap))
+p + geom_jitter()
+p + geom_boxplot()
+
+p <- ggplot(gm, aes(reorder(continent, gdpPercap), gdpPercap))
+p <- p + scale_y_log10()
+p + geom_boxplot(outlier.colour="red") + geom_jitter(alpha=1/2)
+
+library(dplyr)
+gm %>% group_by(continent) %>% summarize(mean(gdpPercap))
+gm %>% group_by(continent) %>% summarize(mean(log10(gdpPercap)))
+p <- ggplot(gm, aes(reorder(continent, gdpPercap, FUN=function(x) mean(log10(x))), gdpPercap))
+p <- p + scale_y_log10()
+p + geom_boxplot(outlier.colour="red") + geom_jitter(alpha=1/2)
+```
+
+
+----
+
 
