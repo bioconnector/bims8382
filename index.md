@@ -6,4 +6,4 @@ This class introduces methods, tools, and software for reproducibly managing, ma
 
 There isn't much to see here, yet.
 
-**Attribution:** Some of the course material and content layout here is modified in part from [Jenny Bryan's Stat 545 course](http://stat545-ubc.github.io/), [Software Carpentry](http://software-carpentry.org/), [Data Carpentry](http://datacarpentry.org/), [David Robinson's blog](http://varianceexplained.org/), and likely many others.
+**Attribution:** Some of the course material and content layout here is modified in part from [Jenny Bryan's Stat 545 course](http://stat545-ubc.github.io/), [Software Carpentry](http://software-carpentry.org/), [Data Carpentry](http://datacarpentry.org/), [David Robinson's blog](http://varianceexplained.org/), [Marian Schmidt's MSU NGS Workshop](https://github.com/marschmi/NGS2015_RMarkdown_Reproducibility), and likely many others.
