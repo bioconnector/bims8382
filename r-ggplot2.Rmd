@@ -205,6 +205,7 @@ ggplot(gm, aes(gdpPercap, lifeExp)) +
 
 ----
 
+
 ### Adding layers to the plot
 
 Let's add a fitted curve to the points. Recreate the plot in the `p` object if you need to.
@@ -233,4 +234,57 @@ p + aes(color = continent) + geom_point() + geom_smooth()
 p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)
 ```
 
+
+### Faceting
+
+Facets display subsets of the data in different panels. There are a couple ways to do this, but `facet_wrap()` tries to sensibly wrap a series of facets into a 2-dimensional grid of small multiples. Just give it a formula specifying which variables to facet by. We can continue adding more layers, such as smoothing. If you have a look at the help for `?facet_wrap()` you'll see that we can control how the wrapping is laid out.
+
+```{r scatter_facet1, fig.keep="last", fig.width=5, fig.height=12}
+p + geom_point() + facet_wrap(~continent)
+p + geom_point() + geom_smooth() + facet_wrap(~continent)
+p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)
+```
+
+
+### Saving plots
+
+There are a few ways to save ggplots. The quickest way, that works in an interactive session, is to use the `ggsave()` function. You give it a file name and by default it saves the last plot that was printed to the screen. 
+
+```{r, eval=FALSE}
+p + geom_point()
+ggsave(file="myplot.png")
+```
+
+But if you're running this through a script, the best way to do it is to pass `ggsave()` the object containing the plot that is meant to be saved. We can also adjust things like the width, height, and resolution. `ggsave()` also recognizes the name of the file extension and saves the appropriate kind of file. Let's save a PDF.
+
+```{r, eval=FALSE}
+pfinal <- p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)
+ggsave(pfinal, file="myplot.pdf", width=5, height=15)
+```
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+0. Make a scatter plot of `lifeExp` on the y-axis against `year` on the x.
+0. Make a series of small multiples faceting on continent.
+0. Add a fitted curve, smooth or lm, with and without facets.
+0. **Bonus**: using `geom_line()` and and aesthetic mapping `country` to `group=`, make a "spaghetti plot", showing _semitransparent_ lines connected for each country, faceted by continent. Add a smoothed loess curve with a thick (`lwd=3`) line with no standard error stripe. Reduce the opacity (`alpha=`) of the individual black lines. _Don't_ show Oceania countries (that is, `filter()` the data where `continent!="Oceania"` before you plot it).
+
+```{r, include=F, eval=F}
+p <- ggplot(gm, aes(year, lifeExp))
+p + geom_point()
+p + geom_point() + geom_smooth()
+p + geom_point() + geom_smooth() + facet_wrap(~continent)
+
+p + facet_wrap(~continent) + geom_line()
+p + facet_wrap(~continent) + geom_line(aes(group=country))
+```
+
+```{r spaghetti, echo=F, fig.keep="last", fig.width=8}
+p <- ggplot(filter(gm, continent!="Oceania"), aes(year, lifeExp))
+p + facet_wrap(~continent) + geom_line(aes(group=country), alpha=.5) + geom_smooth(lwd=3, se=FALSE)
+```
+
+----
 
