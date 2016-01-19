@@ -17,7 +17,7 @@ Feb 15 - Mar 21, 2016
 1:00pm - 4:00pm  
 Location: TBA
 
-**Textbook:** Link coming soon fixme.
+<!-- **Textbook:** Link coming soon. fixme-->
 
 ## Week 1: Introduction to R
 
