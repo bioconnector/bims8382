@@ -1,0 +1,76 @@
+---
+title: "Advanced Data Visualization with ggplot2"
+---
+
+```{r init, include=F}
+library(knitr)
+opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE)
+.ex <- 1
+
+library(ggplot2)
+theme_set(theme_bw(base_size=16) + theme(strip.background = element_blank()))
+```
+
+
+This section will cover fundamental concepts for creating effective data visualization and will introduce tools and techniques for visualizing large, high-dimensional data using R. We will review fundamental concepts for visually displaying quantitative information, such as using series of small multiples, avoiding "chart-junk," and maximizing the data-ink ratio. We will cover the grammar of graphics (geoms, aesthetics, stats, and faceting), and using the ggplot2 package to create plots layer-by-layer. This section assumes a [basic familiarity with R](r-basics.html), [data frames](r-dataframes.html), and [manipulating data with dplyr and `%>%`](r-dplyr.html).
+
+## Review
+
+### Our data
+
+We're going to use the yeast gene expression dataset [described on the data frames lesson](r-dataframes.html#our-data). This is a cleaned up version of a gene expression dataset from [Brauer et al. Coordination of Growth Rate, Cell Cycle, Stress Response, and Metabolic Activity in Yeast (2008) _Mol Biol Cell_ 19:352-367](http://www.ncbi.nlm.nih.gov/pubmed/17959824). This data is from a gene expression microarray, and in this paper the authors are examining the relationship between growth rate and gene expression in yeast cultures limited by one of six different nutrients (glucose, leucine, ammonium, sulfate, phosphate, uracil). If you give yeast a rich media loaded with nutrients except restrict the supply of a _single_ nutrient, you can control the growth rate to any rate you choose. By starving yeast of specific nutrients you can find genes that: 
+
+1. **Raise or lower their expression in response to growth rate**. Growth-rate dependent expression patterns can tell us a lot about cell cycle control, and how the cell responds to stress. The authors found that expression of >25% of all yeast genes is linearly correlated with growth rate, independent of the limiting nutrient. They also found that the subset of negatively growth-correlated genes is enriched for peroxisomal functions, and positively correlated genes mainly encode ribosomal functions. 
+2. **Respond differently when different nutrients are being limited**. If you see particular genes that respond very differently when a nutrient is sharply restricted, these genes might be involved in the transport or metabolism of that specific nutrient.
+
+You can download the cleaned up version of the data at [bioconnector.org/data](http://bioconnector.org/data). The file is called **brauer2007_tidy.csv**.
+
+### Reading in data
+
+We need to load both the dplyr and readr packages for efficiently reading in and displaying this data. We're also going to use many other functions from the dplyr package. Make sure you have these packages installed as described on the [setup page](setup-r.html).
+
+```{r loadpkgs, results='hold'}
+# Load packages
+library(readr)
+library(dplyr)
+
+# Read in data
+ydat <- read_csv(file="data/brauer2007_tidy.csv")
+
+# Display the data
+ydat
+
+# Optionally, bring up the data in a viewer window
+# View(ydat)
+```
+
+### dplyr review
+
+The dplyr package gives you a handful of useful **verbs** for managing data. On their own they don't do anything that base R can't do. Here are some of the _single-table_ verbs we'll be working with in this lesson (single-table meaning that they only work on a single table -- contrast that to _two-table_ verbs used for joining data together). They all take a `data.frame` or `tbl_df` as their input for the first argument, and they all return a `data.frame` or `tbl_df` as output.
+
+1. `filter()`: filters _rows_ of the data where some condition is true
+1. `select()`: selects out particular _columns_ of interest
+1. `mutate()`: adds new columns or changes values of existing columns
+1. `arrange()`: arranges a data frame by the value of a column
+1. `summarize()`: summarizes multiple values to a single value, most useful when combined with...
+1. `group_by()`: groups a data frame by one or more variable. Most data operations are useful done on groups defined by variables in the the dataset. The `group_by` function takes an existing data frame and converts it into a grouped data frame where `summarize()` operations are performed _by group_.
+
+Additionally, the **`%>%`** operator allows you to "chain" operations together. Rather than nesting functions inside out, the `%>%` operator allows you to write operations left-to-right, top-to-bottom. That is, you can write:
+
+```{r pipe, results='hide'}
+ydat %>% 
+  filter(bp=="leucine biosynthesis") %>%
+  group_by(nutrient) %>% 
+  summarize(meanexp=mean(expression))
+```
+
+
+```{r ugly_nopipe, results='hide'}
+summarize(
+  group_by(
+    filter(ydat, bp=="leucine biosynthesis"), 
+    nutrient), 
+  meanexp=mean(expression)
+)
+```
+
