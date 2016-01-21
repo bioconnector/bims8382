@@ -137,3 +137,4 @@ RMarkdown is an enhanced version of Markdown that lets you embed R code into the
 Visit **[bioconnector.org/markdown](http://bioconnector.org/markdown/#!rmarkdown.md)** for a quick reference on RMarkdown.
 
 ## Authoring RMarkdown documents
+
