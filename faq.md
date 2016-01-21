@@ -24,9 +24,9 @@ All the software we're using in class is open-source and freely available online
 
 ## Can I audit this course?
 
-Yes! However, **_you will be expected to attend every class meeting, participate in coding exercises during class, and complete any and all assignments_**, just as if you are taking the course for credit.
+Yes! However, **_you will be expected to attend every class meeting, participate in coding exercises during class, and complete any and all assignments_**, just as if you are taking the course for credit. 
 
-To get on the audit list, please email me (<a href="http://www.google.com/recaptcha/mailhide/d?k=01Wp6BFjxhU6BE1ONDOeDAZg==&amp;c=hClvy-RObaqm8ONK69PMtLKUh74mVHLjokUJXLgkUHk=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501Wp6BFjxhU6BE1ONDOeDAZg\75\75\46c\75hClvy-RObaqm8ONK69PMtLKUh74mVHLjokUJXLgkUHk\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">s...</a>@virginia.edu), stating that you agree to the statement above. The first day of the course is Monday, Feb 22, 2016. I will open the course to auditing after students have registered for credit.
+[Click here to register to request to audit](https://docs.google.com/forms/d/1tHO-X4DupnHgIEsUei0K3kX5_UfLRK-y2KfxmxC6Ux0/viewform). The first day of the course is Monday, Feb 15, 2016. One week prior to the course starting, I will allow anyone who's requested to audit into the course, giving priority to people registering for credit. There are still plenty of seats open, so good chances you'll be able to get in.
 
 ## Where do I get more help?
 
