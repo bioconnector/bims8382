@@ -1,13 +1,6 @@
----
-title: "Reproducible Reporting: Generating Dynamic Documents with R+RStudio"
----
+# Reproducible Reporting: Generating Dynamic Documents with R+RStudio
 
-```{r init, include=F}
-library(knitr)
-opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, fig.keep="none")
-options(digits=3)
-.ex <- 1
-```
+
 
 Contemporary life science is plagued by reproducibility issues. This workshop covers some of the barriers to reproducible research and how to start to address some of those problems during the data management and analysis phases of the research life cycle. In this workshop we will cover using R and dynamic document generation with RMarkdown and RStudio to weave together reporting text with executable R code to automatically generate reports in the form of PDF, Word, or HTML documents.
 
@@ -161,9 +154,9 @@ gm <- read.csv("data/gapminder.csv")
 head(gm)
 ```
 
-The mean life expectancy is `r ''` `mean(gm$lifeExp)` years.
+The mean life expectancy is  `mean(gm$lifeExp)` years.
 
-The years surveyed in this data include: `r ''` `unique(gm$year)`.
+The years surveyed in this data include:  `unique(gm$year)`.
 
 # Session Information
 
@@ -178,7 +171,8 @@ So let's break that down to see exactly what happened there. Recall the [RMarkdo
 
 Try this. Instead of using the button, load the knitr package and just knit the document to markdown format. Run this in the console.
 
-```{r, eval=FALSE}
+
+```r
 library(knitr)
 knit("fromscratch.Rmd")
 ```
