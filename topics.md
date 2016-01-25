@@ -6,7 +6,7 @@ title: "Topics"
     - [R setup](setup-r.html)
     - Unix shell + RNA-seq setup
 - Data analysis, manipulation, and visualization with R
-    1. [Basics](r-basics.html)
+    1. [R Basics](r-basics.html)
     1. [Data frames](r-dataframes.html)
     1. [Data manipulation with dplyr](r-dplyr.html)
     1. Tidy data & advanced data manipulation
