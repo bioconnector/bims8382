@@ -11,11 +11,12 @@ output:
 
 **Co-instructor/TA:** VP Nagraj
 
-**When/where:**  
+**When:**  
 Spring 2016 Module S1  
 Feb 15 - Mar 21, 2016  
 1:00pm - 4:00pm  
-Location: TBA
+
+**Where:** Carter Classroom, Health Sciences Library (_downstairs one floor, to the right_)
 
 <!-- **Textbook:** Link coming soon. fixme-->
 
