@@ -10,6 +10,8 @@ opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE)
 
 There are _lots_ of different basic data structures in R. If you take any kind of longer introduction to R you'll probably learn about arrays, lists, matrices, etc. Let's skip straight to the data structure you'll probably use most -- the **data frame**. We use data frames to store heterogeneous tabular data in R: tabular, meaning that individuals or observations are typically represented in rows, while variables or features are represented as columns; heterogeneous, meaning that columns/features/variables can be different classes (on variable, e.g. age, can be numeric, while another, e.g., cause of death, can be text). 
 
+This lesson assumes a [basic familiarity with R](r-basics.html).
+
 ## Our data
 
 <!-- There are some built-in data frames that ship with R that you'll often see people referencing in help forums or other places to demonstrate some functionality. The `mtcars` data frame has data extracted from the 1974 _Motor Trend_ magazine giving statistics about design and performance for 32 different vehicles. You can just type `mtcars` to look at the whole dataset. -->

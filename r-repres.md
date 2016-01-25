@@ -4,7 +4,7 @@
 
 Contemporary life science is plagued by reproducibility issues. This workshop covers some of the barriers to reproducible research and how to start to address some of those problems during the data management and analysis phases of the research life cycle. In this workshop we will cover using R and dynamic document generation with RMarkdown and RStudio to weave together reporting text with executable R code to automatically generate reports in the form of PDF, Word, or HTML documents.
 
-This section assumes a [basic familiarity with R](r-basics.html), [data frames](r-dataframes.html), [manipulating data with dplyr and `%>%`](r-dplyr.html), and [plotting with ggplot2](r-ggplot2.html). It also assumes that you've successfully installed all packages on the [R setup page](setup-r.html), including the [additional steps](setup-r.html#additional-steps-for-reproducible-research-classes) needed specifically for this class.
+This lesson assumes a [basic familiarity with R](r-basics.html), [data frames](r-dataframes.html), [manipulating data with dplyr and `%>%`](r-dplyr.html), and [plotting with ggplot2](r-ggplot2.html). It also assumes that you've successfully installed all packages on the [R setup page](setup-r.html), including the [additional steps](setup-r.html#additional-steps-for-reproducible-research-classes) needed specifically for this class.
 
 Finally, see [this course's help page](help.html#markdown-rmarkdown-resources) for links to getting more help with reproducible research, Markdown, and RMarkdown.
 
