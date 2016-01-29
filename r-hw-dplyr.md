@@ -1,33 +1,27 @@
----
-title: "dplyr homework"
-author: "VP Nagraj"
-date: "January 27, 2016"
-output: 
-  html_document: 
-    keep_md: yes
----
-
-# **dplyr** homework
+# dplyr homework
 
 ## Key Concepts
+
 > 
 - **dplyr** verbs
-- le pipe `%>%`
+- the pipe `%>%`
 - the `tbl_df`
-- window functions
-- summary functions
 - variable creation
-- aggregation
 - multiple conditions
 - properties of grouped data
+- aggregation
+- summary functions
+- window functions
 
 
 
 ## Getting Started
 
+We're going to work with a different dataset for the homework here. It's a [cleaned-up excerpt](https://github.com/jennybc/gapminder) from the [Gapminder data](http://www.gapminder.org/data/). Download this data at [bioconnector.org/data](http://bioconnector.org/data/) -- it's the [**gapminder.csv** file](http://bioconnector.org/data/gapminder.csv). Download it, and save it in your project directory where you can access it easily from R.
+
 Load the **dplyr** and **readr** packages, and read the gapminder data into R using the `read_csv()` function. 
 
-Make sure you store the results in an object called `gm`
+Make sure you store the results in an object called `gm`.
 
 **n.b. `read_csv()` is *not* the same as `read.csv()`**
 
@@ -58,6 +52,7 @@ gm
 ## ..         ...       ...   ...     ...      ...       ...
 ```
 
+
 ## Problem Set
 
 Use **dplyr** functions to address the following questions:
@@ -77,6 +72,7 @@ Use **dplyr** functions to address the following questions:
 ## 5   Oceania     2
 ```
 
+
 2) Which European nation had the lowest GDP per capita in 1997? 
 
 
@@ -87,6 +83,7 @@ Use **dplyr** functions to address the following questions:
 ##     (chr)     (chr) (int)   (dbl)   (int)     (dbl)
 ## 1 Albania    Europe  1997   72.95 3428038  3193.055
 ```
+
 
 3) According to the data available, what was the average life expectancy across each continent in the 1980s?
 
@@ -103,6 +100,7 @@ Use **dplyr** functions to address the following questions:
 ## 5   Oceania     74.80500
 ```
 
+
 4) What 5 countries have the highest total GDP over all years combined?
 
 
@@ -117,6 +115,7 @@ Use **dplyr** functions to address the following questions:
 ## 4        Germany 1.949689e+13
 ## 5 United Kingdom 1.328937e+13
 ```
+
 
 5) What countries and years had life expectancies of _at least_ 80 years? 
 
@@ -141,7 +140,8 @@ Use **dplyr** functions to address the following questions:
 ## ..              ...     ...   ...
 ```
 
-6) What 10 countries have the strongest correlation (in either direction ... ) between life expectancy and per capita GDP?
+
+6) What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?
 
 
 ```
@@ -161,9 +161,10 @@ Use **dplyr** functions to address the following questions:
 ## 10      Australia 0.9864457
 ```
 
+
 7) Which combinations of continent (besides Asia) and year have the highest average population across all countries?
 
-**n.b. your output should include all results sorted by highest average population**
+**n.b. your output should include all results sorted by highest average population**. With what you already know, this one may stump you. See [this Q&A](http://stackoverflow.com/q/27207963/654296) for how to `ungroup` before `arrange`ing.
 
 
 ```
@@ -185,7 +186,7 @@ Use **dplyr** functions to address the following questions:
 ```
 
 
-8) What 3 countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data? 
+8) Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data? 
 
 
 ```
@@ -198,7 +199,16 @@ Use **dplyr** functions to address the following questions:
 ## 3            Montenegro 99737.94
 ```
 
-9) Excluding records from 1952, which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased*.
+
+9) Subset *gm* to only include observations from 1992 and store the results as  *gm1992*. What kind of object is this?
+
+
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+
+10) **_Bonus!_**Excluding records from 1952, which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased*. See [the vignette on window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html).
 
 
 ```
@@ -217,11 +227,4 @@ Use **dplyr** functions to address the following questions:
 ## 9          Czech Republic    Europe  2007  76.486 10228744 22833.3085
 ## 10      Equatorial Guinea    Africa  1977  42.024   192675   958.5668
 ## ..                    ...       ...   ...     ...      ...        ...
-```
-
-10) Subset *gm* to only include observations from 1992 and store the results as  *gm1992*. What kind of object is this?
-
-
-```
-## [1] "tbl_df"     "tbl"        "data.frame"
 ```
