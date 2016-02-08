@@ -109,18 +109,24 @@ img {
 <h2>Basic R Setup</h2>
 <p><strong>Note:</strong> R and RStudio are separate downloads and installations. <strong>R</strong> is the underlying statistical computing environment, but using R alone is no fun. <strong>RStudio</strong> is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.</p>
 <ol style="list-style-type: decimal">
-<li>fixme <strong>Download datasets</strong> from <a href="http://bioconnector.org/data/">bioconnector.org/data</a>. Save in a folder easy to get to (E.g., in a folder on your desktop called “<code>bims8382data</code>”):
-<ul>
+<li><strong>Create a new folder</strong> somewhere on your computer that’s easy to get to (e.g., your Desktop). Name it <code>bims8382</code>. Inside that folder, make a folder called <code>data</code>, all lowercase.</li>
+<li><strong>Download 8 datasets</strong> from <a href="http://bioconnector.org/data/">bioconnector.org/data</a>. Save these data files to <code>bims8382/data</code>, that new folder you just made.
+<ol style="list-style-type: decimal">
 <li><a href="http://bioconnector.org/data/brauer2007_tidy.csv">brauer2007_tidy.csv</a></li>
 <li><a href="http://bioconnector.org/data/brauer2007_messy.csv">brauer2007_messy.csv</a></li>
 <li><a href="http://bioconnector.org/data/brauer2007_sysname2go.csv">brauer2007_sysname2go.csv</a></li>
+<li><a href="http://bioconnector.org/data/heartrate2dose.csv">heartrate2dose.csv</a></li>
 <li><a href="http://bioconnector.org/data/gapminder.csv">gapminder.csv</a></li>
-</ul></li>
+<li><a href="http://bioconnector.org/data/airway_rawcounts.csv">airway_rawcounts.csv</a></li>
+<li><a href="http://bioconnector.org/data/airway_metadata.csv">airway_metadata.csv</a></li>
+<li><a href="http://bioconnector.org/data/annotables_grch38.csv">annotables_grch38.csv</a></li>
+</ol></li>
 <li><strong>Install R.</strong> You’ll need R version 3.1.2 or higher. Download and install R for <a href="http://cran.r-project.org/bin/windows/base/">Windows</a> or <a href="http://cran.r-project.org/bin/macosx/">Mac OS X</a> (download the latest R-3.x.x.pkg file for your appropriate version of OS X).</li>
 <li><strong>Install RStudio.</strong> Download and install the latest stable version of <a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a>.</li>
 <li><strong>Install R packages.</strong> Launch RStudio (RStudio, <em>not R itself</em>). Ensure that you have internet access, then enter the following commands into the <strong>Console</strong> panel (usually the lower-left panel, by default). <em>A few notes</em>:
 <ul>
 <li>These commands are case-sensitive.</li>
+<li>You need to be connected to the internet to do this.</li>
 <li>Even if you’ve installed these packages in the past, go ahead and re-install the most recent version. Many of these packages are updated often. For instance, <a href="http://blog.rstudio.org/2015/12/21/ggplot2-2-0-0/">ggplot2 2.0</a> (released December 2015) came with many new features and changes.</li>
 <li>At any point (especially if you’ve used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking <code>Update all/some/none? [a/s/n]:</code>. If you see this, type <code>a</code> at the propt and hit <code>Enter</code> to update any old packages.</li>
 <li>If you’re using a Windows machine you might get some errors about not having permission to modify the existing libraries – don’t worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click “run as administrator”).</li>
@@ -132,7 +138,6 @@ install.packages(&quot;tidyr&quot;)
 install.packages(&quot;readr&quot;)
 install.packages(&quot;stringr&quot;)
 install.packages(&quot;knitr&quot;)
-install.packages(&quot;broom&quot;)
 install.packages(&quot;rmarkdown&quot;)</code></pre>
 <p>You can check that you’ve installed everything correctly by closing and reopening RStudio and entering the following commands at the console window:</p>
 <pre class="r"><code>library(dplyr)
@@ -141,7 +146,6 @@ library(tidyr)
 library(readr)
 library(stringr)
 library(knitr)
-library(broom)
 library(rmarkdown)</code></pre>
 <p>These commands may produce some notes or other output, but as long as they work without an error message, you’re good to go. If you get a message that says something like: <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the required packages did not install correctly. Please do not hesitate to email me <em>prior to the course</em> if you are still having difficulty.</p>
 </div>
@@ -165,7 +169,7 @@ biocLite(&quot;DESeq2&quot;)</code></pre>
 <ul>
 <li><strong>Windows LaTeX instructions</strong>:
 <ol style="list-style-type: decimal">
-<li>Download the installer <a href="http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5721.exe">using this link</a>. It is important to use the full installer, not the basic installer. Run the installer .exe that you downloaded.</li>
+<li>Download the installer <a href="http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5870-x64.exe">using this link</a> (or <a href="http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5870.exe">this link</a> if you’re using an older 32-bit version of Windows). It is important to use the full installer, not the basic installer. Run the installer .exe that you downloaded.</li>
 <li>Run the installer <em>twice</em>, making sure to use the Complete, not Basic, installation:
 <ol style="list-style-type: decimal">
 <li>First, When prompted, select the box to “Download MiKTeX.” Select the closest mirror to your location. If you’re doing this from Charlottesville, the United States / JMU mirror is likely the closest. This may take a while.</li>

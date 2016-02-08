@@ -6,15 +6,21 @@ title: 'R Setup'
 
 **Note:** R and RStudio are separate downloads and installations. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.
 
-1.  fixme **Download datasets** from [bioconnector.org/data](http://bioconnector.org/data/). Save in a folder easy to get to (E.g., in a folder on your desktop called "`bims8382data`"):
-    - [brauer2007_tidy.csv](http://bioconnector.org/data/brauer2007_tidy.csv)
-    - [brauer2007_messy.csv](http://bioconnector.org/data/brauer2007_messy.csv)
-    - [brauer2007_sysname2go.csv](http://bioconnector.org/data/brauer2007_sysname2go.csv)
-    - [gapminder.csv](http://bioconnector.org/data/gapminder.csv)
+1. **Create a new folder** somewhere on your computer that's easy to get to (e.g., your Desktop). Name it `bims8382`. Inside that folder, make a folder called `data`, all lowercase. 
+1. **Download 8 datasets** from [bioconnector.org/data](http://bioconnector.org/data/). Save these data files to `bims8382/data`, that new folder you just made.
+    1. [brauer2007_tidy.csv](http://bioconnector.org/data/brauer2007_tidy.csv)
+    1. [brauer2007_messy.csv](http://bioconnector.org/data/brauer2007_messy.csv)
+    1. [brauer2007_sysname2go.csv](http://bioconnector.org/data/brauer2007_sysname2go.csv)
+    1. [heartrate2dose.csv](http://bioconnector.org/data/heartrate2dose.csv)
+    1. [gapminder.csv](http://bioconnector.org/data/gapminder.csv)
+    1. [airway_rawcounts.csv](http://bioconnector.org/data/airway_rawcounts.csv)
+    1. [airway_metadata.csv](http://bioconnector.org/data/airway_metadata.csv)
+    1. [annotables_grch38.csv](http://bioconnector.org/data/annotables_grch38.csv)
 1. **Install R.** You'll need R version 3.1.2 or higher. Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac OS X](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of OS X).
 1. **Install RStudio.** Download and install the latest stable version of [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/).
 1. **Install R packages.** Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then enter the following commands into the **Console** panel (usually the lower-left panel, by default). _A few notes_:
     - These commands are case-sensitive. 
+    - You need to be connected to the internet to do this.
     - Even if you've installed these packages in the past, go ahead and re-install the most recent version. Many of these packages are updated often. For instance, [ggplot2 2.0](http://blog.rstudio.org/2015/12/21/ggplot2-2-0-0/) (released December 2015) came with many new features and changes.
     - At any point (especially if you've used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking `Update all/some/none? [a/s/n]:`. If you see this, type `a` at the propt and hit `Enter` to update any old packages. 
     - If you're using a Windows machine you might get some errors about not having permission to modify the existing libraries -- don't worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click "run as administrator").
@@ -26,7 +32,6 @@ install.packages("tidyr")
 install.packages("readr")
 install.packages("stringr")
 install.packages("knitr")
-install.packages("broom")
 install.packages("rmarkdown")
 ```
 
@@ -39,7 +44,6 @@ library(tidyr)
 library(readr)
 library(stringr)
 library(knitr)
-library(broom)
 library(rmarkdown)
 ```
 
@@ -71,7 +75,7 @@ A few additional setup steps required for the reproducible research / dynamic do
 1. Sign up for a free account at **[RPubs.com](http://rpubs.com/)**.
 1. If you want to convert to PDF, you will need to install a **LaTeX** typesetting engine. This differs on Mac and Windows. **Note that this part of the installation may take up to several hours, and isn't strictly required for the class.**
     - **Windows LaTeX instructions**:
-        1. Download the installer [using this link](http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5721.exe). It is important to use the full installer, not the basic installer. Run the installer .exe that you downloaded.
+        1. Download the installer [using this link](http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5870-x64.exe) (or [this link](http://mirrors.ctan.org/systems/win32/miktex/setup/setup-2.9.5870.exe) if you're using an older 32-bit version of Windows). It is important to use the full installer, not the basic installer. Run the installer .exe that you downloaded.
         1. Run the installer _twice_, making sure to use the Complete, not Basic, installation:
             1. First, When prompted, select the box to "Download MiKTeX." Select the closest mirror to your location. If you're doing this from Charlottesville, the United States / JMU mirror is likely the closest. This may take a while.
             1. Run the installer again, but this time select "Install" instead of "Download." When prompted _"Install missing packages on-the-fly"_, drag your selection up to "Yes."
