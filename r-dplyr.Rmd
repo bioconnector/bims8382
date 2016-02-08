@@ -1,5 +1,5 @@
 ---
-title: "Advanced Data Manipulation with dplyr"
+title: "Data Manipulation with dplyr"
 ---
 
 ```{r init, include=F}
