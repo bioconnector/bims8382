@@ -7,7 +7,7 @@ title: 'R Setup'
 **Note:** R and RStudio are separate downloads and installations. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.
 
 1. **Create a new folder** somewhere on your computer that's easy to get to (e.g., your Desktop). Name it `bims8382`. Inside that folder, make a folder called `data`, all lowercase. 
-1. **Download 8 datasets** from [bioconnector.org/data](http://bioconnector.org/data/). Save these data files to `bims8382/data`, that new folder you just made.
+1. **Download 8 datasets** from [bioconnector.org/data](http://bioconnector.org/data/). Save these data files to `bims8382/data`, that new folder you just made. Or just click these direct links:
     1. [brauer2007_tidy.csv](http://bioconnector.org/data/brauer2007_tidy.csv)
     1. [brauer2007_messy.csv](http://bioconnector.org/data/brauer2007_messy.csv)
     1. [brauer2007_sysname2go.csv](http://bioconnector.org/data/brauer2007_sysname2go.csv)
