@@ -22,7 +22,8 @@ title: 'R Setup'
     - These commands are case-sensitive. 
     - You need to be connected to the internet to do this.
     - Even if you've installed these packages in the past, go ahead and re-install the most recent version. Many of these packages are updated often. For instance, [ggplot2 2.0](http://blog.rstudio.org/2015/12/21/ggplot2-2-0-0/) (released December 2015) came with many new features and changes.
-    - At any point (especially if you've used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking `Update all/some/none? [a/s/n]:`. If you see this, type `a` at the propt and hit `Enter` to update any old packages. 
+    - At any point (especially if you've used R/Bioconductor in the past), R may ask you if you want to update any old packages by asking `Update all/some/none? [a/s/n]:`. If you see this, type **`a`** at the propt and hit `Enter` to update any old packages. 
+    - If you see a note long the lines of "_binary version available but the source version is later_", followed by a question, "_Do you want to install from sources the package which needs compilation? y/n_", type **`n`** for no, and hit enter.
     - If you're using a Windows machine you might get some errors about not having permission to modify the existing libraries -- don't worry about this message. You can avoid this error altogether by running RStudio as an administrator (right click the RStudio icon, then click "run as administrator").
 
 ```r
