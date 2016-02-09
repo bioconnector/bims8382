@@ -16,3 +16,5 @@ title: "Topics"
     1. Introduction to the Unix shell
     1. Alignment + quantitation
     1. Differential expression analysis
+- Misc
+    - [Further resources and finding help](help.html)
