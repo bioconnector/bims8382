@@ -15,7 +15,7 @@ title: 'R Setup'
     1. [gapminder.csv](http://bioconnector.org/data/gapminder.csv)
     1. [airway_rawcounts.csv](http://bioconnector.org/data/airway_rawcounts.csv)
     1. [airway_metadata.csv](http://bioconnector.org/data/airway_metadata.csv)
-    1. [annotables_grch38.csv](http://bioconnector.org/data/annotables_grch38.csv)
+    1. [annotables_grch37.csv](http://bioconnector.org/data/annotables_grch37.csv)
 1. **Install R.** You'll need R version 3.1.2 or higher. Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac OS X](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of OS X).
 1. **Install RStudio.** Download and install the latest stable version of [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/).
 1. **Install R packages.** Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then enter the following commands into the **Console** panel (usually the lower-left panel, by default). _A few notes_:
