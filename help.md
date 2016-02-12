@@ -45,3 +45,19 @@ title: "Further Resources"
 - [RStudio's RMarkdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) and [RMarkdown Reference Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 - [RStudio's RMarkdown documentation](http://rmarkdown.rstudio.com/): covers all the v2 enhancements to RMarkdown, [RMarkdown basics](http://rmarkdown.rstudio.com/authoring_basics.html) in more detail than covered here, the full [Pandoc Markdown specification](http://rmarkdown.rstudio.com/authoring_pandoc_markdown.html) which lets you do more than just regular Markdown, information on [citations and bibliographies](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), and several [examples](http://rmarkdown.rstudio.com/articles.html) illustrating advanced usage.
 - [knitr documentation](http://yihui.name/knitr/): has lots of useful reference material about how knitr works, [options](http://yihui.name/knitr/options/), controlling output, [examples](http://yihui.name/knitr/demos/), and more.
+
+# RNA-seq resources
+
+- [University of Oregon's RNA-seqlopedia](http://rnaseq.uoregon.edu/): a comprehensive guide to RNA-seq starting with experimental design, going through library prep, sequencing, and data analysis.
+- [Conesa et al. A survey of best practices for RNA-seq data analysis. _Genome Biology_ 17:13 (2016)](http://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0881-8). If there's one review to read on RNA-seq and data analysis, it's this one.
+- [rnaseq.wiki](http://rnaseq.wiki) & accompanying [paper](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393) for hands-on RNA-seq data analysis examples using cloud computing.
+- [RNA-seq blog](http://www.rna-seqblog.com/): Several blog posts per week on new methods and tools for RNA-seq analysis.
+- [YouTube playlist: 2015 UC Davis Workshop on RNA-seq methods & algorithms (Harold Pimentel)](https://www.youtube.com/playlist?list=PLfFNmoa-yUIb5cYG2R1zf5rtrQQKZvKwG).
+- [What the FPKM? A review of RNA-Seq expression units](https://haroldpimentel.wordpress.com/2014/05/08/what-the-fpkm-a-review-rna-seq-expression-units/) A blog post from Harold Pimentel describing the relationship between R/FPKM and TPM.
+- [RNA-seq analysis exercise using Galaxy](https://usegalaxy.org/u/jeremy/p/galaxy-rna-seq-analysis-exercise): an example analysis you can run yourself using the Tophat+Cufflinks workflow.
+- ["RNA-Seq workflow: gene-level exploratory analysis and differential expression."](http://f1000research.com/articles/4-1070/v1) This paper walks through an end-to-end gene-level RNA-Seq differential expression workflow using Bioconductor packages, starting from FASTQ files.
+- [The DESeq2 paper](http://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) describes the modeling approach and shows some benchmarks against other normalization and differential expression strategies.
+- [Lior Pachter's paper "Models for transcript quantification from RNA-Seq"](http://arxiv.org/abs/1104.3889) reviews different approaches for quantifying expression from RNA-seq data and how these affect downstream analysis. 
+- SEQAnswers [RNA-seq](http://seqanswers.com/forums/forumdisplay.php?f=26) and more general [bioinformatics](http://seqanswers.com/forums/forumdisplay.php?f=18) forums are a great place to search for answers.
+- [Biostars RNA-seq](https://www.biostars.org/t/RNA-Seq/) Q&A section.
+- [Blog post](http://www.gettinggeneticsdone.com/2015/12/tutorial-rna-seq-differential.html) and [printable PDF](https://dx.doi.org/10.6084/m9.figshare.1619655.v1) I created demonstrating how to do pathway analysis with RNA-seq data and R.
