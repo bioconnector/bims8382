@@ -57,6 +57,7 @@ title: "Further Resources"
 - [RNA-seq analysis exercise using Galaxy](https://usegalaxy.org/u/jeremy/p/galaxy-rna-seq-analysis-exercise): an example analysis you can run yourself using the Tophat+Cufflinks workflow.
 - ["RNA-Seq workflow: gene-level exploratory analysis and differential expression."](http://f1000research.com/articles/4-1070/v1) This paper walks through an end-to-end gene-level RNA-Seq differential expression workflow using Bioconductor packages, starting from FASTQ files.
 - [The DESeq2 paper](http://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8) describes the modeling approach and shows some benchmarks against other normalization and differential expression strategies.
+- [The DESeq2 vignette](http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf) is packed full of examples on using DESeq2, importing data, fitting models, creating visualizations, references, etc.
 - [Lior Pachter's paper "Models for transcript quantification from RNA-Seq"](http://arxiv.org/abs/1104.3889) reviews different approaches for quantifying expression from RNA-seq data and how these affect downstream analysis. 
 - SEQAnswers [RNA-seq](http://seqanswers.com/forums/forumdisplay.php?f=26) and more general [bioinformatics](http://seqanswers.com/forums/forumdisplay.php?f=18) forums are a great place to search for answers.
 - [Biostars RNA-seq](https://www.biostars.org/t/RNA-Seq/) Q&A section.
