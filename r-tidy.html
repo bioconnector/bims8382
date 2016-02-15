@@ -173,7 +173,7 @@ hr</code></pre>
 <pre><code>## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -194,7 +194,7 @@ hr</code></pre>
 <pre><code>## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -211,7 +211,7 @@ hr</code></pre>
 <pre><code>## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -390,7 +390,7 @@ yorig</code></pre>
 <p>There are several issues here.</p>
 <ol style="list-style-type: decimal">
 <li><strong>Multiple variables are stored in one column.</strong> The <code>NAME</code> column contains lots of information, split up by <code>::</code>’s.</li>
-<li><strong>Nutrient and rate variables are stuck in column headers.</strong> That is, the column names contain the values of two variables: nutrient (G, N, P, S, L, U) and growth rate (0.05-0.3). Remember, with tidy data, <strong>each <em>column</em> is a <em>variable</em> and each <em>row</em> is an <em>observation</em>.</strong> Here, we have not one observation per row, but 36 (6 nutrients <span class="math inline">\(\times\)</span> 6 rates)! There’s no way we could filter this data by a certain nutrient, or try to calculate statistics between rate and expression.</li>
+<li><strong>Nutrient and rate variables are stuck in column headers.</strong> That is, the column names contain the values of two variables: nutrient (G, N, P, S, L, U) and growth rate (0.05-0.3). Remember, with tidy data, <strong>each <em>column</em> is a <em>variable</em> and each <em>row</em> is an <em>observation</em>.</strong> Here, we have not one observation per row, but 36 (6 nutrients <span class="math">\(\times\)</span> 6 rates)! There’s no way we could filter this data by a certain nutrient, or try to calculate statistics between rate and expression.</li>
 <li><strong>Expression values are scattered throughout the table.</strong> Related to the problem above, and just like our heart rate example, <code>expression</code> isn’t a single-column variable as in the cleaned tidy data, but it’s scattered around these 36 columns.</li>
 <li><strong>Other important information is in a separate table.</strong> We’re missing all the gene ontology information we had in the tidy data (no information about biological process (<code>bp</code>) or molecular function (<code>mf</code>)).</li>
 </ol>
@@ -462,7 +462,7 @@ yorig</code></pre>
 <pre><code>## Source: local data frame [199,296 x 4]
 ## 
 ##    symbol systematic_name nutrientrate expression
-##     (chr)           (chr)       (fctr)      (dbl)
+##     (chr)           (chr)        (chr)      (dbl)
 ## 1    SFB2         YNL049C        G0.05      -0.24
 ## 2      NA         YNL095C        G0.05       0.28
 ## 3    QRI7         YDL104C        G0.05      -0.02

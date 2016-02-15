@@ -39,3 +39,4 @@ Contemporary life sciences research is plagued by reproducibility issues. This s
 ## Weeks 5-6: Introduction to RNA-seq data analysis
 
 This session will introduce both the Linux/UNIX operating system and a cloud computing environment, focusing on analyzing real data from a biological application - analyzing RNA-seq data for differentially expressed genes. The first part will introduce basic operation in a cloud-enabled UNIX environment, and will cover the first steps in an RNA-seq analysis including QC, alignment, and quantitation. The second part will cover differential gene expression analysis of the RNA-seq data using Bioconductor packages.
+

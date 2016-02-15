@@ -75,7 +75,7 @@ hr %>% gather(key=drugdose, value=hr, a_10, a_20, b_10, b_20, c_10, c_20)
 ## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -104,7 +104,7 @@ hr %>% gather(key=drugdose, value=hr, a_10:c_20)
 ## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -129,7 +129,7 @@ hr %>% gather(key=drugdose, value=hr, -name)
 ## Source: local data frame [30 x 3]
 ## 
 ##     name drugdose    hr
-##    (chr)   (fctr) (int)
+##    (chr)    (chr) (int)
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -452,7 +452,7 @@ yorig %>%
 ## Source: local data frame [199,296 x 4]
 ## 
 ##    symbol systematic_name nutrientrate expression
-##     (chr)           (chr)       (fctr)      (dbl)
+##     (chr)           (chr)        (chr)      (dbl)
 ## 1    SFB2         YNL049C        G0.05      -0.24
 ## 2      NA         YNL095C        G0.05       0.28
 ## 3    QRI7         YDL104C        G0.05      -0.02
@@ -553,3 +553,5 @@ glimpse(yjoined)
 ```
 
 Looks like that did it! There are many different kinds of two-table verbs/joins in dplyr. In this example, every systematic name in `ynogo` had a corresponding entry in `sn2go`, but if this weren't the case, those un-annotated genes would have been removed entirely by the `inner_join`. A `left_join` would have returned all the rows in `ynogo`, but would have filled in `bp` and `mf` with missing values (`NA`) when there was no corresponding entry. See also: `right_join`, `semi_join`, and `anti_join`.
+
+

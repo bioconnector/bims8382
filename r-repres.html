@@ -131,8 +131,7 @@ img {
 <li>A reproducibility study in psychology found that only <a href="http://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433">39 of 100 studies could be reproduced</a>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></li>
 <li>The Journal <em>Nature</em> on the <a href="http://www.nature.com/news/reproducibility-1.17552">issue of reproducibility</a>:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>
 <ul>
-<li>“<em>Nature</em> and the Nature research journals will introduce editorial measures to address the problem by improving the consistency and quality of reporting in life-sciences articles… <strong>we will give more space to methods sections. We will examine statistics more closely and encourage authors to be transparent, for example by including their raw data.</strong>”<br />
-</li>
+<li>“<em>Nature</em> and the Nature research journals will introduce editorial measures to address the problem by improving the consistency and quality of reporting in life-sciences articles… <strong>we will give more space to methods sections. We will examine statistics more closely and encourage authors to be transparent, for example by including their raw data.</strong>”<br /></li>
 <li><em>Nature</em> also released a <a href="http://www.nature.com/authors/policies/checklist.pdf">checklist</a>, unfortunately with <em>wimpy</em> computational check <em>(see #18)</em>.</li>
 </ul></li>
 <li>On microarray reproducibility:<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>
@@ -155,7 +154,7 @@ img {
 </ul></li>
 </ul>
 <p>Consider this figure:</p>
-<p><img src="img/gm-lifeexp-vs-gdp.png" alt="" /></p>
+<p><img src="img/gm-lifeexp-vs-gdp.png" /></p>
 <p>How do we reproduce it? What do we need?</p>
 <ul>
 <li>The <a href="http://bioconnector.org/data/">data</a>.
@@ -175,8 +174,7 @@ img {
 <p>Could I replicate Figure 1 from your last publication? If not, what would <em>you and your co-authors</em> need to provide or do so I could replicate Figure 1 from your last publication?</p>
 <p><strong>As scientists we should aim for <em>robust</em> and <em>reproducible</em> research</strong></p>
 <ul>
-<li>“<strong>Robust research</strong> is about doing small things that stack the deck in your favor to prevent mistakes.”<br />
- <em>—Vince Buffalo, author of Bioinformatics Data Skills (2015)</em>.</li>
+<li>“<strong>Robust research</strong> is about doing small things that stack the deck in your favor to prevent mistakes.”<br /> <em>—Vince Buffalo, author of Bioinformatics Data Skills (2015)</em>.</li>
 <li><strong>Reproducible research</strong> can be repeated by other researchers with the same results.</li>
 </ul>
 <div id="reproducibility-is-hard" class="section level3">
@@ -192,12 +190,10 @@ img {
 <h3>What’s in it for <em>you?</em></h3>
 <p>Yeah, it takes a lot of effort to be robust and reproducible. However, <em>it will make your life (and science) easier!</em></p>
 <ul>
-<li>Most likely, you will have to re-run your analysis more than once.<br />
-</li>
+<li>Most likely, you will have to re-run your analysis more than once.<br /></li>
 <li>In the future, you or a collaborator may have to re-visit part of the project.</li>
 <li>Your most likely collaborator is your future self, and your past self doesn’t answer emails.</li>
-<li>You can make modularized parts of the project into re-useable tools for the future.<br />
-</li>
+<li>You can make modularized parts of the project into re-useable tools for the future.<br /></li>
 <li>Reproducibility makes you easier to work and collaborate with.</li>
 </ul>
 </div>
@@ -206,30 +202,27 @@ img {
 <ol style="list-style-type: decimal">
 <li><strong>Write code for humans, write data for computers.</strong>
 <ul>
-<li>Code should be broken down into small chunks that may be re-used.<br />
-</li>
-<li>Make names/variables consistent, distinctive and meaningful.<br />
-</li>
+<li>Code should be broken down into small chunks that may be re-used.<br /></li>
+<li>Make names/variables consistent, distinctive and meaningful.<br /></li>
 <li>Adopt a <a href="http://adv-r.had.co.nz/Style.html">style</a> be consistent.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></li>
 <li>Write concise and clear comments.</li>
 </ul></li>
-<li><strong>Make incremental changes.</strong> Work in small steps with frequent feedback. Use version control. See <a href="http://swcarpentry.github.io/git-novice/" class="uri">http://swcarpentry.github.io/git-novice/</a> for resources on version control.</li>
-<li><strong>Make assertions and be loud, in code and in your methods.</strong> Add tests in your code to make sure it’s doing what you expect. See <a href="http://software-carpentry.org/v4/test/" class="uri">http://software-carpentry.org/v4/test/</a> for resources on testing code.</li>
+<li><strong>Make incremental changes.</strong> Work in small steps with frequent feedback. Use version control. See <a href="http://swcarpentry.github.io/git-novice/">http://swcarpentry.github.io/git-novice/</a> for resources on version control.</li>
+<li><strong>Make assertions and be loud, in code and in your methods.</strong> Add tests in your code to make sure it’s doing what you expect. See <a href="http://software-carpentry.org/v4/test/">http://software-carpentry.org/v4/test/</a> for resources on testing code.</li>
 <li><strong>Use existing libraries (packages) whenever possible.</strong> Don’t reinvent the wheel. Use functions that have already been developed and tested by others.</li>
 <li><strong>Prevent catastrophe and help reproducibility by making your data <em>read-only</em>.</strong> Rather than modifying your original data directly, always use a workflow that reads in data, processes/modifies, then writes out intermediate and final files as necessary.</li>
 <li><strong>Encapsulate the full project into one directory that is supported with version control.</strong> See: Noble, William Stafford. “A quick guide to organizing computational biology projects.” <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424"><em>PLoS Comput Biol</em> 5.7 (2009): e1000424</a>.</li>
 <li><strong>Release your code and data.</strong> Simple. Without your code and data, your research is not reproducible.
 <ul>
-<li>GitHub (<a href="https://github.com/" class="uri">https://github.com/</a>) is a great place for storing, distributing, collaborating, and version-controlling code.</li>
-<li>RPubs (<a href="http://rpubs.com/" class="uri">http://rpubs.com/</a>) allows you to share dynamic documents you write in RStudio online.</li>
-<li>Figshare (<a href="http://figshare.com/" class="uri">http://figshare.com/</a>) and Zenodo (<a href="https://zenodo.org/" class="uri">https://zenodo.org/</a>) allow you to upload any kind of research output, publishable or not, free and unlimited. Instantly get permanently available, citable DOI for your research output.</li>
+<li>GitHub (<a href="https://github.com/">https://github.com/</a>) is a great place for storing, distributing, collaborating, and version-controlling code.</li>
+<li>RPubs (<a href="http://rpubs.com/">http://rpubs.com/</a>) allows you to share dynamic documents you write in RStudio online.</li>
+<li>Figshare (<a href="http://figshare.com/">http://figshare.com/</a>) and Zenodo (<a href="https://zenodo.org/">https://zenodo.org/</a>) allow you to upload any kind of research output, publishable or not, free and unlimited. Instantly get permanently available, citable DOI for your research output.</li>
 <li><em>“Data/code is available upon request”</em> or <em>“Data/code is available at the lab’s website”</em> are completely unacceptable in the 21st century.</li>
 </ul></li>
 <li><strong>Write code that uses relative paths.</strong>
 <ul>
 <li>Don’t use hard-coded absolute paths (i.e. <code>/Users/stephen/Data/seq-data.csv</code> or <code>C:\Stephen\Documents\Data\Project1\data.txt</code>).</li>
-<li>Put the data in the project directory and reference it <em>relative</em> to where the code is, e.g., <code>data/gapminder.csv</code>, etc.<br />
-</li>
+<li>Put the data in the project directory and reference it <em>relative</em> to where the code is, e.g., <code>data/gapminder.csv</code>, etc.<br /></li>
 </ul></li>
 <li><strong>Always set your seed.</strong> If you’re doing anything that involves random/monte-carlo approaches, always use <code>set.seed()</code>.</li>
 <li><strong>Document everything and use code as documentation.</strong>
@@ -252,12 +245,12 @@ img {
 <h3>Markdown</h3>
 <p>Ever heard of HTML? It’s what drives the internet. HTML is a <em>markup language</em> - that’s what the <em>ML</em> stands for. The terminology evolved from “marking up” paper manuscripts by editors, where the editor would instruct an author or typesetter how to render the resulting text. Markup languages let you annotate <strong>text</strong> that you want to display with instructions about how to display it.</p>
 <p>I emphasize <strong>text</strong> because this is fundamentally different than word processing. When you use MS Word, for example, you’re creating a special proprietary binary file (the .docx) file that shows you how a document looks. By contrast, writing in a markup language like HTML or Markdown, you’re writing plain old text, using a text editor. The toolchain used to render the markup text into what you see on a display or in a PDF has always been and will always bee free and open.</p>
-<p>You can learn Markdown in about 5 minutes. Visit <strong><a href="http://bioconnector.org/markdown">bioconnector.org/markdown</a></strong> for a quick-start reference and links to other resources. Let’s open up a web-based Markdown editor like <a href="http://dillinger.io/" class="uri">http://dillinger.io/</a> or use a desktop Markdown editor like <a href="http://markdownpad.com/">MarkdownPad</a> (Windows) or <a href="http://macdown.uranusjr.com/">MacDown</a> (Mac).</p>
+<p>You can learn Markdown in about 5 minutes. Visit <strong><a href="http://bioconnector.org/markdown">bioconnector.org/markdown</a></strong> for a quick-start reference and links to other resources. Let’s open up a web-based Markdown editor like <a href="http://dillinger.io/">http://dillinger.io/</a> or use a desktop Markdown editor like <a href="http://markdownpad.com/">MarkdownPad</a> (Windows) or <a href="http://macdown.uranusjr.com/">MacDown</a> (Mac).</p>
 </div>
 <div id="rmarkdown-workflow" class="section level3">
 <h3>RMarkdown workflow</h3>
 <p>RMarkdown is an enhanced version of Markdown that lets you embed R code into the document. When the document is compiled/rendered, the R code is executed by R, the output is then automatically rendered as Markdown with the rest of the document. The Markdown is then further processed to final output formats like HTML, PDF, DOCX, etc.</p>
-<p><img src="img/rmarkdown-workflow.png" alt="" /></p>
+<p><img src="img/rmarkdown-workflow.png" /></p>
 <p>Visit <strong><a href="http://bioconnector.org/markdown/#!rmarkdown.md">bioconnector.org/markdown</a></strong> for a quick reference on RMarkdown.</p>
 </div>
 </div>
@@ -384,7 +377,7 @@ gm &lt;- read.csv(&quot;data/gapminder.csv&quot;)
 head(gm)
 tail(gm)
 ```</code></pre>
-<p>See the full list of options here: <a href="http://yihui.name/knitr/options/" class="uri">http://yihui.name/knitr/options/</a>. There are lots!</p>
+<p>See the full list of options here: <a href="http://yihui.name/knitr/options/">http://yihui.name/knitr/options/</a>. There are lots!</p>
 <p>A special note about <strong>caching</strong>: The <code>cache=</code> option is automatically set to <code>FALSE</code>. That is, every time you render the Rmd, all the R code is run again from scratch. If you use <code>cache=TRUE</code>, for this chunk, knitr will save the results of the evaluation into a directory that you specify. When you re-render the document, knitr will first check if there are previously cached results under the cache directory before really evaluating the chunk; if cached results exist and this code chunk has not been changed since last run (use MD5 sum to verify), the cached results will be (lazy-) loaded, otherwise new cache will be built; if a cached chunk depends on other chunks (see the <code>dependson</code> option) and any one of these chunks has changed, this chunk must be forcibly updated (old cache will be purged). <strong>See <a href="http://yihui.name/knitr/demo/cache/">the documentation for caching</a>.</strong></p>
 </div>
 <div id="tables" class="section level3">
@@ -411,9 +404,9 @@ kable(head(gm))
 <p>Make sure your RMarkdown metadata is set to render to HTML rather than PDF. Render the document. Now notice the little <strong>Publish</strong> button in the HTML viewer pane. Click this. Sign in when asked, and give your document a name (usually the same name as the title of your Rmd).</p>
 <p>Here are a few examples of documents I’ve published:</p>
 <ul>
-<li><a href="http://rpubs.com/turnersd/daily_show_guests" class="uri">http://rpubs.com/turnersd/daily_show_guests</a>: Analysis of every guest who’s ever been on <em>The Daily Show with Jon Stewart</em>.</li>
-<li><a href="http://rpubs.com/turnersd/twoaxes" class="uri">http://rpubs.com/turnersd/twoaxes</a>: How to plot two different tracks of data with one axis on the left and one axis on the right.</li>
-<li><a href="http://rpubs.com/turnersd/anscombe" class="uri">http://rpubs.com/turnersd/anscombe</a>: Analysis of <em>Anscombe’s Quartet</em> data.</li>
+<li><a href="http://rpubs.com/turnersd/daily_show_guests">http://rpubs.com/turnersd/daily_show_guests</a>: Analysis of every guest who’s ever been on <em>The Daily Show with Jon Stewart</em>.</li>
+<li><a href="http://rpubs.com/turnersd/twoaxes">http://rpubs.com/turnersd/twoaxes</a>: How to plot two different tracks of data with one axis on the left and one axis on the right.</li>
+<li><a href="http://rpubs.com/turnersd/anscombe">http://rpubs.com/turnersd/anscombe</a>: Analysis of <em>Anscombe’s Quartet</em> data.</li>
 </ul>
 <p><strong>Note how RPubs doesn’t share your code!</strong> RPubs is a great way to share your analysis but doesn’t let you share the source code. This is a huge barrier to reproducibility. There are plenty of ways to do this. One way is to go to <a href="https://gist.github.com">gist.github.com</a> and upload your code as a text file, then link back to the gist in your republished RPubs document.</p>
 </div>
@@ -426,11 +419,11 @@ kable(head(gm))
 <hr />
 <ol>
 <li id="fn1"><p>Freedman, et al. “The economics of reproducibility in preclinical research.” <em>PLoS Biol</em> 13.6 (2015): e1002165.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p><a href="http://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433" class="uri">http://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p><a href="http://www.nature.com/news/reproducibility-1.17552" class="uri">http://www.nature.com/news/reproducibility-1.17552</a><a href="#fnref3">↩</a></p></li>
+<li id="fn2"><p><a href="http://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433">http://www.nature.com/news/first-results-from-psychology-s-largest-reproducibility-test-1.17433</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="http://www.nature.com/news/reproducibility-1.17552">http://www.nature.com/news/reproducibility-1.17552</a><a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>Ioannidis, John PA, et al. “Repeatability of published microarray gene expression analyses.” <em>Nature genetics</em> 41.2 (2009): 149-155.<a href="#fnref4">↩</a></p></li>
 <li id="fn5"><p>Nekrutenko, Anton, and James Taylor. “Next-generation sequencing data interpretation: enhancing reproducibility and accessibility.” <em>Nature Reviews Genetics</em> 13.9 (2012): 667-672.<a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p><a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a><a href="#fnref6">↩</a></p></li>
+<li id="fn6"><p><a href="http://adv-r.had.co.nz/Style.html">http://adv-r.had.co.nz/Style.html</a><a href="#fnref6">↩</a></p></li>
 </ol>
 </div>
 

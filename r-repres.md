@@ -341,3 +341,4 @@ Here are a few examples of documents I've published:
 See [the (R)markdown section on this course's help page](help.html#markdown-rmarkdown-resources) for links to getting more help with reproducible research, Markdown, and RMarkdown.
 
 ----
+
