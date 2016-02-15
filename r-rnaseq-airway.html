@@ -111,22 +111,22 @@ img {
 <li><a href="#importing-data">Importing data</a></li>
 <li><a href="#run-the-deseq-pipeline">Run the DESeq pipeline</a></li>
 <li><a href="#getting-results">Getting results</a></li>
+</ul></li>
 <li><a href="#data-visualization">Data Visualization</a><ul>
 <li><a href="#plotting-counts">Plotting counts</a></li>
 <li><a href="#ma-volcano-plots">MA &amp; Volcano plots</a></li>
 <li><a href="#principal-components-analysis">Principal Components Analysis</a></li>
 <li><a href="#bonus-heatmaps">Bonus: Heatmaps</a></li>
 </ul></li>
-</ul></li>
 <li><a href="#record-sessioninfo">Record <code>sessionInfo()</code></a></li>
 </ul>
 </div>
 
 <p>This is an introduction to RNAseq analysis involving reading in count data from an RNAseq experiment, exploring the data using base R functions and then analysis with the DESeq2 package. This lesson assumes a <a href="r-basics.html">basic familiarity with R</a>, <a href="r-dataframes.html">data frames</a>, and <a href="r-dplyr.html">manipulating data with dplyr and <code>%&gt;%</code></a>. See also the <a href="setup-r.html#bioconductor"><em>Bioconductor</em> heading on the setup page</a> – you’ll need a few additional packages that are available through Bioconductor, not CRAN (the installation process is slightly different).</p>
-<div id="background" class="section level1">
-<h1>Background</h1>
-<div id="the-biology" class="section level2">
-<h2>The Biology</h2>
+<div id="background" class="section level2">
+<h2>Background</h2>
+<div id="the-biology" class="section level3">
+<h3>The Biology</h3>
 <p>The data for this lesson comes from:</p>
 <blockquote>
 <p>Himes <em>et al</em>. “RNA-Seq Transcriptome Profiling Identifies CRISPLD2 as a Glucocorticoid Responsive Gene that Modulates Cytokine Function in Airway Smooth Muscle Cells.” <em>PLoS ONE</em>. <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0099625">2014 Jun 13;9(6):e99625</a>. PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/24926665">24926665</a>.</p>
@@ -134,8 +134,8 @@ img {
 <p>Glucocorticoids are potent inhibitors of inflammatory processes, and are widely used to treat asthma because of their anti-inflammatory effects on airway smooth muscle (ASM) cells. But what’s the molecular mechanism? This study used RNA-seq to profile gene expression changes in four different ASM cell lines treated with dexamethasone, a synthetic glucocorticoid molecule. They found a number of differentially expressed genes comparing dexamethasone-treated ASM cells to control cells, but focus much of the discussion on a gene called CRISPLD2. This gene encodes a secreted protein known to be involved in lung development, and SNPs in this gene in previous GWAS studies are associated with inhaled corticosteroid resistance and bronchodilator response in asthma patients. They confirmed the upregulated CRISPLD2 mRNA expression with qPCR and increased protein expression using Western blotting.</p>
 <p>They did their analysis using <a href="http://rdcu.be/gk0S">Tophat and Cufflinks</a>. We’re taking a different approach and using an R package called <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a>. <a href="help.html#rna-seq-resources">Click here</a> to read more on DESeq2 and other approaches.</p>
 </div>
-<div id="data-pre-processing" class="section level2">
-<h2>Data Pre-processing</h2>
+<div id="data-pre-processing" class="section level3">
+<h3>Data Pre-processing</h3>
 <p>Analyzing an RNAseq experiment begins with sequencing reads. There are many ways to begin analyzing this data, and you should check out the three papers below to get a sense of other analysis strategies. In the workflow we’ll use here, sequencing reads were aligned to a reference genome, then the number of reads that mapped to each gene region were counted. This is the starting point - a “count matrix,” where each cell indicates the number of reads mapping to a particular gene (in rows) for each sample (in columns). This workflow was chosen because of its widespread use, and because of recent data showing that it’s relatively robust to potential gene length biases [3]. However, there are many well-established alternative analysis paths, and the goal here is to provide a reference point to acquire fundamental skills that will be applicable to other bioinformatics tools and workflows.</p>
 <ol style="list-style-type: decimal">
 <li>Griffith, Malachi, et al. “Informatics for RNA sequencing: a web resource for analysis on the cloud.” <a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004393"><em>PLoS Comput Biol</em> 11.8: e1004393</a> (2015).</li>
@@ -145,8 +145,8 @@ img {
 <p>This data was downloaded from GEO (<a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE52778">GSE:GSE52778</a>). You can read more about how the data was processed <a href="https://www.bioconductor.org/packages/3.3/data/experiment/vignettes/airway/inst/doc/airway.html">here</a>. In summary, the process looks something like this. We have reads; we use an aligner and a reference genome to figure out where in the genome the reads come from (chromosome and position), and we cross-reference that against a reference annotation, which tells the chromosome/position location of exons for known genes.</p>
 <p><img src="img/aligncount.png" alt="" /></p>
 </div>
-<div id="data-structure" class="section level2">
-<h2>Data structure</h2>
+<div id="data-structure" class="section level3">
+<h3>Data structure</h3>
 <p>We’ll come back to this again later, but the data at our starting point looks like this (<em>note: this is a generic schematic - our genes are not actually <code>geneA</code> and <code>geneB</code>, and our samples aren’t called <code>ctrl_1</code>, <code>ctrl_2</code>, etc.</em>):</p>
 <p><img src="img/countdatacoldata.png" alt="" /></p>
 <p>That is, we have <strong>two tables</strong>:</p>
@@ -156,8 +156,8 @@ img {
 </ol>
 </div>
 </div>
-<div id="import-count-data-and-metadata" class="section level1">
-<h1>Import count data and metadata</h1>
+<div id="import-count-data-and-metadata" class="section level2">
+<h2>Import count data and metadata</h2>
 <p>First, let’s load the <strong>readr</strong>, <strong>dplyr</strong>, and <strong>ggplot2</strong> libraries, and import our data <a href="r-dataframes.html">like we’ve always done</a> with <code>read_csv()</code> (<em>note</em>: not <code>read.csv()</code>). Let’s read in the actual count data and the experimental metadata.</p>
 <pre class="r"><code>library(readr)
 library(dplyr)
@@ -198,8 +198,8 @@ metadata &lt;-  read_csv(&quot;data/airway_metadata.csv&quot;)</code></pre>
 ## 8 SRR1039521 treated  N061011 GSM1275875</code></pre>
 <p>Notice something here. The sample IDs in the metadata sheet (SRR1039508, SRR1039509, etc.) exactly match the column names of the countdata, except for the first column, which contains the Ensembl gene ID. This is important, and we’ll get more strict about it later on.</p>
 </div>
-<div id="poor-mans-differential-expression" class="section level1">
-<h1>Poor man’s differential expression</h1>
+<div id="poor-mans-differential-expression" class="section level2">
+<h2>Poor man’s differential expression</h2>
 <p><strong><em>Note: this analysis is for demonstration only. NEVER do differential expression analysis this way!</em></strong></p>
 <p>Let’s start with an exercise.</p>
 <hr />
@@ -402,10 +402,10 @@ anno</code></pre>
 <hr />
 </div>
 </div>
-<div id="deseq2-analysis" class="section level1">
-<h1>DESeq2 analysis</h1>
-<div id="the-deseq2-package" class="section level2">
-<h2>The DESeq2 package</h2>
+<div id="deseq2-analysis" class="section level2">
+<h2>DESeq2 analysis</h2>
+<div id="the-deseq2-package" class="section level3">
+<h3>The DESeq2 package</h3>
 <p>Let’s do this the right way. DESeq2 is an R package for analyzing count-based NGS data like RNA-seq. It is available from <a href="http://www.bioconductor.org/">Bioconductor</a>. Bioconductor is a project to provide tools for analysing high-throughput genomic data including RNA-seq, ChIP-seq and arrays. You can explore Bioconductor packages <a href="http://www.bioconductor.org/packages/release/BiocViews.html#___Software">here</a>.</p>
 <p>Bioconductor packages usually have great documentation in the form of <em>vignettes</em>. For a great example, take a look at the <a href="http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf">DESeq2 vignette for analyzing count data</a>. This 40+ page manual is packed full of examples on using DESeq2, importing data, fitting models, creating visualizations, references, etc.</p>
 <p>Just like R packages from CRAN, you only need to install Bioconductor packages once (<a href="setup-r.html#bioconductor">instructions here</a>), then load them every time you start a new R session.</p>
@@ -430,8 +430,8 @@ citation(&quot;DESeq2&quot;)</code></pre>
 ##   }</code></pre>
 <p>Take a second and read through all the stuff that flies by the screen when you load the DESeq2 package. When you first installed DESeq2 it may have taken a while, because DESeq2 <em>depends</em> on a number of other R packages (S4Vectors, BiocGenerics, parallel, IRanges, etc.) Each of these, in turn, may depend on other packages. These are all loaded into your working environment when you load DESeq2. Also notice the lines that start with <code>The following objects are masked from 'package:...</code>. One example of this is the <code>rename()</code> function from the dplyr package. When the S4Vectors package was loaded, it loaded it’s own function called <code>rename()</code>. Now, if you wanted to use dplyr’s rename function, you’ll have to call it explicitly using this kind of syntax: <code>dplyr::rename()</code>. <a href="http://stackoverflow.com/questions/4879377/r-masked-functions">See this Q&amp;A thread for more</a>.</p>
 </div>
-<div id="importing-data" class="section level2">
-<h2>Importing data</h2>
+<div id="importing-data" class="section level3">
+<h3>Importing data</h3>
 <p>DESeq works on a particular type of object called a DESeqDataSet. The DESeqDataSet is a single object that contains input values, intermediate calculations like how things are normalized, and all results of a differential expression analysis. You can construct a DESeqDataSet from a count matrix, a metadata file, and a formula indicating the design of the experiment. See the help for <code>?DESeqDataSetFromMatrix</code>. If you read through the <a href="http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf">DESeq2 vignette</a> you’ll read about the structure of the data that you need to construct a DESeqDataSet object.</p>
 <p><code>DESeqDataSetFromMatrix</code> requires the count matrix (<code>countData</code> argument) to be a matrix or numeric data frame, with it’s column names identical to the row names of <code>colData</code>, an additional dataframe describing sample metadata. Furthermore, the row names of the <code>countData</code> must be the identifier you’ll use for each gene.</p>
 <p><img src="img/countdatacoldata.png" alt="" /></p>
@@ -542,8 +542,8 @@ dds</code></pre>
 ## colnames(8): SRR1039508 SRR1039509 ... SRR1039520 SRR1039521
 ## colData names(3): dex celltype geo_id</code></pre>
 </div>
-<div id="run-the-deseq-pipeline" class="section level2">
-<h2>Run the DESeq pipeline</h2>
+<div id="run-the-deseq-pipeline" class="section level3">
+<h3>Run the DESeq pipeline</h3>
 <p>Next, let’s run the DESeq pipeline on the dataset, and reassign the resulting object back to the same variable. Before we start, <code>dds</code> is a bare-bones DESeqDataSet. The <code>DESeq()</code> function takes a DESeqDataSet and returns a DESeqDataSet, but with lots of other information filled in (normalization, dispersion estimates, differential expression results, etc). Notice how if we try to access these objects before running the analysis, nothing exists.</p>
 <pre class="r"><code>sizeFactors(dds)</code></pre>
 <pre><code>## NULL</code></pre>
@@ -554,8 +554,8 @@ dds</code></pre>
 <p>Here, we’re running the DESeq pipeline on the <code>dds</code> object, and reassigning the whole thing back to <code>dds</code>, which will now be a DESeqDataSet populated with all those values. Get some help on <code>?DESeq</code> (notice, no “2” on the end). This function calls a number of other functions within the package to essentially run the entire pipeline (normalizing by library size by estimating the “size factors,” estimating dispersion for the negative binomial model, and fitting models and getting statistics for each gene for the design specified when you imported the data).</p>
 <pre class="r"><code>dds &lt;- DESeq(dds)</code></pre>
 </div>
-<div id="getting-results" class="section level2">
-<h2>Getting results</h2>
+<div id="getting-results" class="section level3">
+<h3>Getting results</h3>
 <p>Since we’ve got a fairly simple design (single factor, two groups, treated versus control), we can get results out of the object simply by calling the <code>results()</code> function on the DESeqDataSet that has been run through the pipeline. The help page for <code>?results</code> and the vignette both have extensive documentation about how to pull out the results for more complicated models (multi-factor experiments, specific contrasts, interaction terms, time courses, etc.).</p>
 <p>Note two things:</p>
 <ol style="list-style-type: decimal">
@@ -664,6 +664,7 @@ res</code></pre>
 <p>You can open this file in Excel or any text editor (try it now).</p>
 </div>
 </div>
+</div>
 <div id="data-visualization" class="section level2">
 <h2>Data Visualization</h2>
 <div id="plotting-counts" class="section level3">
@@ -738,9 +739,8 @@ res %&gt;%
 <p><img src="r-rnaseq-airway_files/figure-html/NMFaheatmap-1.png" alt="" /></p>
 </div>
 </div>
-</div>
-<div id="record-sessioninfo" class="section level1">
-<h1>Record <code>sessionInfo()</code></h1>
+<div id="record-sessioninfo" class="section level2">
+<h2>Record <code>sessionInfo()</code></h2>
 <p>The <code>sessionInfo()</code> prints version information about R and any attached packages. It’s a good practice to always run this command at the end of your R session and record it for the sake of reproducibility in the future.</p>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.2.3 (2015-12-10)
