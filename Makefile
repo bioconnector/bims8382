@@ -19,3 +19,8 @@ clean:
 fixme:
 	@echo "Remaining fixes?"
 	@grep --color -nri --include \*.md --include \*.Rmd fixme .
+
+textbook: textbook.preface.md
+	cat textbook.preface.md > textbook.md
+	pandoc --toc -s -V geometry:margin=1in -V documentclass:report -V fontsize=12pt textbook.md -o textbook.pdf
+	open textbook.pdf
