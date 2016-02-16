@@ -140,30 +140,28 @@ Next, download the gapminder data from [bioconnector.org/data](http://bioconnect
 
 Let's create a bare-bones RMarkdown document that compiles to HTML. In RStudio, select **File**, **New File**, **R Markdown...**. Don't worry about the title and author fields. When the new document launches, select everything then delete it. Let's author an RMarkdown file from scratch. Save it as `fromscratch.Rmd`. 
 
-```
-# Introduction
-
-This is my first RMarkdown document!
-
-# Let's embed some R code
-
-Let's load the **Gapminder** data from <http://bioconnector.org>:
-
-```{r}
-gm <- read.csv("data/gapminder.csv")
-head(gm)
-```
-
-The mean life expectancy is  `mean(gm$lifeExp)` years.
-
-The years surveyed in this data include:  `unique(gm$year)`.
-
-# Session Information
-
-```{r}
-sessionInfo()
-```
-```
+     # Introduction 
+      
+     This is my first RMarkdown document! 
+      
+     # Let's embed some R code 
+      
+     Let's load the **Gapminder** data from <http://bioconnector.org>: 
+      
+     ```{r} 
+     gm <- read.csv('data/gapminder.csv') 
+     head(gm) 
+     ``` 
+      
+     The mean life expectancy is `r mean(gm$lifeExp)` years. 
+      
+     The years surveyed in this data include: `r unique(gm$year)`. 
+      
+     # Session Information 
+      
+     ```{r} 
+     sessionInfo() 
+     ``` 
 
 Hit the **Knit HTML** button in the editor window. You should see the rendered document pop up.
 
@@ -179,35 +177,38 @@ knit("fromscratch.Rmd")
 
 Now, open up that regular markdown file and take a look.
 
-```
-# Introduction
+<!-- indented code, what would be in markdown, starts here -->
 
-This is my first RMarkdown document!
+    # Introduction
+    
+    This is my first RMarkdown document!
+    
+    # Let's embed some R code
+    
+    Let's load the **Gapminder** data from <http://bioconnector.org>:
+    
+    
+    ```r
+    gm <- read.csv("data/gapminder.csv")
+    head(gm)
+    ```
+    
+    ```
+    ##       country continent year lifeExp      pop gdpPercap
+    ## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+    ## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+    ## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
+    ## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
+    ## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
+    ## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
+    ```
+    
+    The mean life expectancy is 59.4744394 years.
+    
+    The years surveyed in this data include: 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, 2002, 2007.
 
-# Let's embed some R code
+<!-- end markdown -->
 
-Let's load the **Gapminder** data from <http://bioconnector.org>:
-
-
-```r
-gm <- read.csv("data/gapminder.csv")
-head(gm)
-```
-
-```
-##       country continent year lifeExp      pop gdpPercap
-## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
-## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
-## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
-## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
-## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
-## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
-```
-
-The mean life expectancy is 59.4744394 years.
-
-The years surveyed in this data include: 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, 2002, 2007.
-```
 
 ### From a template with YAML metadata
 
@@ -242,34 +243,28 @@ Now, delete everything in that document below the metadata header and paste in w
 
 Let's add a plot in there. Open up a new R chunk with this:
 
-```
-```{r, fig.cap="Life Exp vs GDP"}
-library(ggplot2)
-ggplot(gm, aes(gdpPercap, lifeExp)) + geom_point()
-```
-```
+     ```{r, fig.cap='Life Exp vs GDP'} 
+     library(ggplot2) 
+     ggplot(gm, aes(gdpPercap, lifeExp)) + geom_point() 
+     ``` 
 
 Using RStudio you can fiddle around with different ways to make the graphic and keep the one you want. Maybe it looks like this:
 
-```
-```{r, fig.cap="Life Exp vs GDP"}
-library(ggplot2)
-ggplot(gm, aes(gdpPercap, lifeExp)) + 
-  geom_point() + 
-  scale_x_log10() + 
-  aes(col=continent)
-```
-```
+     ```{r, fig.cap='Life Exp vs GDP'} 
+     library(ggplot2) 
+     ggplot(gm, aes(gdpPercap, lifeExp)) +  
+       geom_point() +  
+       scale_x_log10() +  
+       aes(col=continent) 
+     ``` 
 
 ### Chunk options
 
 You can modify the behavior of an R chunk with [options](http://yihui.name/knitr/options/). Options are passed in after a comma on the fence, as shown below. 
 
-```
-```{r optionalChunkName, echo=TRUE, results='hide'}
-# R code here
-```
-```
+     ```{r optionalChunkName, echo=TRUE, results='hide'} 
+     # R code here 
+     ``` 
 
 Some commonly used options include:
 
@@ -284,13 +279,11 @@ Some commonly used options include:
 
 Try modifying your first R chunk to use different values for `echo`, `results`, and `include`.
 
-```
-```{r}
-gm <- read.csv("data/gapminder.csv")
-head(gm)
-tail(gm)
-```
-```
+     ```{r} 
+     gm <- read.csv('data/gapminder.csv') 
+     head(gm) 
+     tail(gm) 
+     ``` 
 
 See the full list of options here: <http://yihui.name/knitr/options/>. There are lots!
 
@@ -303,20 +296,16 @@ Read about printing tables at [bioconnector.org/markdown](http://bioconnector.or
 The [knitr](http://yihui.name/knitr/) package that runs the RMarkdown document in the background also has a function called `kable` that helps with printing tables nicely. It's only useful when you set `echo=FALSE` and `results='asis'`. Try this.
 
 
-```
-```{r}
-head(gm)
-```
-```
+     ```{r} 
+     head(gm) 
+     ``` 
 
 Versus this:
 
-```
-```{r, results='asis'}
-library(knitr)
-kable(head(gm))
-```
-```
+     ```{r, results='asis'} 
+     library(knitr) 
+     kable(head(gm)) 
+     ``` 
 
 ### Changing output formats
 
