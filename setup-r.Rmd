@@ -1,4 +1,6 @@
-# R Setup Instructions
+---
+title: 'R Setup Instructions'
+---
 
 ## Basic R Setup
 
