@@ -13,7 +13,7 @@ Feb 15 - Mar 21, 2016
 
 **Where:** Carter Classroom, Health Sciences Library (_downstairs one floor, to the right_)
 
-<!-- **Textbook:** Link coming soon. fixme-->
+**Textbook:** Available online (_free!_): [bioconnector.org/bims8382/textbook.pdf](http://bioconnector.org/bims8382/textbook.pdf)
 
 ## Week 1: Introduction to R
 
