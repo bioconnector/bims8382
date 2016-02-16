@@ -1,4 +1,6 @@
-# Further Resources
+---
+title: "Further Resources"
+---
 
 ## R resources
 
