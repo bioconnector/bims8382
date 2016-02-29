@@ -106,6 +106,7 @@ img {
 <li><a href="#the-dplyr-package">The dplyr package</a></li>
 <li><a href="#dplyr-verbs">dplyr verbs</a><ul>
 <li><a href="#filter">filter()</a></li>
+<li><a href="#aside-writing-data-to-file">Aside: Writing Data to File</a></li>
 <li><a href="#select">select()</a></li>
 <li><a href="#mutate">mutate()</a></li>
 <li><a href="#summarize">summarize()</a></li>
@@ -305,6 +306,41 @@ filter(ydat, symbol==&quot;LEU1&quot;) %&gt;%
 <li>Gene/rate combinations had high expression (in the top 1% of expressed genes)? <em>Hint:</em> see <code>?quantile</code> and try <code>quantile(ydat$expression, probs=.99)</code> to see the expression value which is higher than 99% of all the data, then <code>filter()</code> based on that. Try wrapping your answer with a <code>View()</code> function so you can see the whole thing. What does it look like those genes are doing? Answer should return a 1971-by-7 data frame.</li>
 </ol>
 <hr />
+</div>
+<div id="aside-writing-data-to-file" class="section level3">
+<h3>Aside: Writing Data to File</h3>
+<p>What we’ve done up to this point is read in data from a file (<code>read_csv(...)</code>), and assigning that to an object in our <em>workspace</em> (<code>ydat &lt;- ...</code>). When we run operations like <code>filter()</code> on our data, consider two things:</p>
+<ol style="list-style-type: decimal">
+<li>The <code>ydat</code> object in our workspace is not being modified directly. That is, we can <code>filter(ydat, ...)</code>, and a result is returned to the screen, but <code>ydat</code> remains the same. This effect is similar to what we demonstrated in our first session.</li>
+</ol>
+<pre class="r"><code># Assign the value &#39;50&#39; to the weight object.
+weight &lt;- 50
+
+# Print out weight to the screen (50)
+weight
+
+# What&#39;s the value of weight plus 10?
+weight + 10
+
+# Weight is still 50
+weight
+
+# Weight is only modified if we *reassign* weight to the modified value
+weight &lt;- weight+10
+# Weight is now 60
+weight</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>More importantly, the <em>data file on disk</em> (<code>data/brauer2007_tidy.csv</code>) is <em>never</em> modified. No matter what we do to ydat, the file is never modified. If we want to <em>save</em> the result of an operation to a file on disk, we can assign the result of an operation to an object, and <code>write_csv</code> that object to disk. See the help for <code>?write_csv</code> (note, <code>write_csv()</code> with an underscore is part of the <strong>readr</strong> package – not to be confused with the built-in <code>write.csv()</code> function).</li>
+</ol>
+<pre class="r"><code># What&#39;s the result of this filter operation?
+filter(ydat, nutrient==&quot;Leucine&quot; &amp; bp==&quot;leucine biosynthesis&quot;)
+
+# Assign the result to a new object
+leudat &lt;- filter(ydat, nutrient==&quot;Leucine&quot; &amp; bp==&quot;leucine biosynthesis&quot;)
+
+# Write that out to disk
+write_csv(leudat, &quot;leucinedata.csv&quot;)</code></pre>
+<p>Note that this is different than saving your <em>entire workspace to an Rdata file</em>, which would contain all the objects we’ve created (weight, ydat, leudat, etc).</p>
 </div>
 <div id="select" class="section level3">
 <h3>select()</h3>

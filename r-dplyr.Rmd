@@ -132,6 +132,46 @@ filter(ydat, expression>2.07)
 
 ----
 
+### Aside: Writing Data to File
+
+What we've done up to this point is read in data from a file (`read_csv(...)`), and assigning that to an object in our _workspace_ (`ydat <- ...`). When we run operations like `filter()` on our data, consider two things:
+
+1. The `ydat` object in our workspace is not being modified directly. That is, we can `filter(ydat, ...)`, and a result is returned to the screen, but `ydat` remains the same. This effect is similar to what we demonstrated in our first session.
+
+```{r results='hide'}
+# Assign the value '50' to the weight object.
+weight <- 50
+
+# Print out weight to the screen (50)
+weight
+
+# What's the value of weight plus 10?
+weight + 10
+
+# Weight is still 50
+weight
+
+# Weight is only modified if we *reassign* weight to the modified value
+weight <- weight+10
+# Weight is now 60
+weight
+```
+
+2. More importantly, the _data file on disk_ (`data/brauer2007_tidy.csv`) is _never_ modified. No matter what we do to ydat, the file is never modified. If we want to _save_ the result of an operation to a file on disk, we can assign the result of an operation to an object, and `write_csv` that object to disk. See the help for `?write_csv` (note, `write_csv()` with an underscore is part of the **readr** package -- not to be confused with the built-in `write.csv()` function).
+
+```{r, eval=FALSE}
+# What's the result of this filter operation?
+filter(ydat, nutrient=="Leucine" & bp=="leucine biosynthesis")
+
+# Assign the result to a new object
+leudat <- filter(ydat, nutrient=="Leucine" & bp=="leucine biosynthesis")
+
+# Write that out to disk
+write_csv(leudat, "leucinedata.csv")
+```
+
+Note that this is different than saving your _entire workspace to an Rdata file_, which would contain all the objects we've created (weight, ydat, leudat, etc).
+
 ### select()
 
 The `filter()` function allows you to return only certain _rows_ matching a condition. The `select()` function returns only certain _columns_. The first argument is the data, and subsequent arguments are the columns you want.
