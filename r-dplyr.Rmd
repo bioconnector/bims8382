@@ -227,6 +227,7 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %>%
   ggplot(aes(value)) + geom_histogram(bins=100) + facet_wrap(~unit, scales="free")
 ```
 
+
 ### arrange()
 
 The `arrange()` function does what it sounds like. It takes a data frame or tbl and arranges (or sorts) by column(s) of interest. The first argument is the data, and subsequent arguments are columns to sort on. Use the `desc()` function to arrange by descending.

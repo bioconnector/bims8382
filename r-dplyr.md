@@ -481,6 +481,7 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal)) %>%
 
 ![](r-dplyr_files/figure-html/demo_plot_expression_units-1.png)\
 
+
 ### arrange()
 
 The `arrange()` function does what it sounds like. It takes a data frame or tbl and arranges (or sorts) by column(s) of interest. The first argument is the data, and subsequent arguments are columns to sort on. Use the `desc()` function to arrange by descending.
