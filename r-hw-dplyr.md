@@ -19,20 +19,27 @@
 
 We're going to work with a different dataset for the homework here. It's a [cleaned-up excerpt](https://github.com/jennybc/gapminder) from the [Gapminder data](http://www.gapminder.org/data/). Download this data at [bioconnector.org/data](http://bioconnector.org/data/) -- it's the [**gapminder.csv** file](http://bioconnector.org/data/gapminder.csv). Download it, and save it in your project directory where you can access it easily from R.
 
-Load the **dplyr** and **readr** packages, and read the gapminder data into R using the `read_csv()` function. 
+Load the **dplyr** and **readr** packages, and read the gapminder data into R using the `read_csv()` function (n.b. `read_csv()` is _not_ the same as `read.csv()`). Assign the data to an object called `gm`.
 
-Make sure you store the results in an object called `gm`.
+In your submitted homework assignment, I would prefer you use the `read_csv()` function to read the data directly from the web (see below). This way I can run your R code without worrying about whether I have the `data/` directory or not.
 
-**n.b. `read_csv()` is *not* the same as `read.csv()`**
 
 
 ```r
 library(dplyr)
 library(readr)
 
-gm <- read_csv("data/gapminder.csv")
+# Preferably: read data from web
+gm <- read_csv("http://bioconnector.org/data/gapminder.csv")
+
+# Alternatively read from file:
+# gm <- read_csv("data/gapminder.csv")
+
+# Display the data
 gm
 ```
+
+
 
 ```
 ## Source: local data frame [1,704 x 6]
@@ -208,7 +215,7 @@ Use **dplyr** functions to address the following questions:
 ```
 
 
-10) **_Bonus!_**Excluding records from 1952, which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased*. See [the vignette on window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html).
+10) **_Bonus!_** Excluding records from 1952, which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased*. See [the vignette on window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html).
 
 
 ```
