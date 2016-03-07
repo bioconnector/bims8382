@@ -528,11 +528,10 @@ Or go a step further and remove the gridlines:
 p + theme_classic()
 ```
 
-Finally, there's another package that gives us lots of different themes. This package isn't on CRAN, so you'll have to use devtools to install it directly from the source code on github.
+Finally, there's another package that gives us lots of different themes. Install it if you don't have it already. Install all its dependencies along with it.
 
 ```{r, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("jrnold/ggthemes")
+install.packages("ggthemes", dependencies = TRUE)
 ```
 
 ```{r themes, eval=FALSE}

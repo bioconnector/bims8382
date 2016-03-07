@@ -124,8 +124,7 @@ img {
 </div>
 <div id="getting-started" class="section level2">
 <h2>Getting Started</h2>
-<p>Load the <strong>ggplot2</strong>, <strong>dplyr</strong>, <strong>readr</strong> and <strong>ggthemes</strong> packages, and read the “Brauer” data into R using the <code>read_csv()</code> function.</p>
-<p>Make sure you store the results in an object called <code>ydat</code></p>
+<p>Load the <strong>ggplot2</strong>, <strong>dplyr</strong>, <strong>readr</strong> packages, and read the tidy “Brauer” data into R using the <code>read_csv()</code> function. Make sure you store the results in an object called <code>ydat</code>.</p>
 <p><strong>n.b. <code>read_csv()</code> is <em>not</em> the same as <code>read.csv()</code></strong></p>
 <pre class="r"><code>library(ggplot2)
 library(dplyr)
@@ -166,16 +165,16 @@ ydat</code></pre>
 <ol style="list-style-type: decimal">
 <li>Plot a histogram of the expression variable, and set the bin number equal to 100.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram-1.png" alt="" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Check the distribution of each nutrient in the data set by adjusting the fill aesthetic. Use the same bin number for this histogram.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram_fill-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram_fill-1.png" alt="" /></p>
 <p>Wow. That’s ugly. Might be a candidate for <a href="http://accidental-art.tumblr.com/">accidental aRt</a> but not very helpful for our analysis.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Now split off the same histogram into a faceted display with 3 columns.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram_facet-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram_facet-1.png" alt="" /></p>
 <p>The basic exploratory process above confirms that the overall distribution (as well each distribution by nutrient) is normal.</p>
 </div>
 <div id="part-2" class="section level3">
@@ -208,45 +207,48 @@ ydat</code></pre>
 <blockquote>
 <p><strong>HINT</strong> you can add a “jitter” position to <code>geom_point()</code> but it’s easier to control width of the effect if you use <code>geom_jitter()</code></p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/stripplot-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/stripplot-1.png" alt="" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Now map each observation to its nutrient by color and adjust the size of the points to be 2.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/stripplot_color-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/stripplot_color-1.png" alt="" /></p>
 <p>Although these two genes are on opposite ends of the distribution of average expression values, they both seem to express similar amounts when Glucose is the restricted nutrient.</p>
 </div>
 <div id="part-3" class="section level3">
 <h3>Part 3</h3>
 <p>Now let’s try to make something that has a little bit more of a polished look.</p>
 <ol start="6" style="list-style-type: decimal">
-<li>Using <strong>dplyr</strong> logic, create a data frame that has the mean expression values for all combinations of rate and nutrient. Create a plot of this data with rate on the x-axis and mean expression on the y-axis and lines colored by nutrient.</li>
+<li>Using <strong>dplyr</strong> logic, create a data frame that has the mean expression values for all combinations of rate and nutrient (<em>hint</em>: use <code>group_by()</code> and <code>summarize()</code>). Create a plot of this data with rate on the x-axis and mean expression on the y-axis and lines colored by nutrient.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot-1.png" alt="" /></p>
 <ol start="7" style="list-style-type: decimal">
 <li>Add black dotted line (lty=3) that represents the smoothed mean of expression across all combinations of nutrients and rates.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_smooth-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_smooth-1.png" alt="" /></p>
 <ol start="8" style="list-style-type: decimal">
 <li>Change the scale to include breaks for <em>all</em> of the rates.</li>
 </ol>
 <blockquote>
 <p><strong>HINT</strong> The <code>read_csv()</code> function read in the rate variable as continuous rather than discrete. There are a few ways to remedy this, but first see if you can set the scale for the x axis variable without changing the dataframe.</p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_scale-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_scale-1.png" alt="" /></p>
 <ol start="9" style="list-style-type: decimal">
 <li>By default <code>ggplot()</code> will name the x and y axes with names of their respective variables. You might want to apply more meaningful labels. Change the name of the x-axis to “Rate”, the name of the y-axis to “Mean Expression” and the plot title to “Mean Expression By Rate (Brauer)”</li>
 </ol>
 <blockquote>
 <p><strong>HINT</strong> <code>?labs</code> will pull up the <strong>ggplot2</strong> documentation on axes labels and plot titles.</p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_labels-1.png" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_labels-1.png" alt="" /></p>
 <ol start="10" style="list-style-type: decimal">
-<li>Add a theme from the <strong>ggthemes</strong> package. The plot below is based on Edward Tufte’s book <em>The Visual Display of Quantitative Information</em>. Choose a theme that you like, but choose wisely … some of these themes will override other adjustments you’ve made to your plot above, including axis labels.</li>
+<li>Add a theme from the <strong>ggthemes</strong> package. The plot below is based on Edward Tufte’s book <em>The Visual Display of Quantitative Information</em>. Choose a theme that you like, but choose wisely – some of these themes will override other adjustments you’ve made to your plot above, including axis labels.</li>
 </ol>
 <blockquote>
-<p><strong>HINT</strong> You can either do this by trial-and-error or check out the package vignette to get an idea of what each theme looks like: <a href="https://github.com/jrnold/ggthemes" class="uri">https://github.com/jrnold/ggthemes</a></p>
+<p><strong>HINT 1</strong>: <code>library(ggthemes)</code> not working for you? <a href="https://github.com/jrnold/ggthemes#install">Install the package first</a>.</p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_final-1.png" /></p>
+<blockquote>
+<p><strong>HINT 2</strong> You can either do this by trial-and-error or check out the package vignette to get an idea of what each theme looks like: <a href="https://github.com/jrnold/ggthemes" class="uri">https://github.com/jrnold/ggthemes</a></p>
+</blockquote>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_final-1.png" alt="" /></p>
 <ol start="11" style="list-style-type: decimal">
 <li>The last step is to save the plot you’ve created. Write your plot to a 10 X 6 PDF using a <strong>ggplot2</strong> function.</li>
 </ol>

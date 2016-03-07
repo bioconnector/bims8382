@@ -1,5 +1,7 @@
 # ggplot2 homework
+
 ## Key Concepts
+
 > 
 - geoms
 - aesthetic mappings
@@ -12,9 +14,7 @@
 
 ## Getting Started
 
-Load the **ggplot2**, **dplyr**, **readr** and **ggthemes** packages, and read the "Brauer" data into R using the `read_csv()` function. 
-
-Make sure you store the results in an object called `ydat`
+Load the **ggplot2**, **dplyr**, **readr** packages, and read the tidy "Brauer" data into R using the `read_csv()` function. Make sure you store the results in an object called `ydat`.
 
 **n.b. `read_csv()` is *not* the same as `read.csv()`**
 
@@ -54,6 +54,7 @@ ydat
 ## Variables not shown: bp (chr), mf (chr)
 ```
 
+
 ## Problem Set
 
 Follow the prompts and use **ggplot2** to reproduce the plots below. 
@@ -66,6 +67,7 @@ We can start by taking a look at the distribution of the expression values.
 
 ![](r-hw-ggplot2_files/figure-html/histogram-1.png)
 
+
 2) Check the distribution of each nutrient in the data set by adjusting the fill aesthetic. Use the same bin number for this histogram.
 
 ![](r-hw-ggplot2_files/figure-html/histogram_fill-1.png)
@@ -75,6 +77,7 @@ Wow. That's ugly. Might be a candidate for [accidental aRt](http://accidental-ar
 3) Now split off the same histogram into a faceted display with 3 columns.
 
 ![](r-hw-ggplot2_files/figure-html/histogram_facet-1.png)
+
 
 The basic exploratory process above confirms that the overall distribution (as well each distribution by nutrient) is normal.
 
@@ -110,6 +113,7 @@ ydat %>%
 ## 2   HXT6 -2.681667
 ```
 
+
 The output tells us that the gene with the highest mean expression is *HXT3*, while the gene with the lowest mean expression is *HXT6*.
 
 4) Subset the data to only include these genes, and create a stripplot that has expression values as "jittered" points on the y-axis and the gene symbols the x-axis. 
@@ -117,6 +121,7 @@ The output tells us that the gene with the highest mean expression is *HXT3*, wh
 > **HINT** you can add a "jitter" position to `geom_point()` but it's easier to control width of the effect if you use `geom_jitter()`
 
 ![](r-hw-ggplot2_files/figure-html/stripplot-1.png)
+
 
 5) Now map each observation to its nutrient by color and adjust the size of the points to be 2.
 
@@ -128,9 +133,10 @@ Although these two genes are on opposite ends of the distribution of average exp
 
 Now let's try to make something that has a little bit more of a polished look. 
 
-6) Using **dplyr** logic, create a data frame that has the mean expression values for all combinations of rate and nutrient. Create a plot of this data with rate on the x-axis and mean expression on the y-axis and lines colored by nutrient. 
+6) Using **dplyr** logic, create a data frame that has the mean expression values for all combinations of rate and nutrient (_hint_: use `group_by()` and `summarize()`). Create a plot of this data with rate on the x-axis and mean expression on the y-axis and lines colored by nutrient. 
 
 ![](r-hw-ggplot2_files/figure-html/lineplot-1.png)
+
 
 7) Add black dotted line (lty=3) that represents the smoothed mean of expression across all combinations of nutrients and rates. 
 
@@ -142,18 +148,24 @@ Now let's try to make something that has a little bit more of a polished look.
 
 ![](r-hw-ggplot2_files/figure-html/lineplot_scale-1.png)
 
+
 9) By default `ggplot()` will name the x and y axes with names of their respective variables. You might want to apply more meaningful labels. Change the name of the x-axis to "Rate", the name of the y-axis to "Mean Expression" and the plot title to "Mean Expression By Rate (Brauer)"
 
 > **HINT** `?labs` will pull up the **ggplot2** documentation on axes labels and plot titles.
 
 ![](r-hw-ggplot2_files/figure-html/lineplot_labels-1.png)
 
-10) Add a theme from the **ggthemes** package. The plot below is based on Edward Tufte's book *The Visual Display of Quantitative Information*. Choose a theme that you like, but choose wisely ... some of these themes will override other adjustments you've made to your plot above, including axis labels.
 
-> **HINT** You can either do this by trial-and-error or check out the package vignette to get an idea of what each theme looks like: <https://github.com/jrnold/ggthemes>
+10) Add a theme from the **ggthemes** package. The plot below is based on Edward Tufte's book _The Visual Display of Quantitative Information_. Choose a theme that you like, but choose wisely -- some of these themes will override other adjustments you've made to your plot above, including axis labels.
+
+> **HINT 1**: `library(ggthemes)` not working for you? [Install the package first](https://github.com/jrnold/ggthemes#install).
+
+> **HINT 2** You can either do this by trial-and-error or check out the package vignette to get an idea of what each theme looks like: <https://github.com/jrnold/ggthemes>
 
 ![](r-hw-ggplot2_files/figure-html/lineplot_final-1.png)
 
+
 11) The last step is to save the plot you've created. Write your plot to a 10 X 6 PDF using a **ggplot2** function.
+
 
 
