@@ -149,7 +149,9 @@ Let's create a bare-bones RMarkdown document that compiles to HTML. In RStudio, 
      Let's load the **Gapminder** data from <http://bioconnector.org>: 
       
      ```{r} 
-     gm <- read.csv('data/gapminder.csv') 
+     library(dplyr) 
+     library(readr) 
+     gm <- read_csv('data/gapminder.csv') 
      head(gm) 
      ``` 
       
@@ -189,7 +191,9 @@ Now, open up that regular markdown file and take a look.
     
     
     ```r
-    gm <- read.csv("data/gapminder.csv")
+    library(dplyr)
+    library(readr)
+    gm <- read_csv("data/gapminder.csv")
     head(gm)
     ```
     

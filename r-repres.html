@@ -277,7 +277,9 @@ img {
  Let&#39;s load the **Gapminder** data from &lt;http://bioconnector.org&gt;: 
   
  ```{r} 
- gm &lt;- read.csv(&#39;data/gapminder.csv&#39;) 
+ library(dplyr) 
+ library(readr) 
+ gm &lt;- read_csv(&#39;data/gapminder.csv&#39;) 
  head(gm) 
  ``` 
   
@@ -307,7 +309,9 @@ Let&#39;s load the **Gapminder** data from &lt;http://bioconnector.org&gt;:
 
 
 ```r
-gm &lt;- read.csv(&quot;data/gapminder.csv&quot;)
+library(dplyr)
+library(readr)
+gm &lt;- read_csv(&quot;data/gapminder.csv&quot;)
 head(gm)
 ```
 

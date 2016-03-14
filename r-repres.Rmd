@@ -159,7 +159,9 @@ catn()
 catn("Let's load the **Gapminder** data from <http://bioconnector.org>:")
 catn()
 catn("```{r}")
-catn("gm <- read.csv('data/gapminder.csv')")
+catn("library(dplyr)")
+catn("library(readr)")
+catn("gm <- read_csv('data/gapminder.csv')")
 catn("head(gm)")
 catn("```")
 catn()
@@ -199,7 +201,9 @@ Now, open up that regular markdown file and take a look.
     
     
     ```r
-    gm <- read.csv("data/gapminder.csv")
+    library(dplyr)
+    library(readr)
+    gm <- read_csv("data/gapminder.csv")
     head(gm)
     ```
     
