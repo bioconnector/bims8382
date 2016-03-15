@@ -145,7 +145,7 @@ str(ydat)
 
 ```
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	198430 obs. of  7 variables:
-##  $ symbol         : chr  "SFB2" "NA" "QRI7" "CFT2" ...
+##  $ symbol         : chr  "SFB2" NA "QRI7" "CFT2" ...
 ##  $ systematic_name: chr  "YNL049C" "YNL095C" "YDL104C" "YLR115W" ...
 ##  $ nutrient       : chr  "Glucose" "Glucose" "Glucose" "Glucose" ...
 ##  $ rate           : num  0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 ...
@@ -186,40 +186,40 @@ ydat$symbol
 ```
 
 ```
-##   [1] "SFB2"     "NA"       "QRI7"     "CFT2"     "SSO2"     "PSP2"    
-##   [7] "RIB2"     "VMA13"    "EDC3"     "VPS5"     "NA"       "AMN1"    
+##   [1] "SFB2"     NA         "QRI7"     "CFT2"     "SSO2"     "PSP2"    
+##   [7] "RIB2"     "VMA13"    "EDC3"     "VPS5"     NA         "AMN1"    
 ##  [13] "SCW11"    "DSE2"     "COX15"    "SPE1"     "MTF1"     "KSS1"    
-##  [19] "NA"       "NA"       "YAP7"     "NA"       "YVC1"     "CDC40"   
-##  [25] "NA"       "RMD1"     "PCL6"     "AI4"      "GGC1"     "SUL1"    
-##  [31] "RAD57"    "NA"       "PER1"     "YHC3"     "SGE1"     "HNM1"    
-##  [37] "SWI1"     "NAM8"     "NA"       "BGL2"     "ACT1"     "NA"      
+##  [19] NA         NA         "YAP7"     NA         "YVC1"     "CDC40"   
+##  [25] NA         "RMD1"     "PCL6"     "AI4"      "GGC1"     "SUL1"    
+##  [31] "RAD57"    NA         "PER1"     "YHC3"     "SGE1"     "HNM1"    
+##  [37] "SWI1"     "NAM8"     NA         "BGL2"     "ACT1"     NA        
 ##  [43] "SFL1"     "OYE3"     "MMP1"     "MHT1"     "SUL2"     "IPP1"    
-##  [49] "CWP1"     "SNF11"    "PEX25"    "ELO1"     "NA"       "CDC13"   
-##  [55] "FKH1"     "SWD1"     "NA"       "HOF1"     "HOC1"     "BNI5"    
-##  [61] "CSN12"    "PGS1"     "MLP2"     "HRP1"     "NA"       "SEC39"   
-##  [67] "ECM31"    "NA"       "NA"       "ADE4"     "ABC1"     "DLD2"    
-##  [73] "PHA2"     "NA"       "HAP3"     "MRPL23"   "NA"       "NA"      
-##  [79] "MRPL16"   "NA"       "NA"       "NA"       "NA"       "AI3"     
-##  [85] "COX1"     "NA"       "VAR1"     "COX3"     "COX2"     "AI5_BETA"
-##  [91] "AI2"      "NA"       "NA"       "GPI18"    "COS9"     "NA"      
-##  [97] "NA"       "PRP46"    "XDJ1"     "SLG1"     "MAM3"     "AEP1"    
-## [103] "UGO1"     "NA"       "RSC2"     "YAP1801"  "ZPR1"     "BCD1"    
-## [109] "UBP10"    "SLD3"     "RLF2"     "LRO1"     "NA"       "ITR2"    
+##  [49] "CWP1"     "SNF11"    "PEX25"    "ELO1"     NA         "CDC13"   
+##  [55] "FKH1"     "SWD1"     NA         "HOF1"     "HOC1"     "BNI5"    
+##  [61] "CSN12"    "PGS1"     "MLP2"     "HRP1"     NA         "SEC39"   
+##  [67] "ECM31"    NA         NA         "ADE4"     "ABC1"     "DLD2"    
+##  [73] "PHA2"     NA         "HAP3"     "MRPL23"   NA         NA        
+##  [79] "MRPL16"   NA         NA         NA         NA         "AI3"     
+##  [85] "COX1"     NA         "VAR1"     "COX3"     "COX2"     "AI5_BETA"
+##  [91] "AI2"      NA         NA         "GPI18"    "COS9"     NA        
+##  [97] NA         "PRP46"    "XDJ1"     "SLG1"     "MAM3"     "AEP1"    
+## [103] "UGO1"     NA         "RSC2"     "YAP1801"  "ZPR1"     "BCD1"    
+## [109] "UBP10"    "SLD3"     "RLF2"     "LRO1"     NA         "ITR2"    
 ## [115] "ABP140"   "STT3"     "PTC2"     "STE20"    "HRD3"     "CWH43"   
 ## [121] "ASK10"    "MPE1"     "SWC3"     "TSA1"     "ADE17"    "GFD2"    
-## [127] "PXR1"     "NA"       "BUD14"    "AUS1"     "NHX1"     "NTE1"    
-## [133] "NA"       "KIN3"     "BUD4"     "SLI15"    "PMT4"     "AVT5"    
+## [127] "PXR1"     NA         "BUD14"    "AUS1"     "NHX1"     "NTE1"    
+## [133] NA         "KIN3"     "BUD4"     "SLI15"    "PMT4"     "AVT5"    
 ## [139] "CHS2"     "GPI13"    "KAP95"    "EFT2"     "EFT1"     "GAS1"    
-## [145] "CYK3"     "COQ2"     "PSD1"     "NA"       "PAC1"     "SUR7"    
-## [151] "RAX1"     "DFM1"     "RBD2"     "NA"       "YIP4"     "SRB2"    
-## [157] "HOL1"     "MEP3"     "NA"       "FEN2"     "NA"       "RFT1"    
-## [163] "NA"       "MCK1"     "GPI10"    "APT1"     "NA"       "NA"      
-## [169] "CPT1"     "ERV29"    "SFK1"     "NA"       "SEC20"    "TIR4"    
-## [175] "NA"       "NA"       "ARC35"    "SOL1"     "BIO2"     "ASC1"    
-## [181] "RBG1"     "PTC4"     "NA"       "OXA1"     "SIT4"     "PUB1"    
+## [145] "CYK3"     "COQ2"     "PSD1"     NA         "PAC1"     "SUR7"    
+## [151] "RAX1"     "DFM1"     "RBD2"     NA         "YIP4"     "SRB2"    
+## [157] "HOL1"     "MEP3"     NA         "FEN2"     NA         "RFT1"    
+## [163] NA         "MCK1"     "GPI10"    "APT1"     NA         NA        
+## [169] "CPT1"     "ERV29"    "SFK1"     NA         "SEC20"    "TIR4"    
+## [175] NA         NA         "ARC35"    "SOL1"     "BIO2"     "ASC1"    
+## [181] "RBG1"     "PTC4"     NA         "OXA1"     "SIT4"     "PUB1"    
 ## [187] "FPR4"     "FUN12"    "DPH2"     "DPS1"     "DLD1"     "ASN2"    
 ## [193] "TRM9"     "DED81"    "SRM1"     "SAM50"    "POP2"     "FAA4"    
-## [199] "NA"       "CEM1"    
+## [199] NA         "CEM1"    
 ##  [ reached getOption("max.print") -- omitted 198230 entries ]
 ```
 
@@ -234,7 +234,7 @@ mean(ydat$expression)
 
 Now that's not too interesting. This is the average gene expression across all genes, across all conditions. The data is actually scaled/centered around zero:
 
-![](r-dataframes_files/figure-html/histogram_expression_values-1.png)\
+![](r-dataframes_files/figure-html/histogram_expression_values-1.png)
 
 We might be interested in the average expression of genes with a particular biological function, and how that changes over different growth rates restricted by particular nutrients. This is the kind of thing we're going to do in the next section.
 
