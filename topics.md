@@ -14,7 +14,7 @@ title: "Topics"
 1. [Tidy data & advanced data manipulation](r-tidy.html)
 1. [Data visualization with ggplot2](r-ggplot2.html)
 1. [Reproducible Reporting: Generating Dynamic Documents with R+RStudio](r-repres.html)
-1. RNA-seq data analysis
+1. [RNA-seq data analysis](r-rnaseq-airway.html)
 
 
 ## Assignments
