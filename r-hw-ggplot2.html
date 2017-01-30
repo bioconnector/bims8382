@@ -10,14 +10,18 @@
 
 
 
+
 <title>ggplot2 homework</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">ggplot2 homework</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">ggplot2 homework</h1>
+
 </div>
 
 <div id="TOC">
@@ -139,12 +193,11 @@ ydat &lt;- read_csv(&quot;http://bioconnector.org/data/brauer2007_tidy.csv&quot;
 
 # Display the data
 ydat</code></pre>
-<pre><code>## Source: local data frame [198,430 x 7]
-## 
+<pre><code>## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    &lt;NA&gt;         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -153,8 +206,7 @@ ydat</code></pre>
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## # ... with 198,420 more rows, and 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 </div>
 <div id="problem-set" class="section level2">
 <h2>Problem Set</h2>
@@ -165,16 +217,16 @@ ydat</code></pre>
 <ol style="list-style-type: decimal">
 <li>Plot a histogram of the expression variable, and set the bin number equal to 100.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram-1.png" /><!-- --></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Check the distribution of each nutrient in the data set by adjusting the fill aesthetic. Use the same bin number for this histogram.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram_fill-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram_fill-1.png" /><!-- --></p>
 <p>Wow. That’s ugly. Might be a candidate for <a href="http://accidental-art.tumblr.com/">accidental aRt</a> but not very helpful for our analysis.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Now split off the same histogram into a faceted display with 3 columns.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/histogram_facet-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/histogram_facet-1.png" /><!-- --></p>
 <p>The basic exploratory process above confirms that the overall distribution (as well each distribution by nutrient) is normal.</p>
 </div>
 <div id="part-2" class="section level3">
@@ -194,10 +246,9 @@ ydat</code></pre>
     summarise(meanexp = mean(expression)) %&gt;%
     arrange(desc(meanexp)) %&gt;%
     filter(row_number() == 1 | row_number() == n())</code></pre>
-<pre><code>## Source: local data frame [2 x 2]
-## 
+<pre><code>## # A tibble: 2 × 2
 ##   symbol   meanexp
-##    (chr)     (dbl)
+##    &lt;chr&gt;     &lt;dbl&gt;
 ## 1   HXT3  4.010000
 ## 2   HXT6 -2.681667</code></pre>
 <p>The output tells us that the gene with the highest mean expression is <em>HXT3</em>, while the gene with the lowest mean expression is <em>HXT6</em>.</p>
@@ -207,11 +258,11 @@ ydat</code></pre>
 <blockquote>
 <p><strong>HINT</strong> you can add a “jitter” position to <code>geom_point()</code> but it’s easier to control width of the effect if you use <code>geom_jitter()</code></p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/stripplot-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/stripplot-1.png" /><!-- --></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Now map each observation to its nutrient by color and adjust the size of the points to be 2.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/stripplot_color-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/stripplot_color-1.png" /><!-- --></p>
 <p>Although these two genes are on opposite ends of the distribution of average expression values, they both seem to express similar amounts when Glucose is the restricted nutrient.</p>
 </div>
 <div id="part-3" class="section level3">
@@ -220,25 +271,25 @@ ydat</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Using <strong>dplyr</strong> logic, create a data frame that has the mean expression values for all combinations of rate and nutrient (<em>hint</em>: use <code>group_by()</code> and <code>summarize()</code>). Create a plot of this data with rate on the x-axis and mean expression on the y-axis and lines colored by nutrient.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot-1.png" /><!-- --></p>
 <ol start="7" style="list-style-type: decimal">
 <li>Add black dotted line (lty=3) that represents the smoothed mean of expression across all combinations of nutrients and rates.</li>
 </ol>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_smooth-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_smooth-1.png" /><!-- --></p>
 <ol start="8" style="list-style-type: decimal">
 <li>Change the scale to include breaks for <em>all</em> of the rates.</li>
 </ol>
 <blockquote>
 <p><strong>HINT</strong> The <code>read_csv()</code> function read in the rate variable as continuous rather than discrete. There are a few ways to remedy this, but first see if you can set the scale for the x axis variable without changing the dataframe.</p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_scale-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_scale-1.png" /><!-- --></p>
 <ol start="9" style="list-style-type: decimal">
 <li>By default <code>ggplot()</code> will name the x and y axes with names of their respective variables. You might want to apply more meaningful labels. Change the name of the x-axis to “Rate”, the name of the y-axis to “Mean Expression” and the plot title to “Mean Expression By Rate (Brauer)”</li>
 </ol>
 <blockquote>
 <p><strong>HINT</strong> <code>?labs</code> will pull up the <strong>ggplot2</strong> documentation on axes labels and plot titles.</p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_labels-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_labels-1.png" /><!-- --></p>
 <ol start="10" style="list-style-type: decimal">
 <li>Add a theme from the <strong>ggthemes</strong> package. The plot below is based on Edward Tufte’s book <em>The Visual Display of Quantitative Information</em>. Choose a theme that you like, but choose wisely – some of these themes will override other adjustments you’ve made to your plot above, including axis labels.</li>
 </ol>
@@ -248,7 +299,7 @@ ydat</code></pre>
 <blockquote>
 <p><strong>HINT 2</strong> You can either do this by trial-and-error or check out the package vignette to get an idea of what each theme looks like: <a href="https://github.com/jrnold/ggthemes" class="uri">https://github.com/jrnold/ggthemes</a></p>
 </blockquote>
-<p><img src="r-hw-ggplot2_files/figure-html/lineplot_final-1.png" alt="" /></p>
+<p><img src="r-hw-ggplot2_files/figure-html/lineplot_final-1.png" /><!-- --></p>
 <ol start="11" style="list-style-type: decimal">
 <li>The last step is to save the plot you’ve created. Write your plot to a 10 X 6 PDF using a <strong>ggplot2</strong> function.</li>
 </ol>
@@ -263,14 +314,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

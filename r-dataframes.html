@@ -10,14 +10,18 @@
 
 
 
+
 <title>Data Frames</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Data Frames</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Frames</h1>
+
 </div>
 
 <div id="TOC">
@@ -137,12 +191,11 @@ library(dplyr)</code></pre>
 <p>Now, let’s actually load the data. You can get help for the import function with <code>?read_csv</code>. When we load data we assign it to a variable just like any other, and we can choose a name for that data. Since we’re going to be referring to this data a lot, let’s give it a short easy name to type. I’m going to call it <code>ydat</code>. Once we’ve loaded it we can type the name of the object itself (<code>ydat</code>) to see it printed to the screen.</p>
 <pre class="r"><code>ydat &lt;- read_csv(file=&quot;data/brauer2007_tidy.csv&quot;)
 ydat</code></pre>
-<pre><code>## Source: local data frame [198,430 x 7]
-## 
+<pre><code>## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    &lt;NA&gt;         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -151,8 +204,7 @@ ydat</code></pre>
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## # ... with 198,420 more rows, and 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 <p>Take a look at that output. The nice thing about loading dplyr and reading in data with readr is that data frames are displayed in a much more friendly way. This dataset has nearly 200,000 rows and 7 columns. When you import data this way and try to display the object in the console, instead of trying to display all 200,000 rows, you’ll only see about 10 by default. Also, if you have so many columns that the data would wrap off the edge of your screen, those columns will not be displayed, but you’ll see at the bottom of the output which, if any, columns were hidden from view. If you want to see the whole dataset, there are two ways to do this. First, you can click on the name of the data.frame in the <strong>Environment</strong> panel in RStudio. Or you could use the <code>View()</code> function (<em>with a capital V</em>).</p>
 <pre class="r"><code>View(ydat)</code></pre>
 </div>
@@ -180,29 +232,27 @@ ydat</code></pre>
 </ul></li>
 </ul>
 <pre class="r"><code>head(ydat)</code></pre>
-<pre><code>## Source: local data frame [6 x 7]
-## 
+<pre><code>## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1   SFB2         YNL049C  Glucose  0.05      -0.24
-## 2     NA         YNL095C  Glucose  0.05       0.28
+## 2   &lt;NA&gt;         YNL095C  Glucose  0.05       0.28
 ## 3   QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4   CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5   SSO2         YMR183C  Glucose  0.05       0.05
 ## 6   PSP2         YML017W  Glucose  0.05      -0.69
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## # ... with 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 <pre class="r"><code>tail(ydat)</code></pre>
-<pre><code>## Source: local data frame [6 x 7]
-## 
+<pre><code>## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1   DOA1         YKL213C   Uracil   0.3       0.14
 ## 2   KRE1         YNL322C   Uracil   0.3       0.28
 ## 3   MTL1         YGR023W   Uracil   0.3       0.27
 ## 4   KRE9         YJL174W   Uracil   0.3       0.43
 ## 5   UTH1         YKR042W   Uracil   0.3       0.19
-## 6     NA         YOL111C   Uracil   0.3       0.04
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## 6   &lt;NA&gt;         YOL111C   Uracil   0.3       0.04
+## # ... with 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 <pre class="r"><code>dim(ydat)</code></pre>
 <pre><code>## [1] 198430      7</code></pre>
 <pre class="r"><code>names(ydat)</code></pre>
@@ -216,7 +266,26 @@ ydat</code></pre>
 ##  $ rate           : num  0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 ...
 ##  $ expression     : num  -0.24 0.28 -0.02 -0.33 0.05 -0.69 -0.55 -0.75 -0.24 -0.16 ...
 ##  $ bp             : chr  &quot;ER to Golgi transport&quot; &quot;biological process unknown&quot; &quot;proteolysis and peptidolysis&quot; &quot;mRNA polyadenylylation*&quot; ...
-##  $ mf             : chr  &quot;molecular function unknown&quot; &quot;molecular function unknown&quot; &quot;metalloendopeptidase activity&quot; &quot;RNA binding&quot; ...</code></pre>
+##  $ mf             : chr  &quot;molecular function unknown&quot; &quot;molecular function unknown&quot; &quot;metalloendopeptidase activity&quot; &quot;RNA binding&quot; ...
+##  - attr(*, &quot;spec&quot;)=List of 2
+##   ..$ cols   :List of 7
+##   .. ..$ symbol         : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ systematic_name: list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ nutrient       : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ rate           : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
+##   .. ..$ expression     : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
+##   .. ..$ bp             : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ mf             : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   ..$ default: list()
+##   .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_guess&quot; &quot;collector&quot;
+##   ..- attr(*, &quot;class&quot;)= chr &quot;col_spec&quot;</code></pre>
 <pre class="r"><code>summary(ydat)</code></pre>
 <pre><code>##     symbol          systematic_name      nutrient              rate       
 ##  Length:198430      Length:198430      Length:198430      Min.   :0.0500  
@@ -277,7 +346,7 @@ ydat$symbol</code></pre>
 mean(ydat$expression)</code></pre>
 <pre><code>## [1] 0.003367182</code></pre>
 <p>Now that’s not too interesting. This is the average gene expression across all genes, across all conditions. The data is actually scaled/centered around zero:</p>
-<p><img src="r-dataframes_files/figure-html/histogram_expression_values-1.png" alt="" /></p>
+<p><img src="r-dataframes_files/figure-html/histogram_expression_values-1.png" /><!-- --></p>
 <p>We might be interested in the average expression of genes with a particular biological function, and how that changes over different growth rates restricted by particular nutrients. This is the kind of thing we’re going to do in the next section.</p>
 <hr />
 <p><strong>EXERCISE 1</strong></p>
@@ -486,14 +555,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

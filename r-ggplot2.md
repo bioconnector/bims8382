@@ -31,10 +31,9 @@ gm
 ```
 
 ```
-## Source: local data frame [1,704 x 6]
-## 
+## # A tibble: 1,704 × 6
 ##        country continent  year lifeExp      pop gdpPercap
-##          (chr)     (chr) (int)   (dbl)    (int)     (dbl)
+##          <chr>     <chr> <int>   <dbl>    <int>     <dbl>
 ## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
 ## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
 ## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
@@ -45,7 +44,7 @@ gm
 ## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-## ..         ...       ...   ...     ...      ...       ...
+## # ... with 1,694 more rows
 ```
 
 ```r
@@ -89,22 +88,21 @@ gm %>%
 ```
 
 ```
-## Source: local data frame [12 x 3]
-## 
-##     year mean(lifeExp)    mean(gdp)
-##    (int)         (dbl)        (dbl)
-## 1   1952      46.31439  34095762661
-## 2   1957      49.31854  47267432088
-## 3   1962      51.56322  60136869012
-## 4   1967      54.66364  84648519224
-## 5   1972      57.31927 124385747313
-## 6   1977      59.61056 159802590186
-## 7   1982      62.61794 194429049919
-## 8   1987      64.85118 241784763369
-## 9   1992      66.53721 307100497486
-## 10  1997      68.02052 387597655323
-## 11  2002      69.23388 458042336179
-## 12  2007      70.72848 627513635079
+## # A tibble: 12 × 3
+##     year `mean(lifeExp)`  `mean(gdp)`
+##    <int>           <dbl>        <dbl>
+## 1   1952        46.31439  34095762661
+## 2   1957        49.31854  47267432088
+## 3   1962        51.56322  60136869012
+## 4   1967        54.66364  84648519224
+## 5   1972        57.31927 124385747313
+## 6   1977        59.61056 159802590186
+## 7   1982        62.61794 194429049919
+## 8   1987        64.85118 241784763369
+## 9   1992        66.53721 307100497486
+## 10  1997        68.02052 387597655323
+## 11  2002        69.23388 458042336179
+## 12  2007        70.72848 627513635079
 ```
 
 Instead of this:
@@ -228,7 +226,7 @@ Now, this isn't a great plot because there are several aesthetic mappings that a
 p + geom_point(aes(col=continent), size=3)
 ```
 
-![](r-ggplot2_files/figure-html/scatter_colContinent_size4-1.png)
+![](r-ggplot2_files/figure-html/scatter_colContinent_size4-1.png)<!-- -->
 
 
 ----
@@ -261,7 +259,7 @@ p <- ggplot(gm, aes(gdpPercap, lifeExp)) + scale_x_log10()
 p + geom_point() + geom_smooth()
 ```
 
-![](r-ggplot2_files/figure-html/scatter_addsmoothlayer-1.png)
+![](r-ggplot2_files/figure-html/scatter_addsmoothlayer-1.png)<!-- -->
 
 By default `geom_smooth()` will try to lowess for data with n<1000 or generalized additive models for data with n>1000. We can change that behavior by tweaking the parameters to use a thick red line, use a linear model instead of a GAM, and to turn off the standard error stripes.
 
@@ -285,7 +283,7 @@ p + aes(color = continent) + geom_point() + geom_smooth()
 p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)
 ```
 
-![](r-ggplot2_files/figure-html/scatter_final-1.png)
+![](r-ggplot2_files/figure-html/scatter_final-1.png)<!-- -->
 
 
 ### Faceting
@@ -298,7 +296,7 @@ p + geom_point() + facet_wrap(~continent)
 p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)
 ```
 
-![](r-ggplot2_files/figure-html/scatter_facet1-1.png)
+![](r-ggplot2_files/figure-html/scatter_facet1-1.png)<!-- -->
 
 
 ### Saving plots
@@ -331,7 +329,7 @@ ggsave(pfinal, file="myplot.pdf", width=5, height=15)
 
 
 
-![](r-ggplot2_files/figure-html/spaghetti-1.png)
+![](r-ggplot2_files/figure-html/spaghetti-1.png)<!-- -->
 
 
 ----
@@ -425,7 +423,7 @@ p <- ggplot(gm, aes(x=reorder(continent, lifeExp), y=lifeExp))
 p + geom_boxplot()
 ```
 
-![](r-ggplot2_files/figure-html/boxplot-1.png)
+![](r-ggplot2_files/figure-html/boxplot-1.png)<!-- -->
 
 
 ----
@@ -471,7 +469,7 @@ p + geom_histogram(bins=200)
 p + geom_histogram(bins=60)
 ```
 
-![](r-ggplot2_files/figure-html/histogram-1.png)
+![](r-ggplot2_files/figure-html/histogram-1.png)<!-- -->
 
 Alternative we could plot a smoothed density curve instead of a histogram:
 
@@ -522,7 +520,7 @@ Then by changing the color of the fill and setting the transparency to 25%:
 p + geom_density(aes(fill=continent), alpha=1/4)
 ```
 
-![](r-ggplot2_files/figure-html/densityplot-1.png)
+![](r-ggplot2_files/figure-html/densityplot-1.png)<!-- -->
 
 
 ----
@@ -568,7 +566,7 @@ By default, the "gray" theme is the usual background (I've changed this course w
 p + theme_gray()
 ```
 
-![](r-ggplot2_files/figure-html/theme_gray-1.png)
+![](r-ggplot2_files/figure-html/theme_gray-1.png)<!-- -->
 
 We could also get a black and white background:
 
@@ -584,7 +582,7 @@ Or go a step further and remove the gridlines:
 p + theme_classic()
 ```
 
-![](r-ggplot2_files/figure-html/theme_classic-1.png)
+![](r-ggplot2_files/figure-html/theme_classic-1.png)<!-- -->
 
 Finally, there's another package that gives us lots of different themes. Install it if you don't have it already. Install all its dependencies along with it.
 

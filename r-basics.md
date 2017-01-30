@@ -1,6 +1,9 @@
 # R: The Basics
 
 
+```
+## Warning: package 'knitr' was built under R version 3.3.2
+```
 
 This section introduces the R environment and some of the most basic funcionality aspects of R that are used through the remainder of the class. This section assumes little to no experience with statistical computing with R. We will introduce the R statistical computing environment, RStudio, and the dataset that we will work with for the remainder of the lesson. We will cover very basic functionality in R, including variables, functions, and importing/inspecting data frames.
 

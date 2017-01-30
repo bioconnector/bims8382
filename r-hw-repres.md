@@ -60,10 +60,9 @@ ydat %>%
 ```
 
 ```
-## Source: local data frame [20 x 2]
-## 
+## # A tibble: 20 × 2
 ##                                                              bp     n
-##                                                           (chr) (int)
+##                                                           <chr> <int>
 ## 1                                    biological process unknown   269
 ## 2                                          protein biosynthesis   182
 ## 3                           protein amino acid phosphorylation*    78
@@ -107,7 +106,7 @@ ggplot(cwob, aes(rate, expression, color = nutrient)) +
   ggtitle("Expression of genes involved in cell wall organization and biogenesis")
 ```
 
-![](r-hw-repres_files/figure-html/cellwall_org_plots-1.png)
+![](r-hw-repres_files/figure-html/cellwall_org_plots-1.png)<!-- -->
 
 
 ----

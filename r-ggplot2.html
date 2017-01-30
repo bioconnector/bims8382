@@ -10,14 +10,18 @@
 
 
 
+
 <title>Advanced Data Visualization with ggplot2</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Advanced Data Visualization with ggplot2</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Advanced Data Visualization with ggplot2</h1>
+
 </div>
 
 <div id="TOC">
@@ -135,10 +189,9 @@ gm &lt;- read_csv(file=&quot;data/gapminder.csv&quot;)
 
 # Show the first few lines of the data
 gm</code></pre>
-<pre><code>## Source: local data frame [1,704 x 6]
-## 
+<pre><code>## # A tibble: 1,704 × 6
 ##        country continent  year lifeExp      pop gdpPercap
-##          (chr)     (chr) (int)   (dbl)    (int)     (dbl)
+##          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
 ## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
 ## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
@@ -149,7 +202,7 @@ gm</code></pre>
 ## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-## ..         ...       ...   ...     ...      ...       ...</code></pre>
+## # ... with 1,694 more rows</code></pre>
 <pre class="r"><code># Optionally bring up data in a viewer window.
 # View(gm)</code></pre>
 <p>This particular excerpt has 1704 observations on six variables:</p>
@@ -174,29 +227,31 @@ gm</code></pre>
 <li><code>group_by()</code>: groups a data frame by one or more variable. Most data operations are useful done on groups defined by variables in the the dataset. The <code>group_by</code> function takes an existing data frame and converts it into a grouped data frame where <code>summarize()</code> operations are performed <em>by group</em>.</li>
 </ol>
 <p>Additionally, the <strong><code>%&gt;%</code></strong> operator allows you to “chain” operations together. Rather than nesting functions inside out, the <code>%&gt;%</code> operator allows you to write operations left-to-right, top-to-bottom. Let’s say we wanted to get the average life expectancy and GDP (not GDP per capita) for Asian countries for each year.</p>
-<p><img src="img/nest_vs_pipe_gm.png" alt="" /></p>
+<div class="figure">
+<img src="img/nest_vs_pipe_gm.png" />
+
+</div>
 <p>The <code>%&gt;%</code> would allow us to do this:</p>
 <pre class="r"><code>gm %&gt;%
   mutate(gdp=gdpPercap*pop) %&gt;%
   filter(continent==&quot;Asia&quot;) %&gt;%
   group_by(year) %&gt;%
   summarize(mean(lifeExp), mean(gdp))</code></pre>
-<pre><code>## Source: local data frame [12 x 3]
-## 
-##     year mean(lifeExp)    mean(gdp)
-##    (int)         (dbl)        (dbl)
-## 1   1952      46.31439  34095762661
-## 2   1957      49.31854  47267432088
-## 3   1962      51.56322  60136869012
-## 4   1967      54.66364  84648519224
-## 5   1972      57.31927 124385747313
-## 6   1977      59.61056 159802590186
-## 7   1982      62.61794 194429049919
-## 8   1987      64.85118 241784763369
-## 9   1992      66.53721 307100497486
-## 10  1997      68.02052 387597655323
-## 11  2002      69.23388 458042336179
-## 12  2007      70.72848 627513635079</code></pre>
+<pre><code>## # A tibble: 12 × 3
+##     year `mean(lifeExp)`  `mean(gdp)`
+##    &lt;int&gt;           &lt;dbl&gt;        &lt;dbl&gt;
+## 1   1952        46.31439  34095762661
+## 2   1957        49.31854  47267432088
+## 3   1962        51.56322  60136869012
+## 4   1967        54.66364  84648519224
+## 5   1972        57.31927 124385747313
+## 6   1977        59.61056 159802590186
+## 7   1982        62.61794 194429049919
+## 8   1987        64.85118 241784763369
+## 9   1992        66.53721 307100497486
+## 10  1997        68.02052 387597655323
+## 11  2002        69.23388 458042336179
+## 12  2007        70.72848 627513635079</code></pre>
 <p>Instead of this:</p>
 <pre class="r"><code>summarize(
   group_by(
@@ -253,7 +308,7 @@ p + geom_point() + scale_x_log10()</code></pre>
 <pre class="r"><code>p + geom_point(aes(col=continent, shape=continent, size=lifeExp))</code></pre>
 <p>Now, this isn’t a great plot because there are several aesthetic mappings that are redundant. Life expectancy is mapped to both the y-axis and the size of the points – the size mapping is superfluous. Similarly, continent is mapped to both the color and the point character (the shape is superfluous). Let’s get rid of that, but let’s make the points a little bigger outsize of an aesthetic mapping.</p>
 <pre class="r"><code>p + geom_point(aes(col=continent), size=3)</code></pre>
-<p><img src="r-ggplot2_files/figure-html/scatter_colContinent_size4-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/scatter_colContinent_size4-1.png" /><!-- --></p>
 <hr />
 <p><strong>EXERCISE 1</strong></p>
 <p>Re-create this same plot from scratch without saving anything to a variable. That is, start from the <code>ggplot</code> call.</p>
@@ -272,7 +327,7 @@ p + geom_point() + scale_x_log10()</code></pre>
 <p>Let’s add a fitted curve to the points. Recreate the plot in the <code>p</code> object if you need to.</p>
 <pre class="r"><code>p &lt;- ggplot(gm, aes(gdpPercap, lifeExp)) + scale_x_log10()
 p + geom_point() + geom_smooth()</code></pre>
-<p><img src="r-ggplot2_files/figure-html/scatter_addsmoothlayer-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/scatter_addsmoothlayer-1.png" /><!-- --></p>
 <p>By default <code>geom_smooth()</code> will try to lowess for data with n&lt;1000 or generalized additive models for data with n&gt;1000. We can change that behavior by tweaking the parameters to use a thick red line, use a linear model instead of a GAM, and to turn off the standard error stripes.</p>
 <pre class="r"><code>p + geom_point() + geom_smooth(lwd=2, se=FALSE, method=&quot;lm&quot;, col=&quot;red&quot;)</code></pre>
 <p>But let’s add back in our aesthetic mapping to the continents. Notice what happens here. We’re mapping continent as an aesthetic mapping <em>to the color of the points only</em> – so <code>geom_smooth()</code> still works only on the entire data.</p>
@@ -280,14 +335,14 @@ p + geom_point() + geom_smooth()</code></pre>
 <p>But notice what happens here: we make the call to <code>aes()</code> outside of the <code>geom_point()</code> call, and the continent variable gets mapped as an aesthetic to any further geoms. So here, we get separate smoothing lines for each continent. Let’s do it again but remove the standard error stripes and make the lines a bit thicker.</p>
 <pre class="r"><code>p + aes(color = continent) + geom_point() + geom_smooth()
 p + aes(color = continent) + geom_point() + geom_smooth(se=F, lwd=2)</code></pre>
-<p><img src="r-ggplot2_files/figure-html/scatter_final-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/scatter_final-1.png" /><!-- --></p>
 </div>
 <div id="faceting" class="section level3">
 <h3>Faceting</h3>
 <p>Facets display subsets of the data in different panels. There are a couple ways to do this, but <code>facet_wrap()</code> tries to sensibly wrap a series of facets into a 2-dimensional grid of small multiples. Just give it a formula specifying which variables to facet by. We can continue adding more layers, such as smoothing. If you have a look at the help for <code>?facet_wrap()</code> you’ll see that we can control how the wrapping is laid out.</p>
 <pre class="r"><code>p + geom_point() + facet_wrap(~continent)
 p + geom_point() + geom_smooth() + facet_wrap(~continent, ncol=1)</code></pre>
-<p><img src="r-ggplot2_files/figure-html/scatter_facet1-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/scatter_facet1-1.png" /><!-- --></p>
 </div>
 <div id="saving-plots" class="section level3">
 <h3>Saving plots</h3>
@@ -305,7 +360,7 @@ ggsave(pfinal, file=&quot;myplot.pdf&quot;, width=5, height=15)</code></pre>
 <li>Add a fitted curve, smooth or lm, with and without facets.</li>
 <li><strong>Bonus</strong>: using <code>geom_line()</code> and and aesthetic mapping <code>country</code> to <code>group=</code>, make a “spaghetti plot”, showing <em>semitransparent</em> lines connected for each country, faceted by continent. Add a smoothed loess curve with a thick (<code>lwd=3</code>) line with no standard error stripe. Reduce the opacity (<code>alpha=</code>) of the individual black lines. <em>Don’t</em> show Oceania countries (that is, <code>filter()</code> the data where <code>continent!=&quot;Oceania&quot;</code> before you plot it).</li>
 </ol>
-<p><img src="r-ggplot2_files/figure-html/spaghetti-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/spaghetti-1.png" /><!-- --></p>
 <hr />
 </div>
 </div>
@@ -337,7 +392,7 @@ p + geom_violin() + geom_jitter(alpha=1/2)</code></pre>
 <p>This plot would be a lot more effective if the continents were shown in some sort of order other than alphabetical. To do that, we’ll have to go back to our basic build of the plot again and use the <code>reorder</code> function in our original aesthetic mapping. Here, reorder is taking the first variable, which is some categorical variable, and ordering it by the level of the mean of the second variable, which is a continuous variable. It looks like this</p>
 <pre class="r"><code>p &lt;- ggplot(gm, aes(x=reorder(continent, lifeExp), y=lifeExp))</code></pre>
 <pre class="r"><code>p + geom_boxplot()</code></pre>
-<p><img src="r-ggplot2_files/figure-html/boxplot-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/boxplot-1.png" /><!-- --></p>
 <hr />
 <p><strong>EXERCISE 3</strong></p>
 <ol style="list-style-type: decimal">
@@ -358,7 +413,7 @@ p + geom_violin() + geom_jitter(alpha=1/2)</code></pre>
 p + geom_histogram(bins=10)
 p + geom_histogram(bins=200)</code></pre>
 <pre class="r"><code>p + geom_histogram(bins=60)</code></pre>
-<p><img src="r-ggplot2_files/figure-html/histogram-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/histogram-1.png" /><!-- --></p>
 <p>Alternative we could plot a smoothed density curve instead of a histogram:</p>
 <pre class="r"><code>p + geom_density()</code></pre>
 <p>Back to histograms. What if we wanted to color this by continent?</p>
@@ -373,7 +428,7 @@ p + geom_histogram(bins=200)</code></pre>
 <pre class="r"><code>p + geom_density(aes(color=continent))</code></pre>
 <p>Then by changing the color of the fill and setting the transparency to 25%:</p>
 <pre class="r"><code>p + geom_density(aes(fill=continent), alpha=1/4)</code></pre>
-<p><img src="r-ggplot2_files/figure-html/densityplot-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/densityplot-1.png" /><!-- --></p>
 <hr />
 <p><strong>EXERCISE 4</strong></p>
 <ol style="list-style-type: decimal">
@@ -396,12 +451,12 @@ p &lt;- p + aes(col=continent) + geom_point() + geom_smooth(lwd=2, se=FALSE)</co
 p &lt;- p + xlab(&quot;GDP Per Capita (USD)&quot;) + ylab(&quot;Life Expectancy (years)&quot;)</code></pre>
 <p>By default, the “gray” theme is the usual background (I’ve changed this course website to use the black and white background for all images).</p>
 <pre class="r"><code>p + theme_gray()</code></pre>
-<p><img src="r-ggplot2_files/figure-html/theme_gray-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/theme_gray-1.png" /><!-- --></p>
 <p>We could also get a black and white background:</p>
 <pre class="r"><code>p + theme_bw()</code></pre>
 <p>Or go a step further and remove the gridlines:</p>
 <pre class="r"><code>p + theme_classic()</code></pre>
-<p><img src="r-ggplot2_files/figure-html/theme_classic-1.png" alt="" /></p>
+<p><img src="r-ggplot2_files/figure-html/theme_classic-1.png" /><!-- --></p>
 <p>Finally, there’s another package that gives us lots of different themes. Install it if you don’t have it already. Install all its dependencies along with it.</p>
 <pre class="r"><code>install.packages(&quot;ggthemes&quot;, dependencies = TRUE)</code></pre>
 <pre class="r"><code>library(ggthemes)
@@ -427,14 +482,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

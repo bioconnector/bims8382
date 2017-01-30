@@ -2,6 +2,8 @@
 title: "BIMS 8382: Intro to Biomedical Data Science"
 ---
 
+**_This is the 2016 course website. Please go to [bioconnector.org/workshops/bims8382](http://bioconnector.org/workshops/bims8382.html) for the latest course material, and update your bookmarks._**
+
 This class introduces methods, tools, and software for reproducibly managing, manipulating, analyzing, and visualizing large-scale biomedical data. Specifically, the course introduces the R statistical computing environment and packages for manipulating and visualizing high-dimensional data, covers strategies for reproducible research, and culminates with analysis of data from a real RNA-seq experiment using R and Bioconductor packages.
 
 **_IMPORTANT_: [Click here for instructions on setting up your computer for the class](setup-r.html).** We're going to dive right into hands-on live-coding the first day of class, and you'll need to download and install some free software **_prior to our first class_**. This may take up to an hour or so, and please do not hesitate to [email me](people.html) _prior to the course_ if you are having difficulty.

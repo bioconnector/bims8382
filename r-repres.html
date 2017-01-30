@@ -10,14 +10,18 @@
 
 
 
+
 <title>Reproducible Reporting: Generating Dynamic Documents with R+RStudio</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Reproducible Reporting: Generating Dynamic Documents with R+RStudio</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reproducible Reporting: Generating Dynamic Documents with R+RStudio</h1>
+
 </div>
 
 <div id="TOC">
@@ -155,7 +209,10 @@ img {
 </ul></li>
 </ul>
 <p>Consider this figure:</p>
-<p><img src="img/gm-lifeexp-vs-gdp.png" alt="" /></p>
+<div class="figure">
+<img src="img/gm-lifeexp-vs-gdp.png" />
+
+</div>
 <p>How do we reproduce it? What do we need?</p>
 <ul>
 <li>The <a href="http://bioconnector.org/data/">data</a>.
@@ -176,7 +233,7 @@ img {
 <p><strong>As scientists we should aim for <em>robust</em> and <em>reproducible</em> research</strong></p>
 <ul>
 <li>“<strong>Robust research</strong> is about doing small things that stack the deck in your favor to prevent mistakes.”<br />
- <em>—Vince Buffalo, author of Bioinformatics Data Skills (2015)</em>.</li>
+<em>—Vince Buffalo, author of Bioinformatics Data Skills (2015)</em>.</li>
 <li><strong>Reproducible research</strong> can be repeated by other researchers with the same results.</li>
 </ul>
 <div id="reproducibility-is-hard" class="section level3">
@@ -257,7 +314,10 @@ img {
 <div id="rmarkdown-workflow" class="section level3">
 <h3>RMarkdown workflow</h3>
 <p>RMarkdown is an enhanced version of Markdown that lets you embed R code into the document. When the document is compiled/rendered, the R code is executed by R, the output is then automatically rendered as Markdown with the rest of the document. The Markdown is then further processed to final output formats like HTML, PDF, DOCX, etc.</p>
-<p><img src="img/rmarkdown-workflow.png" alt="" /></p>
+<div class="figure">
+<img src="img/rmarkdown-workflow.png" />
+
+</div>
 <p>Visit <strong><a href="http://bioconnector.org/markdown/#!rmarkdown.md">bioconnector.org/markdown</a></strong> for a quick reference on RMarkdown.</p>
 </div>
 </div>
@@ -448,14 +508,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

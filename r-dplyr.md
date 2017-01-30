@@ -38,12 +38,11 @@ ydat
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -52,8 +51,7 @@ ydat
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ## The dplyr package
@@ -99,10 +97,9 @@ filter(ydat, symbol == "LEU1")
 ```
 
 ```
-## Source: local data frame [36 x 7]
-## 
+## # A tibble: 36 × 7
 ##    symbol systematic_name nutrient  rate expression                   bp
-##     (chr)           (chr)    (chr) (dbl)      (dbl)                (chr)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>                <chr>
 ## 1    LEU1         YGL009C  Glucose  0.05      -1.12 leucine biosynthesis
 ## 2    LEU1         YGL009C  Glucose  0.10      -0.77 leucine biosynthesis
 ## 3    LEU1         YGL009C  Glucose  0.15      -0.67 leucine biosynthesis
@@ -113,8 +110,7 @@ filter(ydat, symbol == "LEU1")
 ## 8    LEU1         YGL009C  Ammonia  0.10      -1.17 leucine biosynthesis
 ## 9    LEU1         YGL009C  Ammonia  0.15      -1.20 leucine biosynthesis
 ## 10   LEU1         YGL009C  Ammonia  0.20      -1.02 leucine biosynthesis
-## ..    ...             ...      ...   ...        ...                  ...
-## Variables not shown: mf (chr)
+## # ... with 26 more rows, and 1 more variables: mf <chr>
 ```
 
 ```r
@@ -126,10 +122,9 @@ filter(ydat, symbol=="LEU1" | symbol=="ADH2")
 ```
 
 ```
-## Source: local data frame [72 x 7]
-## 
+## # A tibble: 72 × 7
 ##    symbol systematic_name nutrient  rate expression                   bp
-##     (chr)           (chr)    (chr) (dbl)      (dbl)                (chr)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>                <chr>
 ## 1    LEU1         YGL009C  Glucose  0.05      -1.12 leucine biosynthesis
 ## 2    ADH2         YMR303C  Glucose  0.05       6.28        fermentation*
 ## 3    LEU1         YGL009C  Glucose  0.10      -0.77 leucine biosynthesis
@@ -140,8 +135,7 @@ filter(ydat, symbol=="LEU1" | symbol=="ADH2")
 ## 8    ADH2         YMR303C  Glucose  0.20       5.10        fermentation*
 ## 9    LEU1         YGL009C  Glucose  0.25      -0.20 leucine biosynthesis
 ## 10   ADH2         YMR303C  Glucose  0.25       1.89        fermentation*
-## ..    ...             ...      ...   ...        ...                  ...
-## Variables not shown: mf (chr)
+## # ... with 62 more rows, and 1 more variables: mf <chr>
 ```
 
 ```r
@@ -151,17 +145,16 @@ filter(ydat, symbol=="LEU1" & rate==.05)
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name  nutrient  rate expression                   bp
-##    (chr)           (chr)     (chr) (dbl)      (dbl)                (chr)
+##    <chr>           <chr>     <chr> <dbl>      <dbl>                <chr>
 ## 1   LEU1         YGL009C   Glucose  0.05      -1.12 leucine biosynthesis
 ## 2   LEU1         YGL009C   Ammonia  0.05      -0.76 leucine biosynthesis
 ## 3   LEU1         YGL009C Phosphate  0.05      -0.81 leucine biosynthesis
 ## 4   LEU1         YGL009C   Sulfate  0.05      -1.57 leucine biosynthesis
 ## 5   LEU1         YGL009C   Leucine  0.05       3.84 leucine biosynthesis
 ## 6   LEU1         YGL009C    Uracil  0.05      -2.07 leucine biosynthesis
-## Variables not shown: mf (chr)
+## # ... with 1 more variables: mf <chr>
 ```
 
 ```r
@@ -170,17 +163,16 @@ filter(ydat, symbol=="LEU1" & rate==.3)
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name  nutrient  rate expression                   bp
-##    (chr)           (chr)     (chr) (dbl)      (dbl)                (chr)
+##    <chr>           <chr>     <chr> <dbl>      <dbl>                <chr>
 ## 1   LEU1         YGL009C   Glucose   0.3       0.03 leucine biosynthesis
 ## 2   LEU1         YGL009C   Ammonia   0.3      -0.22 leucine biosynthesis
 ## 3   LEU1         YGL009C Phosphate   0.3      -0.07 leucine biosynthesis
 ## 4   LEU1         YGL009C   Sulfate   0.3      -0.76 leucine biosynthesis
 ## 5   LEU1         YGL009C   Leucine   0.3       0.87 leucine biosynthesis
 ## 6   LEU1         YGL009C    Uracil   0.3      -0.16 leucine biosynthesis
-## Variables not shown: mf (chr)
+## # ... with 1 more variables: mf <chr>
 ```
 
 ```r
@@ -190,17 +182,16 @@ filter(ydat, symbol=="LEU1" & nutrient=="Leucine")
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression                   bp
-##    (chr)           (chr)    (chr) (dbl)      (dbl)                (chr)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>                <chr>
 ## 1   LEU1         YGL009C  Leucine  0.05       3.84 leucine biosynthesis
 ## 2   LEU1         YGL009C  Leucine  0.10       3.36 leucine biosynthesis
 ## 3   LEU1         YGL009C  Leucine  0.15       3.24 leucine biosynthesis
 ## 4   LEU1         YGL009C  Leucine  0.20       2.84 leucine biosynthesis
 ## 5   LEU1         YGL009C  Leucine  0.25       2.04 leucine biosynthesis
 ## 6   LEU1         YGL009C  Leucine  0.30       0.87 leucine biosynthesis
-## Variables not shown: mf (chr)
+## # ... with 1 more variables: mf <chr>
 ```
 
 ```r
@@ -209,17 +200,16 @@ filter(ydat, symbol=="LEU1" & nutrient=="Glucose")
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression                   bp
-##    (chr)           (chr)    (chr) (dbl)      (dbl)                (chr)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>                <chr>
 ## 1   LEU1         YGL009C  Glucose  0.05      -1.12 leucine biosynthesis
 ## 2   LEU1         YGL009C  Glucose  0.10      -0.77 leucine biosynthesis
 ## 3   LEU1         YGL009C  Glucose  0.15      -0.67 leucine biosynthesis
 ## 4   LEU1         YGL009C  Glucose  0.20      -0.59 leucine biosynthesis
 ## 5   LEU1         YGL009C  Glucose  0.25      -0.20 leucine biosynthesis
 ## 6   LEU1         YGL009C  Glucose  0.30       0.03 leucine biosynthesis
-## Variables not shown: mf (chr)
+## # ... with 1 more variables: mf <chr>
 ```
 
 Let's look at this graphically. Don't worry about what these commands are doing just yet - we'll cover that later on when we talk about ggplot2. Here's I'm taking the filtered dataset containing just expression estimates for LEU1 where I have 36 rows (one for each of 6 nutrients $\times$ 6 growth rates), and I'm _piping_ that dataset to the plotting function, where I'm plotting rate on the x-axis, expression on the y-axis, mapping the value of nutrient to the color, and using a line plot to display the data.
@@ -231,7 +221,7 @@ filter(ydat, symbol=="LEU1") %>%
   ggplot(aes(rate, expression, colour=nutrient)) + geom_line(lwd=1.5)
 ```
 
-<img src="r-dplyr_files/figure-html/demo_plot_expr_over_rate_singlegene-1.png" title="" alt="" style="display: block; margin: auto;" />
+<img src="r-dplyr_files/figure-html/demo_plot_expr_over_rate_singlegene-1.png" style="display: block; margin: auto;" />
 
 Look closely at that! LEU1 is _highly expressed_ when starved of leucine because the cell has to synthesize its own! And as the amount of leucine in the environment (the growth _rate_) increases, the cell can worry less about synthesizing leucine, so LEU1 expression goes back down. Consequently the cell can devote more energy into other functions, and we see other genes' expression very slightly raising.
 
@@ -299,12 +289,11 @@ select(ydat, symbol, systematic_name)
 ```
 
 ```
-## Source: local data frame [198,430 x 2]
-## 
+## # A tibble: 198,430 × 2
 ##    symbol systematic_name
-##     (chr)           (chr)
+##     <chr>           <chr>
 ## 1    SFB2         YNL049C
-## 2      NA         YNL095C
+## 2    <NA>         YNL095C
 ## 3    QRI7         YDL104C
 ## 4    CFT2         YLR115W
 ## 5    SSO2         YMR183C
@@ -313,7 +302,7 @@ select(ydat, symbol, systematic_name)
 ## 8   VMA13         YPR036W
 ## 9    EDC3         YEL015W
 ## 10   VPS5         YOR069W
-## ..    ...             ...
+## # ... with 198,420 more rows
 ```
 
 ```r
@@ -322,12 +311,11 @@ select(ydat, -bp, -mf)
 ```
 
 ```
-## Source: local data frame [198,430 x 5]
-## 
+## # A tibble: 198,430 × 5
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -336,7 +324,7 @@ select(ydat, -bp, -mf)
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
+## # ... with 198,420 more rows
 ```
 
 ```r
@@ -345,12 +333,11 @@ ydat
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -359,8 +346,7 @@ ydat
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 Notice above how the original data doesn't change. We're selecting out only certain columns of interest and throwing away columns we don't care about. If we wanted to _keep_ this data, we would need to _reassign_ the result of the `select()` operation to a new object. Let's make a new object called `nogo` that does not contain the GO annotations. Notice again how the original data is unchanged.
@@ -373,12 +359,11 @@ nogo
 ```
 
 ```
-## Source: local data frame [198,430 x 5]
-## 
+## # A tibble: 198,430 × 5
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -387,7 +372,7 @@ nogo
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
+## # ... with 198,420 more rows
 ```
 
 ```r
@@ -396,10 +381,9 @@ filter(nogo, symbol=="LEU1" & rate==.05)
 ```
 
 ```
-## Source: local data frame [6 x 5]
-## 
+## # A tibble: 6 × 5
 ##   symbol systematic_name  nutrient  rate expression
-##    (chr)           (chr)     (chr) (dbl)      (dbl)
+##    <chr>           <chr>     <chr> <dbl>      <dbl>
 ## 1   LEU1         YGL009C   Glucose  0.05      -1.12
 ## 2   LEU1         YGL009C   Ammonia  0.05      -0.76
 ## 3   LEU1         YGL009C Phosphate  0.05      -0.81
@@ -414,12 +398,11 @@ ydat
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -428,8 +411,7 @@ ydat
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 
@@ -452,12 +434,11 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal))
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression    signal     sigsr
-##     (chr)           (chr)    (chr) (dbl)      (dbl)     (dbl)     (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>     <dbl>     <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24 0.8467453 0.9201877
-## 2      NA         YNL095C  Glucose  0.05       0.28 1.2141949 1.1019051
+## 2    <NA>         YNL095C  Glucose  0.05       0.28 1.2141949 1.1019051
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02 0.9862327 0.9930925
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33 0.7955365 0.8919285
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05 1.0352649 1.0174797
@@ -466,7 +447,7 @@ mutate(nogo, signal=2^expression, sigsr=sqrt(signal))
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75 0.5946036 0.7711054
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24 0.8467453 0.9201877
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16 0.8950251 0.9460576
-## ..    ...             ...      ...   ...        ...       ...       ...
+## # ... with 198,420 more rows
 ```
 
 Again, don't worry about the code here to make the plot -- we'll learn about this later. Why do you think we log-transform the data prior to analysis?
@@ -493,10 +474,9 @@ arrange(ydat, symbol)
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression                   bp
-##     (chr)           (chr)    (chr) (dbl)      (dbl)                (chr)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>                <chr>
 ## 1    AAC1         YMR056C  Glucose  0.05       1.50 aerobic respiration*
 ## 2    AAC1         YMR056C  Glucose  0.10       1.54 aerobic respiration*
 ## 3    AAC1         YMR056C  Glucose  0.15       1.16 aerobic respiration*
@@ -507,8 +487,7 @@ arrange(ydat, symbol)
 ## 8    AAC1         YMR056C  Ammonia  0.10       1.47 aerobic respiration*
 ## 9    AAC1         YMR056C  Ammonia  0.15       0.97 aerobic respiration*
 ## 10   AAC1         YMR056C  Ammonia  0.20       0.76 aerobic respiration*
-## ..    ...             ...      ...   ...        ...                  ...
-## Variables not shown: mf (chr)
+## # ... with 198,420 more rows, and 1 more variables: mf <chr>
 ```
 
 ```r
@@ -517,10 +496,9 @@ arrange(ydat, expression)
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name  nutrient  rate expression
-##     (chr)           (chr)     (chr) (dbl)      (dbl)
+##     <chr>           <chr>     <chr> <dbl>      <dbl>
 ## 1    SUL1         YBR294W Phosphate  0.05      -6.50
 ## 2    SUL1         YBR294W Phosphate  0.10      -6.34
 ## 3    ADH2         YMR303C Phosphate  0.10      -6.15
@@ -531,8 +509,7 @@ arrange(ydat, expression)
 ## 8    JEN1         YKL217W Phosphate  0.30      -5.44
 ## 9    MHT1         YLL062C Phosphate  0.05      -5.36
 ## 10   SFC1         YJR095W Phosphate  0.25      -5.35
-## ..    ...             ...       ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -541,10 +518,9 @@ arrange(ydat, desc(expression))
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name  nutrient  rate expression
-##     (chr)           (chr)     (chr) (dbl)      (dbl)
+##     <chr>           <chr>     <chr> <dbl>      <dbl>
 ## 1    GAP1         YKR039W   Ammonia  0.05       6.64
 ## 2    DAL5         YJR152W   Ammonia  0.05       6.64
 ## 3    GAP1         YKR039W   Ammonia  0.10       6.64
@@ -555,8 +531,7 @@ arrange(ydat, desc(expression))
 ## 8    DAL5         YJR152W   Ammonia  0.30       6.64
 ## 9    GIT1         YCR098C Phosphate  0.05       6.64
 ## 10   PHM6         YDR281C Phosphate  0.05       6.64
-## ..    ...             ...       ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ----
@@ -584,11 +559,10 @@ summarize(ydat, mean(expression))
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
-##   mean(expression)
-##              (dbl)
-## 1      0.003367182
+## # A tibble: 1 × 1
+##   `mean(expression)`
+##                <dbl>
+## 1        0.003367182
 ```
 
 ```r
@@ -597,10 +571,9 @@ summarize(ydat, meanexp=mean(expression))
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
+## # A tibble: 1 × 1
 ##       meanexp
-##         (dbl)
+##         <dbl>
 ## 1 0.003367182
 ```
 
@@ -610,10 +583,9 @@ summarize(ydat, r=cor(rate, expression))
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
+## # A tibble: 1 × 1
 ##             r
-##         (dbl)
+##         <dbl>
 ## 1 -0.02197312
 ```
 
@@ -623,10 +595,9 @@ summarize(ydat, n())
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
-##      n()
-##    (int)
+## # A tibble: 1 × 1
+##    `n()`
+##    <int>
 ## 1 198430
 ```
 
@@ -636,11 +607,10 @@ summarize(ydat, n_distinct(symbol))
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
-##   n_distinct(symbol)
-##                (int)
-## 1               4211
+## # A tibble: 1 × 1
+##   `n_distinct(symbol)`
+##                  <int>
+## 1                 4211
 ```
 
 ### group_by()
@@ -653,12 +623,11 @@ ydat
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -667,8 +636,7 @@ ydat
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -680,9 +648,9 @@ group_by(ydat, nutrient)
 ## Groups: nutrient [6]
 ## 
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -691,8 +659,7 @@ group_by(ydat, nutrient)
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -704,9 +671,9 @@ group_by(ydat, nutrient, rate)
 ## Groups: nutrient, rate [36]
 ## 
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -715,8 +682,7 @@ group_by(ydat, nutrient, rate)
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 The real power comes in where `group_by()` and `summarize()` are used together. First, write the `group_by()` statement. Then wrap the result of that with a call to `summarize()`.
@@ -729,10 +695,9 @@ summarize(group_by(ydat, symbol), meanexp=mean(expression))
 ```
 
 ```
-## Source: local data frame [4,211 x 2]
-## 
+## # A tibble: 4,211 × 2
 ##    symbol      meanexp
-##     (chr)        (dbl)
+##     <chr>        <dbl>
 ## 1    AAC1  0.528888889
 ## 2    AAC3 -0.216285714
 ## 3   AAD10  0.438333333
@@ -743,7 +708,7 @@ summarize(group_by(ydat, symbol), meanexp=mean(expression))
 ## 8    AAH1  0.046111111
 ## 9    AAP1 -0.003611111
 ## 10  AAP1' -0.421388889
-## ..    ...          ...
+## # ... with 4,201 more rows
 ```
 
 ```r
@@ -753,10 +718,9 @@ summarize(group_by(ydat, nutrient), r=cor(rate, expression))
 ```
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient           r
-##       (chr)       (dbl)
+##       <chr>       <dbl>
 ## 1   Ammonia -0.01752025
 ## 2   Glucose -0.01119529
 ## 3   Leucine -0.03837677
@@ -779,16 +743,15 @@ tail(ydat, 5)
 ```
 
 ```
-## Source: local data frame [5 x 7]
-## 
+## # A tibble: 5 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1   KRE1         YNL322C   Uracil   0.3       0.28
 ## 2   MTL1         YGR023W   Uracil   0.3       0.27
 ## 3   KRE9         YJL174W   Uracil   0.3       0.43
 ## 4   UTH1         YKR042W   Uracil   0.3       0.19
-## 5     NA         YOL111C   Uracil   0.3       0.04
-## Variables not shown: bp (chr), mf (chr)
+## 5   <NA>         YOL111C   Uracil   0.3       0.04
+## # ... with 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -796,16 +759,15 @@ ydat %>% tail(5)
 ```
 
 ```
-## Source: local data frame [5 x 7]
-## 
+## # A tibble: 5 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1   KRE1         YNL322C   Uracil   0.3       0.28
 ## 2   MTL1         YGR023W   Uracil   0.3       0.27
 ## 3   KRE9         YJL174W   Uracil   0.3       0.43
 ## 4   UTH1         YKR042W   Uracil   0.3       0.19
-## 5     NA         YOL111C   Uracil   0.3       0.04
-## Variables not shown: bp (chr), mf (chr)
+## 5   <NA>         YOL111C   Uracil   0.3       0.04
+## # ... with 2 more variables: bp <chr>, mf <chr>
 ```
 
 Let's use one of the dplyr verbs.
@@ -816,12 +778,11 @@ filter(ydat, nutrient=="Leucine")
 ```
 
 ```
-## Source: local data frame [33,178 x 7]
-## 
+## # A tibble: 33,178 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Leucine  0.05       0.18
-## 2      NA         YNL095C  Leucine  0.05       0.16
+## 2    <NA>         YNL095C  Leucine  0.05       0.16
 ## 3    QRI7         YDL104C  Leucine  0.05      -0.30
 ## 4    CFT2         YLR115W  Leucine  0.05      -0.27
 ## 5    SSO2         YMR183C  Leucine  0.05      -0.59
@@ -830,8 +791,7 @@ filter(ydat, nutrient=="Leucine")
 ## 8   VMA13         YPR036W  Leucine  0.05      -0.11
 ## 9    EDC3         YEL015W  Leucine  0.05       0.12
 ## 10   VPS5         YOR069W  Leucine  0.05      -0.20
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 33,168 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -839,12 +799,11 @@ ydat %>% filter(nutrient=="Leucine")
 ```
 
 ```
-## Source: local data frame [33,178 x 7]
-## 
+## # A tibble: 33,178 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Leucine  0.05       0.18
-## 2      NA         YNL095C  Leucine  0.05       0.16
+## 2    <NA>         YNL095C  Leucine  0.05       0.16
 ## 3    QRI7         YDL104C  Leucine  0.05      -0.30
 ## 4    CFT2         YLR115W  Leucine  0.05      -0.27
 ## 5    SSO2         YMR183C  Leucine  0.05      -0.59
@@ -853,8 +812,7 @@ ydat %>% filter(nutrient=="Leucine")
 ## 8   VMA13         YPR036W  Leucine  0.05      -0.11
 ## 9    EDC3         YEL015W  Leucine  0.05       0.12
 ## 10   VPS5         YOR069W  Leucine  0.05      -0.20
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 33,168 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 
@@ -925,10 +883,9 @@ r)
 ```
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient     r
-##       (chr) (dbl)
+##       <chr> <dbl>
 ## 1   Leucine -0.58
 ## 2   Glucose -0.04
 ## 3   Ammonia  0.16
@@ -954,10 +911,9 @@ ydat %>%
 ```
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient     r
-##       (chr) (dbl)
+##       <chr> <dbl>
 ## 1   Leucine -0.58
 ## 2   Glucose -0.04
 ## 3   Ammonia  0.16
@@ -976,10 +932,9 @@ Show the limiting nutrient and expression values for the gene ADH2 when the grow
 
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient expression
-##       (chr)      (dbl)
+##       <chr>      <dbl>
 ## 1   Glucose       6.28
 ## 2   Ammonia       0.55
 ## 3 Phosphate      -4.60
@@ -992,10 +947,9 @@ What are the four most highly expressed genes when the growth rate is restricted
 
 
 ```
-## Source: local data frame [4 x 4]
-## 
+## # A tibble: 4 × 4
 ##   symbol expression                  bp                             mf
-##    (chr)      (dbl)               (chr)                          (chr)
+##    <chr>      <dbl>               <chr>                          <chr>
 ## 1   ADH2       6.28       fermentation* alcohol dehydrogenase activity
 ## 2  HSP26       5.86 response to stress*       unfolded protein binding
 ## 3   MLS1       5.64    glyoxylate cycle       malate synthase activity
@@ -1006,10 +960,9 @@ When the growth rate is restricted to 0.05, what is the average expression level
 
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient   meanexp
-##       (chr)     (dbl)
+##       <chr>     <dbl>
 ## 1   Ammonia 0.9426667
 ## 2   Glucose 0.7426667
 ## 3   Leucine 0.8106667
@@ -1019,10 +972,9 @@ When the growth rate is restricted to 0.05, what is the average expression level
 ```
 
 ```
-## Source: local data frame [6 x 2]
-## 
+## # A tibble: 6 × 2
 ##    nutrient    meanexp
-##       (chr)      (dbl)
+##       <chr>      <dbl>
 ## 1   Ammonia -1.6133514
 ## 2   Glucose -0.6911351
 ## 3   Leucine -0.5735676
@@ -1045,21 +997,19 @@ ydat %>% summarize(n_distinct(mf))
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
-##   n_distinct(mf)
-##            (int)
-## 1           1086
+## # A tibble: 1 × 1
+##   `n_distinct(mf)`
+##              <int>
+## 1             1086
 ```
 
 Which 10 biological process annotations have the most genes associated with them? What about molecular functions? _Hint:_ 4 pipes: `group_by`, `summarize` with `n_distinct`, `arrange`, `head`.
 
 
 ```
-## Source: local data frame [10 x 2]
-## 
+## # A tibble: 10 × 2
 ##                                                              bp     n
-##                                                           (chr) (int)
+##                                                           <chr> <int>
 ## 1                                    biological process unknown   269
 ## 2                                          protein biosynthesis   182
 ## 3                           protein amino acid phosphorylation*    78
@@ -1073,10 +1023,9 @@ Which 10 biological process annotations have the most genes associated with them
 ```
 
 ```
-## Source: local data frame [10 x 2]
-## 
+## # A tibble: 10 × 2
 ##                                        mf     n
-##                                     (chr) (int)
+##                                     <chr> <int>
 ## 1              molecular function unknown   886
 ## 2      structural constituent of ribosome   185
 ## 3                         protein binding   107
@@ -1093,10 +1042,9 @@ How many distinct genes are there where we know what process the gene is involve
 
 
 ```
-## Source: local data frame [737 x 3]
-## 
+## # A tibble: 737 × 3
 ##    symbol                                                              bp
-##     (chr)                                                           (chr)
+##     <chr>                                                           <chr>
 ## 1    SFB2                                           ER to Golgi transport
 ## 2    EDC3                           deadenylylation-independent decapping
 ## 3    PER1                                   response to unfolded protein*
@@ -1107,18 +1055,16 @@ How many distinct genes are there where we know what process the gene is involve
 ## 8    ABC1                                         ubiquinone biosynthesis
 ## 9   PRP46                          nuclear mRNA splicing, via spliceosome
 ## 10   MAM3                      mitochondrion organization and biogenesis*
-## ..    ...                                                             ...
-## Variables not shown: mf (chr)
+## # ... with 727 more rows, and 1 more variables: mf <chr>
 ```
 
 When the growth rate is restricted to 0.05 by limiting Glucose, which biological processes are the most upregulated? Show a sorted list with the most upregulated BPs on top, displaying the biological process and the average expression of all genes in that process rounded to two digits. _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `mutate`, `arrange`.
 
 
 ```
-## Source: local data frame [881 x 2]
-## 
+## # A tibble: 881 × 2
 ##                                               bp meanexp
-##                                            (chr)   (dbl)
+##                                            <chr>   <dbl>
 ## 1                                  fermentation*    6.28
 ## 2                               glyoxylate cycle    5.29
 ## 3  oxygen and reactive oxygen species metabolism    5.04
@@ -1129,7 +1075,7 @@ When the growth rate is restricted to 0.05 by limiting Glucose, which biological
 ## 8                              lactate transport    3.48
 ## 9                           carnitine metabolism    3.30
 ## 10                           alcohol metabolism*    3.25
-## ..                                           ...     ...
+## # ... with 871 more rows
 ```
 
 Group the data by limiting nutrient (primarily) then by biological process. Get the average expression for all genes annotated with each process, separately for each limiting nutrient, where the growth rate is restricted to 0.05. Arrange the result to show the most upregulated processes on top. The initial result will look like the result below. Pipe this output to a `View()` statement. What's going on? Why didn't the `arrange()` work? _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `arrange`, `View`.
@@ -1139,19 +1085,19 @@ Group the data by limiting nutrient (primarily) then by biological process. Get 
 ## Source: local data frame [5,257 x 3]
 ## Groups: nutrient [6]
 ## 
-##    nutrient                     bp meanexp
-##       (chr)                  (chr)   (dbl)
-## 1   Ammonia   allantoate transport  6.6400
-## 2   Ammonia  amino acid transport*  6.6400
-## 3   Ammonia    allantoin transport  5.5600
-## 4   Ammonia    proline catabolism*  5.1400
-## 5   Ammonia         urea transport  5.1400
-## 6   Ammonia asparagine catabolism*  4.7325
-## 7   Ammonia  allantoin catabolism*  4.4400
-## 8   Ammonia      peptide transport  3.9200
-## 9   Ammonia       glyoxylate cycle  3.9100
-## 10  Ammonia   sodium ion transport  3.2650
-## ..      ...                    ...     ...
+##     nutrient                                            bp meanexp
+##        <chr>                                         <chr>   <dbl>
+## 1    Ammonia                          allantoate transport   6.640
+## 2    Ammonia                         amino acid transport*   6.640
+## 3  Phosphate               glycerophosphodiester transport   6.640
+## 4    Glucose                                 fermentation*   6.280
+## 5    Ammonia                           allantoin transport   5.560
+## 6    Glucose                              glyoxylate cycle   5.285
+## 7    Ammonia                           proline catabolism*   5.140
+## 8    Ammonia                                urea transport   5.140
+## 9    Glucose oxygen and reactive oxygen species metabolism   5.040
+## 10   Glucose                           fumarate transport*   5.030
+## # ... with 5,247 more rows
 ```
 
 Let's try to further process that result to get only the top three most upregulated biolgocal processes for each limiting nutrient. Google search "dplyr first result within group." You'll need a `filter(row_number()......)` in there somewhere. _Hint:_ 5 pipes: `filter`, `group_by`, `summarize`, `arrange`, `filter(row_number()...`. _Note:_ dplyr's pipe syntax used to be `%.%` before it changed to `%>%`. So when looking around, you might still see some people use the old syntax. Now if you try to use the old syntax, you'll get a deprecation warning.
@@ -1162,25 +1108,25 @@ Let's try to further process that result to get only the top three most upregula
 ## Groups: nutrient [6]
 ## 
 ##     nutrient                                            bp meanexp
-##        (chr)                                         (chr)   (dbl)
+##        <chr>                                         <chr>   <dbl>
 ## 1    Ammonia                          allantoate transport   6.640
 ## 2    Ammonia                         amino acid transport*   6.640
-## 3    Ammonia                           allantoin transport   5.560
+## 3  Phosphate               glycerophosphodiester transport   6.640
 ## 4    Glucose                                 fermentation*   6.280
-## 5    Glucose                              glyoxylate cycle   5.285
-## 6    Glucose oxygen and reactive oxygen species metabolism   5.040
-## 7    Leucine                                 fermentation*   4.150
-## 8    Leucine                           fumarate transport*   3.720
-## 9    Leucine                              glyoxylate cycle   3.650
-## 10 Phosphate               glycerophosphodiester transport   6.640
-## 11 Phosphate                vacuole fusion, non-autophagic   4.195
-## 12 Phosphate         regulation of cell redox homeostasis*   4.030
-## 13   Sulfate                        protein ubiquitination   3.400
-## 14   Sulfate                           fumarate transport*   3.270
-## 15   Sulfate                 sulfur amino acid metabolism*   2.690
-## 16    Uracil                           fumarate transport*   4.320
-## 17    Uracil                         pyridoxine metabolism   3.110
-## 18    Uracil                        asparagine catabolism*   3.060
+## 5    Ammonia                           allantoin transport   5.560
+## 6    Glucose                              glyoxylate cycle   5.285
+## 7    Glucose oxygen and reactive oxygen species metabolism   5.040
+## 8     Uracil                           fumarate transport*   4.320
+## 9  Phosphate                vacuole fusion, non-autophagic   4.195
+## 10   Leucine                                 fermentation*   4.150
+## 11 Phosphate         regulation of cell redox homeostasis*   4.030
+## 12   Leucine                           fumarate transport*   3.720
+## 13   Leucine                              glyoxylate cycle   3.650
+## 14   Sulfate                        protein ubiquitination   3.400
+## 15   Sulfate                           fumarate transport*   3.270
+## 16    Uracil                         pyridoxine metabolism   3.110
+## 17    Uracil                        asparagine catabolism*   3.060
+## 18   Sulfate                 sulfur amino acid metabolism*   2.690
 ```
 
 There's a slight problem with the examples above. We're getting the average expression of all the biological processes separately by each nutrient. But some of these biological processes only have a single gene in them! If we tried to do the same thing to get the correlation between rate and expression, the calculation would work, but we'd get a warning about a standard deviation being zero. The correlation coefficient value that results is `NA`, i.e., missing. While we're summarizing the correlation between rate and expression, let's also show the number of distinct genes within each grouping.
@@ -1202,7 +1148,7 @@ ydat %>%
 ## Groups: nutrient [?]
 ## 
 ##    nutrient                                      bp           r ngenes
-##       (chr)                                   (chr)       (dbl)  (int)
+##       <chr>                                   <chr>       <dbl>  <int>
 ## 1   Ammonia             'de novo' IMP biosynthesis*  0.31247162      8
 ## 2   Ammonia  'de novo' pyrimidine base biosynthesis -0.04817745      3
 ## 3   Ammonia 'de novo' pyrimidine base biosynthesis*  0.16699596      4
@@ -1213,7 +1159,7 @@ ydat %>%
 ## 8   Ammonia                     acetate metabolism* -0.68551933      1
 ## 9   Ammonia                 acetyl-CoA biosynthesis -0.85122895      1
 ## 10  Ammonia   acetyl-CoA biosynthesis from pyruvate  0.09509414      1
-## ..      ...                                     ...         ...    ...
+## # ... with 5,276 more rows
 ```
 
 Take the above code and continue to process the result to show only results where the process has at least 5 genes. Add a column corresponding to the absolute value of the correlation coefficient, and show for each nutrient the singular process with the highest correlation between rate and expression, regardless of direction. _Hint:_ 4 more pipes: `filter`, `mutate`, `arrange`, and `filter` again with `row_number()==1`. Ignore the warning.
@@ -1224,12 +1170,12 @@ Take the above code and continue to process the result to show only results wher
 ## Groups: nutrient [6]
 ## 
 ##    nutrient                                          bp     r ngenes  absr
-##       (chr)                                       (chr) (dbl)  (int) (dbl)
-## 1   Ammonia telomerase-independent telomere maintenance -0.91      7  0.91
-## 2   Glucose telomerase-independent telomere maintenance -0.95      7  0.95
+##       <chr>                                       <chr> <dbl>  <int> <dbl>
+## 1   Glucose telomerase-independent telomere maintenance -0.95      7  0.95
+## 2   Ammonia telomerase-independent telomere maintenance -0.91      7  0.91
 ## 3   Leucine telomerase-independent telomere maintenance -0.90      7  0.90
 ## 4 Phosphate telomerase-independent telomere maintenance -0.90      7  0.90
-## 5   Sulfate                   translational elongation*  0.79      5  0.79
-## 6    Uracil telomerase-independent telomere maintenance -0.81      7  0.81
+## 5    Uracil telomerase-independent telomere maintenance -0.81      7  0.81
+## 6   Sulfate                   translational elongation*  0.79      5  0.79
 ```
 

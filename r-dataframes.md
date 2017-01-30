@@ -44,12 +44,11 @@ ydat
 ```
 
 ```
-## Source: local data frame [198,430 x 7]
-## 
+## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    <NA>         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -58,8 +57,7 @@ ydat
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 198,420 more rows, and 2 more variables: bp <chr>, mf <chr>
 ```
 
 Take a look at that output. The nice thing about loading dplyr and reading in data with readr is that data frames are displayed in a much more friendly way. This dataset has nearly 200,000 rows and 7 columns. When you import data this way and try to display the object in the console, instead of trying to display all 200,000 rows, you'll only see about 10 by default. Also, if you have so many columns that the data would wrap off the edge of your screen, those columns will not be displayed, but you'll see at the bottom of the output which, if any, columns were hidden from view. If you want to see the whole dataset, there are two ways to do this. First, you can click on the name of the data.frame in the **Environment** panel in RStudio. Or you could use the `View()` function (_with a capital V_).
@@ -91,17 +89,16 @@ head(ydat)
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1   SFB2         YNL049C  Glucose  0.05      -0.24
-## 2     NA         YNL095C  Glucose  0.05       0.28
+## 2   <NA>         YNL095C  Glucose  0.05       0.28
 ## 3   QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4   CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5   SSO2         YMR183C  Glucose  0.05       0.05
 ## 6   PSP2         YML017W  Glucose  0.05      -0.69
-## Variables not shown: bp (chr), mf (chr)
+## # ... with 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -109,17 +106,16 @@ tail(ydat)
 ```
 
 ```
-## Source: local data frame [6 x 7]
-## 
+## # A tibble: 6 × 7
 ##   symbol systematic_name nutrient  rate expression
-##    (chr)           (chr)    (chr) (dbl)      (dbl)
+##    <chr>           <chr>    <chr> <dbl>      <dbl>
 ## 1   DOA1         YKL213C   Uracil   0.3       0.14
 ## 2   KRE1         YNL322C   Uracil   0.3       0.28
 ## 3   MTL1         YGR023W   Uracil   0.3       0.27
 ## 4   KRE9         YJL174W   Uracil   0.3       0.43
 ## 5   UTH1         YKR042W   Uracil   0.3       0.19
-## 6     NA         YOL111C   Uracil   0.3       0.04
-## Variables not shown: bp (chr), mf (chr)
+## 6   <NA>         YOL111C   Uracil   0.3       0.04
+## # ... with 2 more variables: bp <chr>, mf <chr>
 ```
 
 ```r
@@ -152,6 +148,25 @@ str(ydat)
 ##  $ expression     : num  -0.24 0.28 -0.02 -0.33 0.05 -0.69 -0.55 -0.75 -0.24 -0.16 ...
 ##  $ bp             : chr  "ER to Golgi transport" "biological process unknown" "proteolysis and peptidolysis" "mRNA polyadenylylation*" ...
 ##  $ mf             : chr  "molecular function unknown" "molecular function unknown" "metalloendopeptidase activity" "RNA binding" ...
+##  - attr(*, "spec")=List of 2
+##   ..$ cols   :List of 7
+##   .. ..$ symbol         : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ systematic_name: list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ nutrient       : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ rate           : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+##   .. ..$ expression     : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+##   .. ..$ bp             : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   .. ..$ mf             : list()
+##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+##   ..$ default: list()
+##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
+##   ..- attr(*, "class")= chr "col_spec"
 ```
 
 ```r
@@ -234,7 +249,7 @@ mean(ydat$expression)
 
 Now that's not too interesting. This is the average gene expression across all genes, across all conditions. The data is actually scaled/centered around zero:
 
-![](r-dataframes_files/figure-html/histogram_expression_values-1.png)
+![](r-dataframes_files/figure-html/histogram_expression_values-1.png)<!-- -->
 
 We might be interested in the average expression of genes with a particular biological function, and how that changes over different growth rates restricted by particular nutrients. This is the kind of thing we're going to do in the next section.
 

@@ -10,14 +10,18 @@
 
 
 
+
 <title>dplyr homework</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">dplyr homework</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">dplyr homework</h1>
+
 </div>
 
 <div id="TOC">
@@ -120,6 +174,7 @@ img {
 <li>window functions</li>
 </ul>
 </blockquote>
+<pre><code>## Warning: package &#39;knitr&#39; was built under R version 3.3.2</code></pre>
 </div>
 <div id="getting-started" class="section level2">
 <h2>Getting Started</h2>
@@ -137,10 +192,9 @@ gm &lt;- read_csv(&quot;http://bioconnector.org/data/gapminder.csv&quot;)
 
 # Display the data
 gm</code></pre>
-<pre><code>## Source: local data frame [1,704 x 6]
-## 
+<pre><code>## # A tibble: 1,704 × 6
 ##        country continent  year lifeExp      pop gdpPercap
-##          (chr)     (chr) (int)   (dbl)    (int)     (dbl)
+##          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
 ## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
 ## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
@@ -151,7 +205,7 @@ gm</code></pre>
 ## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-## ..         ...       ...   ...     ...      ...       ...</code></pre>
+## # ... with 1,694 more rows</code></pre>
 </div>
 <div id="problem-set" class="section level2">
 <h2>Problem Set</h2>
@@ -159,10 +213,9 @@ gm</code></pre>
 <ol style="list-style-type: decimal">
 <li>How many unique countries are represented per continent?</li>
 </ol>
-<pre><code>## Source: local data frame [5 x 2]
-## 
+<pre><code>## # A tibble: 5 × 2
 ##   continent     n
-##       (chr) (int)
+##       &lt;chr&gt; &lt;int&gt;
 ## 1    Africa    52
 ## 2  Americas    25
 ## 3      Asia    33
@@ -171,18 +224,16 @@ gm</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Which European nation had the lowest GDP per capita in 1997?</li>
 </ol>
-<pre><code>## Source: local data frame [1 x 6]
-## 
+<pre><code>## # A tibble: 1 × 6
 ##   country continent  year lifeExp     pop gdpPercap
-##     (chr)     (chr) (int)   (dbl)   (int)     (dbl)
+##     &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
 ## 1 Albania    Europe  1997   72.95 3428038  3193.055</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>According to the data available, what was the average life expectancy across each continent in the 1980s?</li>
 </ol>
-<pre><code>## Source: local data frame [5 x 2]
-## 
+<pre><code>## # A tibble: 5 × 2
 ##   continent mean.lifeExp
-##       (chr)        (dbl)
+##       &lt;chr&gt;        &lt;dbl&gt;
 ## 1    Africa     52.46883
 ## 2  Americas     67.15978
 ## 3      Asia     63.73456
@@ -191,10 +242,9 @@ gm</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>What 5 countries have the highest total GDP over all years combined?</li>
 </ol>
-<pre><code>## Source: local data frame [5 x 2]
-## 
+<pre><code>## # A tibble: 5 × 2
 ##          country    Total.GDP
-##            (chr)        (dbl)
+##            &lt;chr&gt;        &lt;dbl&gt;
 ## 1  United States 7.676192e+13
 ## 2          Japan 2.543482e+13
 ## 3          China 2.039549e+13
@@ -204,10 +254,9 @@ gm</code></pre>
 <li>What countries and years had life expectancies of <em>at least</em> 80 years?</li>
 </ol>
 <p><strong>n.b. only output the columns of interest: country, life expectancy and year (in that order)</strong></p>
-<pre><code>## Source: local data frame [22 x 3]
-## 
+<pre><code>## # A tibble: 22 × 3
 ##             country lifeExp  year
-##               (chr)   (dbl) (int)
+##               &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt;
 ## 1         Australia  80.370  2002
 ## 2         Australia  81.235  2007
 ## 3            Canada  80.653  2007
@@ -218,14 +267,13 @@ gm</code></pre>
 ## 8           Iceland  80.500  2002
 ## 9           Iceland  81.757  2007
 ## 10           Israel  80.745  2007
-## ..              ...     ...   ...</code></pre>
+## # ... with 12 more rows</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?</li>
 </ol>
-<pre><code>## Source: local data frame [10 x 2]
-## 
+<pre><code>## # A tibble: 10 × 2
 ##           country         r
-##             (chr)     (dbl)
+##             &lt;chr&gt;     &lt;dbl&gt;
 ## 1          France 0.9962239
 ## 2         Austria 0.9929642
 ## 3         Belgium 0.9927496
@@ -240,10 +288,9 @@ gm</code></pre>
 <li>Which combinations of continent (besides Asia) and year have the highest average population across all countries?</li>
 </ol>
 <p><strong>n.b. your output should include all results sorted by highest average population</strong>. With what you already know, this one may stump you. See <a href="http://stackoverflow.com/q/27207963/654296">this Q&amp;A</a> for how to <code>ungroup</code> before <code>arrange</code>ing.</p>
-<pre><code>## Source: local data frame [48 x 3]
-## 
+<pre><code>## # A tibble: 48 × 3
 ##    continent  year mean.pop
-##        (chr) (int)    (dbl)
+##        &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;
 ## 1   Americas  2007 35954847
 ## 2   Americas  2002 33990910
 ## 3   Americas  1997 31876016
@@ -254,14 +301,13 @@ gm</code></pre>
 ## 8   Americas  1972 21175368
 ## 9     Europe  2007 19536618
 ## 10    Europe  2002 19274129
-## ..       ...   ...      ...</code></pre>
+## # ... with 38 more rows</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data?</li>
 </ol>
-<pre><code>## Source: local data frame [3 x 2]
-## 
+<pre><code>## # A tibble: 3 × 2
 ##                 country   sd.pop
-##                   (chr)    (dbl)
+##                   &lt;chr&gt;    &lt;dbl&gt;
 ## 1 Sao Tome and Principe 45906.14
 ## 2               Iceland 48541.68
 ## 3            Montenegro 99737.94</code></pre>
@@ -272,10 +318,9 @@ gm</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li><strong><em>Bonus!</em></strong> Excluding records from 1952, which observations indicate that the population of a country has <em>decreased</em> from the previous year <strong>and</strong> the life expectancy has <em>increased</em>. See <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html">the vignette on window functions</a>.</li>
 </ol>
-<pre><code>## Source: local data frame [36 x 6]
-## 
+<pre><code>## # A tibble: 36 × 6
 ##                   country continent  year lifeExp      pop  gdpPercap
-##                     (chr)     (chr) (int)   (dbl)    (int)      (dbl)
+##                     &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;
 ## 1             Afghanistan      Asia  1982  39.854 12881816   978.0114
 ## 2  Bosnia and Herzegovina    Europe  1992  72.178  4256013  2546.7814
 ## 3  Bosnia and Herzegovina    Europe  1997  73.244  3607000  4766.3559
@@ -286,7 +331,7 @@ gm</code></pre>
 ## 8          Czech Republic    Europe  2002  75.510 10256295 17596.2102
 ## 9          Czech Republic    Europe  2007  76.486 10228744 22833.3085
 ## 10      Equatorial Guinea    Africa  1977  42.024   192675   958.5668
-## ..                    ...       ...   ...     ...      ...        ...</code></pre>
+## # ... with 26 more rows</code></pre>
 </div>
 
 <div class="footer">
@@ -297,14 +342,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

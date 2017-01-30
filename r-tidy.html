@@ -10,14 +10,18 @@
 
 
 
+
 <title>Tidy Data and Advanced Data Manipulation</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Tidy Data and Advanced Data Manipulation</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Tidy Data and Advanced Data Manipulation</h1>
+
 </div>
 
 <div id="TOC">
@@ -150,10 +204,9 @@ img {
 library(dplyr)
 hr &lt;- read_csv(&quot;data/heartrate2dose.csv&quot;)
 hr</code></pre>
-<pre><code>## Source: local data frame [5 x 7]
-## 
+<pre><code>## # A tibble: 5 × 7
 ##    name  a_10  a_20  b_10  b_20  c_10  c_20
-##   (chr) (int) (int) (int) (int) (int) (int)
+##   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1   jon    60    55    65    60    70    70
 ## 2   ann    65    60    70    65    75    75
 ## 3  bill    70    65    75    70    80    80
@@ -170,10 +223,9 @@ hr</code></pre>
 <h3><code>gather()</code></h3>
 <p>The help for <code>?gather</code> tells us that we first pass in a data frame (or omit the first argument, and pipe in the data with <code>%&gt;%</code>). The next two arguments are the names of the key and value columns to create, and all the relevant arguments that come after that are the columns we want to <em>gather</em> together. Here’s one way to do it.</p>
 <pre class="r"><code>hr %&gt;% gather(key=drugdose, value=hr, a_10, a_20, b_10, b_20, c_10, c_20)</code></pre>
-<pre><code>## Source: local data frame [30 x 3]
-## 
+<pre><code>## # A tibble: 30 × 3
 ##     name drugdose    hr
-##    (chr)    (chr) (int)
+##    &lt;chr&gt;    &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -184,17 +236,16 @@ hr</code></pre>
 ## 8   bill     a_20    65
 ## 9   kate     a_20    70
 ## 10   joe     a_20    75
-## ..   ...      ...   ...</code></pre>
+## # ... with 20 more rows</code></pre>
 <p>But that gets cumbersome to type all those names. What if we had 100 drugs and 3 doses of each? There are two other ways of specifying which columns to gather. The help for <code>?gather</code> tells you how to do this:</p>
 <blockquote>
 <p><code>...</code> Specification of columns to gather. Use bare variable names. Select all variables between x and z with x:z, exclude y with -y. For more options, see the <code>select</code> documentation.</p>
 </blockquote>
 <p>So, we could accomplish the same thing by doing this:</p>
 <pre class="r"><code>hr %&gt;% gather(key=drugdose, value=hr, a_10:c_20)</code></pre>
-<pre><code>## Source: local data frame [30 x 3]
-## 
+<pre><code>## # A tibble: 30 × 3
 ##     name drugdose    hr
-##    (chr)    (chr) (int)
+##    &lt;chr&gt;    &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -205,13 +256,12 @@ hr</code></pre>
 ## 8   bill     a_20    65
 ## 9   kate     a_20    70
 ## 10   joe     a_20    75
-## ..   ...      ...   ...</code></pre>
+## # ... with 20 more rows</code></pre>
 <p>But what if we didn’t know the drug names or doses, but we <em>did</em> know that the only other column in there that we <em>don’t</em> want to gather is <code>name</code>?</p>
 <pre class="r"><code>hr %&gt;% gather(key=drugdose, value=hr, -name)</code></pre>
-<pre><code>## Source: local data frame [30 x 3]
-## 
+<pre><code>## # A tibble: 30 × 3
 ##     name drugdose    hr
-##    (chr)    (chr) (int)
+##    &lt;chr&gt;    &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a_10    60
 ## 2    ann     a_10    65
 ## 3   bill     a_10    70
@@ -222,7 +272,7 @@ hr</code></pre>
 ## 8   bill     a_20    65
 ## 9   kate     a_20    70
 ## 10   joe     a_20    75
-## ..   ...      ...   ...</code></pre>
+## # ... with 20 more rows</code></pre>
 </div>
 <div id="separate" class="section level3">
 <h3><code>separate()</code></h3>
@@ -233,10 +283,9 @@ hr</code></pre>
 <pre class="r"><code>hr %&gt;% 
   gather(key=drugdose, value=hr, -name) %&gt;% 
   separate(drugdose, into=c(&quot;drug&quot;, &quot;dose&quot;), sep=&quot;_&quot;)</code></pre>
-<pre><code>## Source: local data frame [30 x 4]
-## 
+<pre><code>## # A tibble: 30 × 4
 ##     name  drug  dose    hr
-##    (chr) (chr) (chr) (int)
+## *  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a    10    60
 ## 2    ann     a    10    65
 ## 3   bill     a    10    70
@@ -247,7 +296,7 @@ hr</code></pre>
 ## 8   bill     a    20    65
 ## 9   kate     a    20    70
 ## 10   joe     a    20    75
-## ..   ...   ...   ...   ...</code></pre>
+## # ... with 20 more rows</code></pre>
 </div>
 <div id="putting-it-all-together-gather-separate-filter-group_by-summarize" class="section level3">
 <h3>Putting it all together: <code>gather %&gt;% separate %&gt;% filter %&gt;% group_by %&gt;% summarize</code></h3>
@@ -262,10 +311,9 @@ hrtidy &lt;- hr %&gt;%
 
 # filter
 hrtidy %&gt;% filter(drug==&quot;a&quot;)</code></pre>
-<pre><code>## Source: local data frame [10 x 4]
-## 
+<pre><code>## # A tibble: 10 × 4
 ##     name  drug  dose    hr
-##    (chr) (chr) (chr) (int)
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a    10    60
 ## 2    ann     a    10    65
 ## 3   bill     a    10    70
@@ -277,10 +325,9 @@ hrtidy %&gt;% filter(drug==&quot;a&quot;)</code></pre>
 ## 9   kate     a    20    70
 ## 10   joe     a    20    75</code></pre>
 <pre class="r"><code>hrtidy %&gt;% filter(dose==20)</code></pre>
-<pre><code>## Source: local data frame [15 x 4]
-## 
+<pre><code>## # A tibble: 15 × 4
 ##     name  drug  dose    hr
-##    (chr) (chr) (chr) (int)
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
 ## 1    jon     a    20    55
 ## 2    ann     a    20    60
 ## 3   bill     a    20    65
@@ -297,10 +344,9 @@ hrtidy %&gt;% filter(drug==&quot;a&quot;)</code></pre>
 ## 14  kate     c    20    85
 ## 15   joe     c    20    90</code></pre>
 <pre class="r"><code>hrtidy %&gt;% filter(hr&gt;=80)</code></pre>
-<pre><code>## Source: local data frame [10 x 4]
-## 
+<pre><code>## # A tibble: 10 × 4
 ##     name  drug  dose    hr
-##    (chr) (chr) (chr) (int)
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
 ## 1    joe     a    10    80
 ## 2   kate     b    10    80
 ## 3    joe     b    10    85
@@ -320,7 +366,7 @@ hrtidy %&gt;%
 ## Groups: drug [?]
 ## 
 ##    drug  dose meanhr
-##   (chr) (chr)  (dbl)
+##   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
 ## 1     a    10   67.5
 ## 2     a    20   62.5
 ## 3     b    10   72.5
@@ -345,12 +391,11 @@ ydat &lt;- read_csv(&quot;data/brauer2007_tidy.csv&quot;)
 
 # Or just display to the screen
 ydat</code></pre>
-<pre><code>## Source: local data frame [198,430 x 7]
-## 
+<pre><code>## # A tibble: 198,430 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (dbl)      (dbl)
+##     &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
 ## 1    SFB2         YNL049C  Glucose  0.05      -0.24
-## 2      NA         YNL095C  Glucose  0.05       0.28
+## 2    &lt;NA&gt;         YNL095C  Glucose  0.05       0.28
 ## 3    QRI7         YDL104C  Glucose  0.05      -0.02
 ## 4    CFT2         YLR115W  Glucose  0.05      -0.33
 ## 5    SSO2         YMR183C  Glucose  0.05       0.05
@@ -359,16 +404,14 @@ ydat</code></pre>
 ## 8   VMA13         YPR036W  Glucose  0.05      -0.75
 ## 9    EDC3         YEL015W  Glucose  0.05      -0.24
 ## 10   VPS5         YOR069W  Glucose  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## # ... with 198,420 more rows, and 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 <p>But let’s take a look to see what this data originally looked like.</p>
 <pre class="r"><code>yorig &lt;- read_csv(&quot;data/brauer2007_messy.csv&quot;)
 # View(yorig)
 yorig</code></pre>
-<pre><code>## Source: local data frame [5,536 x 40]
-## 
+<pre><code>## # A tibble: 5,536 × 40
 ##          GID       YORF                    NAME GWEIGHT G0.05  G0.1 G0.15
-##        (chr)      (chr)                   (chr)   (int) (dbl) (dbl) (dbl)
+##        &lt;chr&gt;      &lt;chr&gt;                   &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  GENE1331X A_06_P5820  SFB2::YNL049C::1082129       1 -0.24 -0.13 -0.21
 ## 2  GENE4924X A_06_P5866    NA::YNL095C::1086222       1  0.28  0.13 -0.40
 ## 3  GENE4690X A_06_P1834  QRI7::YDL104C::1085955       1 -0.02 -0.27 -0.27
@@ -379,18 +422,18 @@ yorig</code></pre>
 ## 8  GENE5478X A_06_P7082 VMA13::YPR036W::1086860       1 -0.75 -0.12 -0.07
 ## 9  GENE2065X A_06_P2554  EDC3::YEL015W::1082963       1 -0.24 -0.22  0.14
 ## 10 GENE2440X A_06_P6431  VPS5::YOR069W::1083389       1 -0.16 -0.38  0.05
-## ..       ...        ...                     ...     ...   ...   ...   ...
-## Variables not shown: G0.2 (dbl), G0.25 (dbl), G0.3 (dbl), N0.05 (dbl),
-##   N0.1 (dbl), N0.15 (dbl), N0.2 (dbl), N0.25 (dbl), N0.3 (dbl), P0.05
-##   (dbl), P0.1 (dbl), P0.15 (dbl), P0.2 (dbl), P0.25 (dbl), P0.3 (dbl),
-##   S0.05 (dbl), S0.1 (dbl), S0.15 (dbl), S0.2 (dbl), S0.25 (dbl), S0.3
-##   (dbl), L0.05 (dbl), L0.1 (dbl), L0.15 (dbl), L0.2 (dbl), L0.25 (dbl),
-##   L0.3 (dbl), U0.05 (dbl), U0.1 (dbl), U0.15 (dbl), U0.2 (dbl), U0.25
-##   (dbl), U0.3 (dbl)</code></pre>
+## # ... with 5,526 more rows, and 33 more variables: G0.2 &lt;dbl&gt;,
+## #   G0.25 &lt;dbl&gt;, G0.3 &lt;dbl&gt;, N0.05 &lt;dbl&gt;, N0.1 &lt;dbl&gt;, N0.15 &lt;dbl&gt;,
+## #   N0.2 &lt;dbl&gt;, N0.25 &lt;dbl&gt;, N0.3 &lt;dbl&gt;, P0.05 &lt;dbl&gt;, P0.1 &lt;dbl&gt;,
+## #   P0.15 &lt;dbl&gt;, P0.2 &lt;dbl&gt;, P0.25 &lt;dbl&gt;, P0.3 &lt;dbl&gt;, S0.05 &lt;dbl&gt;,
+## #   S0.1 &lt;dbl&gt;, S0.15 &lt;dbl&gt;, S0.2 &lt;dbl&gt;, S0.25 &lt;dbl&gt;, S0.3 &lt;dbl&gt;,
+## #   L0.05 &lt;dbl&gt;, L0.1 &lt;dbl&gt;, L0.15 &lt;dbl&gt;, L0.2 &lt;dbl&gt;, L0.25 &lt;dbl&gt;,
+## #   L0.3 &lt;dbl&gt;, U0.05 &lt;dbl&gt;, U0.1 &lt;dbl&gt;, U0.15 &lt;dbl&gt;, U0.2 &lt;dbl&gt;,
+## #   U0.25 &lt;dbl&gt;, U0.3 &lt;dbl&gt;</code></pre>
 <p>There are several issues here.</p>
 <ol style="list-style-type: decimal">
 <li><strong>Multiple variables are stored in one column.</strong> The <code>NAME</code> column contains lots of information, split up by <code>::</code>’s.</li>
-<li><strong>Nutrient and rate variables are stuck in column headers.</strong> That is, the column names contain the values of two variables: nutrient (G, N, P, S, L, U) and growth rate (0.05-0.3). Remember, with tidy data, <strong>each <em>column</em> is a <em>variable</em> and each <em>row</em> is an <em>observation</em>.</strong> Here, we have not one observation per row, but 36 (6 nutrients <span class="math">\(\times\)</span> 6 rates)! There’s no way we could filter this data by a certain nutrient, or try to calculate statistics between rate and expression.</li>
+<li><strong>Nutrient and rate variables are stuck in column headers.</strong> That is, the column names contain the values of two variables: nutrient (G, N, P, S, L, U) and growth rate (0.05-0.3). Remember, with tidy data, <strong>each <em>column</em> is a <em>variable</em> and each <em>row</em> is an <em>observation</em>.</strong> Here, we have not one observation per row, but 36 (6 nutrients <span class="math inline">\(\times\)</span> 6 rates)! There’s no way we could filter this data by a certain nutrient, or try to calculate statistics between rate and expression.</li>
 <li><strong>Expression values are scattered throughout the table.</strong> Related to the problem above, and just like our heart rate example, <code>expression</code> isn’t a single-column variable as in the cleaned tidy data, but it’s scattered around these 36 columns.</li>
 <li><strong>Other important information is in a separate table.</strong> We’re missing all the gene ontology information we had in the tidy data (no information about biological process (<code>bp</code>) or molecular function (<code>mf</code>)).</li>
 </ol>
@@ -404,10 +447,9 @@ yorig</code></pre>
 <p>That is, it looks like we’ve got the gene symbol, the systematic name, and some other number (that isn’t discussed in the paper). Let’s <code>separate()</code>!</p>
 <pre class="r"><code>yorig %&gt;% 
   separate(NAME, into=c(&quot;symbol&quot;, &quot;systematic_name&quot;, &quot;somenumber&quot;), sep=&quot;::&quot;)</code></pre>
-<pre><code>## Source: local data frame [5,536 x 42]
-## 
+<pre><code>## # A tibble: 5,536 × 42
 ##          GID       YORF symbol systematic_name somenumber GWEIGHT G0.05
-##        (chr)      (chr)  (chr)           (chr)      (chr)   (int) (dbl)
+## *      &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt;
 ## 1  GENE1331X A_06_P5820   SFB2         YNL049C    1082129       1 -0.24
 ## 2  GENE4924X A_06_P5866     NA         YNL095C    1086222       1  0.28
 ## 3  GENE4690X A_06_P1834   QRI7         YDL104C    1085955       1 -0.02
@@ -418,22 +460,21 @@ yorig</code></pre>
 ## 8  GENE5478X A_06_P7082  VMA13         YPR036W    1086860       1 -0.75
 ## 9  GENE2065X A_06_P2554   EDC3         YEL015W    1082963       1 -0.24
 ## 10 GENE2440X A_06_P6431   VPS5         YOR069W    1083389       1 -0.16
-## ..       ...        ...    ...             ...        ...     ...   ...
-## Variables not shown: G0.1 (dbl), G0.15 (dbl), G0.2 (dbl), G0.25 (dbl),
-##   G0.3 (dbl), N0.05 (dbl), N0.1 (dbl), N0.15 (dbl), N0.2 (dbl), N0.25
-##   (dbl), N0.3 (dbl), P0.05 (dbl), P0.1 (dbl), P0.15 (dbl), P0.2 (dbl),
-##   P0.25 (dbl), P0.3 (dbl), S0.05 (dbl), S0.1 (dbl), S0.15 (dbl), S0.2
-##   (dbl), S0.25 (dbl), S0.3 (dbl), L0.05 (dbl), L0.1 (dbl), L0.15 (dbl),
-##   L0.2 (dbl), L0.25 (dbl), L0.3 (dbl), U0.05 (dbl), U0.1 (dbl), U0.15
-##   (dbl), U0.2 (dbl), U0.25 (dbl), U0.3 (dbl)</code></pre>
+## # ... with 5,526 more rows, and 35 more variables: G0.1 &lt;dbl&gt;,
+## #   G0.15 &lt;dbl&gt;, G0.2 &lt;dbl&gt;, G0.25 &lt;dbl&gt;, G0.3 &lt;dbl&gt;, N0.05 &lt;dbl&gt;,
+## #   N0.1 &lt;dbl&gt;, N0.15 &lt;dbl&gt;, N0.2 &lt;dbl&gt;, N0.25 &lt;dbl&gt;, N0.3 &lt;dbl&gt;,
+## #   P0.05 &lt;dbl&gt;, P0.1 &lt;dbl&gt;, P0.15 &lt;dbl&gt;, P0.2 &lt;dbl&gt;, P0.25 &lt;dbl&gt;,
+## #   P0.3 &lt;dbl&gt;, S0.05 &lt;dbl&gt;, S0.1 &lt;dbl&gt;, S0.15 &lt;dbl&gt;, S0.2 &lt;dbl&gt;,
+## #   S0.25 &lt;dbl&gt;, S0.3 &lt;dbl&gt;, L0.05 &lt;dbl&gt;, L0.1 &lt;dbl&gt;, L0.15 &lt;dbl&gt;,
+## #   L0.2 &lt;dbl&gt;, L0.25 &lt;dbl&gt;, L0.3 &lt;dbl&gt;, U0.05 &lt;dbl&gt;, U0.1 &lt;dbl&gt;,
+## #   U0.15 &lt;dbl&gt;, U0.2 &lt;dbl&gt;, U0.25 &lt;dbl&gt;, U0.3 &lt;dbl&gt;</code></pre>
 <p>Now, let’s <code>select()</code> out the stuff we don’t want.</p>
 <pre class="r"><code>yorig %&gt;% 
   separate(NAME, into=c(&quot;symbol&quot;, &quot;systematic_name&quot;, &quot;somenumber&quot;), sep=&quot;::&quot;) %&gt;% 
   select(-GID, -YORF, -somenumber, -GWEIGHT)</code></pre>
-<pre><code>## Source: local data frame [5,536 x 38]
-## 
+<pre><code>## # A tibble: 5,536 × 38
 ##    symbol systematic_name G0.05  G0.1 G0.15  G0.2 G0.25  G0.3 N0.05  N0.1
-##     (chr)           (chr) (dbl) (dbl) (dbl) (dbl) (dbl) (dbl) (dbl) (dbl)
+## *   &lt;chr&gt;           &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1    SFB2         YNL049C -0.24 -0.13 -0.21 -0.15 -0.05 -0.05  0.20  0.24
 ## 2      NA         YNL095C  0.28  0.13 -0.40 -0.48 -0.11  0.17  0.31  0.00
 ## 3    QRI7         YDL104C -0.02 -0.27 -0.27 -0.02  0.24  0.25  0.23  0.06
@@ -444,13 +485,13 @@ yorig</code></pre>
 ## 8   VMA13         YPR036W -0.75 -0.12 -0.07  0.02 -0.32 -0.41  0.11 -0.16
 ## 9    EDC3         YEL015W -0.24 -0.22  0.14  0.06  0.00 -0.13  0.30  0.07
 ## 10   VPS5         YOR069W -0.16 -0.38  0.05  0.14 -0.04 -0.01  0.39  0.20
-## ..    ...             ...   ...   ...   ...   ...   ...   ...   ...   ...
-## Variables not shown: N0.15 (dbl), N0.2 (dbl), N0.25 (dbl), N0.3 (dbl),
-##   P0.05 (dbl), P0.1 (dbl), P0.15 (dbl), P0.2 (dbl), P0.25 (dbl), P0.3
-##   (dbl), S0.05 (dbl), S0.1 (dbl), S0.15 (dbl), S0.2 (dbl), S0.25 (dbl),
-##   S0.3 (dbl), L0.05 (dbl), L0.1 (dbl), L0.15 (dbl), L0.2 (dbl), L0.25
-##   (dbl), L0.3 (dbl), U0.05 (dbl), U0.1 (dbl), U0.15 (dbl), U0.2 (dbl),
-##   U0.25 (dbl), U0.3 (dbl)</code></pre>
+## # ... with 5,526 more rows, and 28 more variables: N0.15 &lt;dbl&gt;,
+## #   N0.2 &lt;dbl&gt;, N0.25 &lt;dbl&gt;, N0.3 &lt;dbl&gt;, P0.05 &lt;dbl&gt;, P0.1 &lt;dbl&gt;,
+## #   P0.15 &lt;dbl&gt;, P0.2 &lt;dbl&gt;, P0.25 &lt;dbl&gt;, P0.3 &lt;dbl&gt;, S0.05 &lt;dbl&gt;,
+## #   S0.1 &lt;dbl&gt;, S0.15 &lt;dbl&gt;, S0.2 &lt;dbl&gt;, S0.25 &lt;dbl&gt;, S0.3 &lt;dbl&gt;,
+## #   L0.05 &lt;dbl&gt;, L0.1 &lt;dbl&gt;, L0.15 &lt;dbl&gt;, L0.2 &lt;dbl&gt;, L0.25 &lt;dbl&gt;,
+## #   L0.3 &lt;dbl&gt;, U0.05 &lt;dbl&gt;, U0.1 &lt;dbl&gt;, U0.15 &lt;dbl&gt;, U0.2 &lt;dbl&gt;,
+## #   U0.25 &lt;dbl&gt;, U0.3 &lt;dbl&gt;</code></pre>
 </div>
 <div id="gather-the-nutrientrate-and-expression-data" class="section level3">
 <h3><code>gather()</code> the nutrient+rate and expression data</h3>
@@ -459,10 +500,9 @@ yorig</code></pre>
   separate(NAME, into=c(&quot;symbol&quot;, &quot;systematic_name&quot;, &quot;somenumber&quot;), sep=&quot;::&quot;) %&gt;% 
   select(-GID, -YORF, -somenumber, -GWEIGHT) %&gt;% 
   gather(key=nutrientrate, value=expression, G0.05:U0.3)</code></pre>
-<pre><code>## Source: local data frame [199,296 x 4]
-## 
+<pre><code>## # A tibble: 199,296 × 4
 ##    symbol systematic_name nutrientrate expression
-##     (chr)           (chr)        (chr)      (dbl)
+##     &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt;
 ## 1    SFB2         YNL049C        G0.05      -0.24
 ## 2      NA         YNL095C        G0.05       0.28
 ## 3    QRI7         YDL104C        G0.05      -0.02
@@ -473,7 +513,7 @@ yorig</code></pre>
 ## 8   VMA13         YPR036W        G0.05      -0.75
 ## 9    EDC3         YEL015W        G0.05      -0.24
 ## 10   VPS5         YOR069W        G0.05      -0.16
-## ..    ...             ...          ...        ...</code></pre>
+## # ... with 199,286 more rows</code></pre>
 <p>And while we’re at it, let’s <code>separate()</code> that newly created key column. Take a look at the help for <code>?separate</code> again. The <code>sep</code> argument could be a delimiter or a number position to split at. Let’s split after the first character. While we’re at it, let’s hold onto this intermediate data frame before we add gene ontology information. Call it <code>ynogo</code>.</p>
 <pre class="r"><code>ynogo &lt;- yorig %&gt;% 
   separate(NAME, into=c(&quot;symbol&quot;, &quot;systematic_name&quot;, &quot;somenumber&quot;), sep=&quot;::&quot;) %&gt;% 
@@ -491,25 +531,23 @@ sn2go &lt;- read_csv(&quot;data/brauer2007_sysname2go.csv&quot;)
 # Take a look
 # View(sn2go)
 head(sn2go)</code></pre>
-<pre><code>## Source: local data frame [6 x 3]
-## 
+<pre><code>## # A tibble: 6 × 3
 ##   systematic_name                           bp
-##             (chr)                        (chr)
+##             &lt;chr&gt;                        &lt;chr&gt;
 ## 1         YNL049C        ER to Golgi transport
 ## 2         YNL095C   biological process unknown
 ## 3         YDL104C proteolysis and peptidolysis
 ## 4         YLR115W      mRNA polyadenylylation*
 ## 5         YMR183C              vesicle fusion*
 ## 6         YML017W   biological process unknown
-## Variables not shown: mf (chr)</code></pre>
+## # ... with 1 more variables: mf &lt;chr&gt;</code></pre>
 <p>Now, look up some help for <code>?inner_join</code>. Inner join will return a table with all rows from the first table where there are matching rows in the second table, and returns all columns from both tables. Let’s give this a try.</p>
 <pre class="r"><code>yjoined &lt;- inner_join(ynogo, sn2go, by=&quot;systematic_name&quot;)
 # View(yjoined)
 yjoined</code></pre>
-<pre><code>## Source: local data frame [199,296 x 7]
-## 
+<pre><code>## # A tibble: 199,296 × 7
 ##    symbol systematic_name nutrient  rate expression
-##     (chr)           (chr)    (chr) (chr)      (dbl)
+##     &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
 ## 1    SFB2         YNL049C        G  0.05      -0.24
 ## 2      NA         YNL095C        G  0.05       0.28
 ## 3    QRI7         YDL104C        G  0.05      -0.02
@@ -520,19 +558,18 @@ yjoined</code></pre>
 ## 8   VMA13         YPR036W        G  0.05      -0.75
 ## 9    EDC3         YEL015W        G  0.05      -0.24
 ## 10   VPS5         YOR069W        G  0.05      -0.16
-## ..    ...             ...      ...   ...        ...
-## Variables not shown: bp (chr), mf (chr)</code></pre>
+## # ... with 199,286 more rows, and 2 more variables: bp &lt;chr&gt;, mf &lt;chr&gt;</code></pre>
 <pre class="r"><code># The glimpse function makes it possible to see a little bit of everything in your data.
 glimpse(yjoined)</code></pre>
 <pre><code>## Observations: 199,296
 ## Variables: 7
-## $ symbol          (chr) &quot;SFB2&quot;, &quot;NA&quot;, &quot;QRI7&quot;, &quot;CFT2&quot;, &quot;SSO2&quot;, &quot;PSP2&quot;, ...
-## $ systematic_name (chr) &quot;YNL049C&quot;, &quot;YNL095C&quot;, &quot;YDL104C&quot;, &quot;YLR115W&quot;, &quot;Y...
-## $ nutrient        (chr) &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;...
-## $ rate            (chr) &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;...
-## $ expression      (dbl) -0.24, 0.28, -0.02, -0.33, 0.05, -0.69, -0.55,...
-## $ bp              (chr) &quot;ER to Golgi transport&quot;, &quot;biological process u...
-## $ mf              (chr) &quot;molecular function unknown&quot;, &quot;molecular funct...</code></pre>
+## $ symbol          &lt;chr&gt; &quot;SFB2&quot;, &quot;NA&quot;, &quot;QRI7&quot;, &quot;CFT2&quot;, &quot;SSO2&quot;, &quot;PSP2&quot;, ...
+## $ systematic_name &lt;chr&gt; &quot;YNL049C&quot;, &quot;YNL095C&quot;, &quot;YDL104C&quot;, &quot;YLR115W&quot;, &quot;Y...
+## $ nutrient        &lt;chr&gt; &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;G&quot;, &quot;...
+## $ rate            &lt;chr&gt; &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;, &quot;0.05&quot;...
+## $ expression      &lt;dbl&gt; -0.24, 0.28, -0.02, -0.33, 0.05, -0.69, -0.55,...
+## $ bp              &lt;chr&gt; &quot;ER to Golgi transport&quot;, &quot;biological process u...
+## $ mf              &lt;chr&gt; &quot;molecular function unknown&quot;, &quot;molecular funct...</code></pre>
 <p>Looks like that did it! There are many different kinds of two-table verbs/joins in dplyr. In this example, every systematic name in <code>ynogo</code> had a corresponding entry in <code>sn2go</code>, but if this weren’t the case, those un-annotated genes would have been removed entirely by the <code>inner_join</code>. A <code>left_join</code> would have returned all the rows in <code>ynogo</code>, but would have filled in <code>bp</code> and <code>mf</code> with missing values (<code>NA</code>) when there was no corresponding entry. See also: <code>right_join</code>, <code>semi_join</code>, and <code>anti_join</code>.</p>
 </div>
 </div>
@@ -545,14 +582,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

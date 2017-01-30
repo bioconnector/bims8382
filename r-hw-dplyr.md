@@ -14,6 +14,9 @@
 - window functions
 
 
+```
+## Warning: package 'knitr' was built under R version 3.3.2
+```
 
 ## Getting Started
 
@@ -42,10 +45,9 @@ gm
 
 
 ```
-## Source: local data frame [1,704 x 6]
-## 
+## # A tibble: 1,704 × 6
 ##        country continent  year lifeExp      pop gdpPercap
-##          (chr)     (chr) (int)   (dbl)    (int)     (dbl)
+##          <chr>     <chr> <int>   <dbl>    <int>     <dbl>
 ## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
 ## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
 ## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
@@ -56,7 +58,7 @@ gm
 ## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-## ..         ...       ...   ...     ...      ...       ...
+## # ... with 1,694 more rows
 ```
 
 
@@ -68,10 +70,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##   continent     n
-##       (chr) (int)
+##       <chr> <int>
 ## 1    Africa    52
 ## 2  Americas    25
 ## 3      Asia    33
@@ -84,10 +85,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [1 x 6]
-## 
+## # A tibble: 1 × 6
 ##   country continent  year lifeExp     pop gdpPercap
-##     (chr)     (chr) (int)   (dbl)   (int)     (dbl)
+##     <chr>     <chr> <int>   <dbl>   <int>     <dbl>
 ## 1 Albania    Europe  1997   72.95 3428038  3193.055
 ```
 
@@ -96,10 +96,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##   continent mean.lifeExp
-##       (chr)        (dbl)
+##       <chr>        <dbl>
 ## 1    Africa     52.46883
 ## 2  Americas     67.15978
 ## 3      Asia     63.73456
@@ -112,10 +111,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##          country    Total.GDP
-##            (chr)        (dbl)
+##            <chr>        <dbl>
 ## 1  United States 7.676192e+13
 ## 2          Japan 2.543482e+13
 ## 3          China 2.039549e+13
@@ -130,10 +128,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [22 x 3]
-## 
+## # A tibble: 22 × 3
 ##             country lifeExp  year
-##               (chr)   (dbl) (int)
+##               <chr>   <dbl> <int>
 ## 1         Australia  80.370  2002
 ## 2         Australia  81.235  2007
 ## 3            Canada  80.653  2007
@@ -144,7 +141,7 @@ Use **dplyr** functions to address the following questions:
 ## 8           Iceland  80.500  2002
 ## 9           Iceland  81.757  2007
 ## 10           Israel  80.745  2007
-## ..              ...     ...   ...
+## # ... with 12 more rows
 ```
 
 
@@ -152,10 +149,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [10 x 2]
-## 
+## # A tibble: 10 × 2
 ##           country         r
-##             (chr)     (dbl)
+##             <chr>     <dbl>
 ## 1          France 0.9962239
 ## 2         Austria 0.9929642
 ## 3         Belgium 0.9927496
@@ -175,10 +171,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [48 x 3]
-## 
+## # A tibble: 48 × 3
 ##    continent  year mean.pop
-##        (chr) (int)    (dbl)
+##        <chr> <int>    <dbl>
 ## 1   Americas  2007 35954847
 ## 2   Americas  2002 33990910
 ## 3   Americas  1997 31876016
@@ -189,7 +184,7 @@ Use **dplyr** functions to address the following questions:
 ## 8   Americas  1972 21175368
 ## 9     Europe  2007 19536618
 ## 10    Europe  2002 19274129
-## ..       ...   ...      ...
+## # ... with 38 more rows
 ```
 
 
@@ -197,10 +192,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [3 x 2]
-## 
+## # A tibble: 3 × 2
 ##                 country   sd.pop
-##                   (chr)    (dbl)
+##                   <chr>    <dbl>
 ## 1 Sao Tome and Principe 45906.14
 ## 2               Iceland 48541.68
 ## 3            Montenegro 99737.94
@@ -219,10 +213,9 @@ Use **dplyr** functions to address the following questions:
 
 
 ```
-## Source: local data frame [36 x 6]
-## 
+## # A tibble: 36 × 6
 ##                   country continent  year lifeExp      pop  gdpPercap
-##                     (chr)     (chr) (int)   (dbl)    (int)      (dbl)
+##                     <chr>     <chr> <int>   <dbl>    <int>      <dbl>
 ## 1             Afghanistan      Asia  1982  39.854 12881816   978.0114
 ## 2  Bosnia and Herzegovina    Europe  1992  72.178  4256013  2546.7814
 ## 3  Bosnia and Herzegovina    Europe  1997  73.244  3607000  4766.3559
@@ -233,5 +226,5 @@ Use **dplyr** functions to address the following questions:
 ## 8          Czech Republic    Europe  2002  75.510 10256295 17596.2102
 ## 9          Czech Republic    Europe  2007  76.486 10228744 22833.3085
 ## 10      Equatorial Guinea    Africa  1977  42.024   192675   958.5668
-## ..                    ...       ...   ...     ...      ...        ...
+## # ... with 26 more rows
 ```

@@ -10,14 +10,18 @@
 
 
 
+
 <title>Count-Based Differential Expression Analysis of RNA-seq Data</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
@@ -34,10 +38,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -51,6 +51,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,12 +98,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -93,8 +143,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Count-Based Differential Expression Analysis of RNA-seq Data</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Count-Based Differential Expression Analysis of RNA-seq Data</h1>
+
 </div>
 
 <div id="TOC">
@@ -143,12 +197,18 @@ img {
 <li>Soneson, C., Love, M. I. &amp; Robinson, M. D. “Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences.” <a href="http://f1000research.com/articles/4-1521/v1"><em>F1000Res.</em> 4:1521</a> (2016).</li>
 </ol>
 <p>This data was downloaded from GEO (<a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE52778">GSE:GSE52778</a>). You can read more about how the data was processed <a href="https://www.bioconductor.org/packages/3.3/data/experiment/vignettes/airway/inst/doc/airway.html">here</a>. In summary, the process looks something like this. We have reads; we use an aligner and a reference genome to figure out where in the genome the reads come from (chromosome and position), and we cross-reference that against a reference annotation, which tells the chromosome/position location of exons for known genes.</p>
-<p><img src="img/aligncount.png" alt="" /></p>
+<div class="figure">
+<img src="img/aligncount.png" />
+
+</div>
 </div>
 <div id="data-structure" class="section level3">
 <h3>Data structure</h3>
 <p>We’ll come back to this again later, but the data at our starting point looks like this (<em>note: this is a generic schematic - our genes are not actually <code>geneA</code> and <code>geneB</code>, and our samples aren’t called <code>ctrl_1</code>, <code>ctrl_2</code>, etc.</em>):</p>
-<p><img src="img/countdatacoldata.png" alt="" /></p>
+<div class="figure">
+<img src="img/countdatacoldata.png" />
+
+</div>
 <p>That is, we have <strong>two tables</strong>:</p>
 <ol style="list-style-type: decimal">
 <li>The “count matrix” (called the <code>countData</code> in DESeq-speak) – where <em>genes</em> are in <em>rows</em> and <em>samples</em> are in <em>columns</em>, and the number in each cell is the number of reads that mapped to exons in that gene for that sample.</li>
@@ -260,11 +320,17 @@ meancounts</code></pre>
 <ol style="list-style-type: decimal">
 <li>Create a scatter plot showing the mean of the treated samples against the mean of the control samples.</li>
 </ol>
-<p><img src="r-rnaseq-airway_files/figure-html/simplescatter-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/simplescatter-1.png" />
+
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>Wait a sec. There are 60,000-some rows in this data, but I’m only seeing a few dozen dots at most outside of the big clump around the origin. Try plotting both axes on a log scale (<em>hint</em>: <code>... + scale_..._log10()</code>)</li>
 </ol>
-<p><img src="r-rnaseq-airway_files/figure-html/simplescatterlog-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/simplescatterlog-1.png" />
+
+</div>
 <hr />
 <p>We can find candidate differentially expressed genes by looking for genes with a large change between control and dex-treated samples. We usually look at the <span class="math inline">\(log_2\)</span> of the fold change, because this has better mathematical properties. On the absolute scale, upregulation goes from 1 to infinity, while downregulation is bounded by 0 and 1. On the log scale, upregulation goes from 0 to infinity, and downregulation goes from 0 to negative infinity. So, let’s mutate our <code>meancounts</code> object to add a <code>log2foldchange</code> column. Optionally pipe this to <code>View()</code>.</p>
 <pre class="r"><code>meancounts %&gt;% mutate(log2fc=log2(treatedmean/controlmean))</code></pre>
@@ -434,7 +500,10 @@ citation(&quot;DESeq2&quot;)</code></pre>
 <h3>Importing data</h3>
 <p>DESeq works on a particular type of object called a DESeqDataSet. The DESeqDataSet is a single object that contains input values, intermediate calculations like how things are normalized, and all results of a differential expression analysis. You can construct a DESeqDataSet from a count matrix, a metadata file, and a formula indicating the design of the experiment. See the help for <code>?DESeqDataSetFromMatrix</code>. If you read through the <a href="http://www.bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf">DESeq2 vignette</a> you’ll read about the structure of the data that you need to construct a DESeqDataSet object.</p>
 <p><code>DESeqDataSetFromMatrix</code> requires the count matrix (<code>countData</code> argument) to be a matrix or numeric data frame, with it’s column names identical to the row names of <code>colData</code>, an additional dataframe describing sample metadata. Furthermore, the row names of the <code>countData</code> must be the identifier you’ll use for each gene.</p>
-<p><img src="img/countdatacoldata.png" alt="" /></p>
+<div class="figure">
+<img src="img/countdatacoldata.png" />
+
+</div>
 <p>Let’s look at our rawcounts and metadata again.</p>
 <pre class="r"><code>rawcounts</code></pre>
 <pre><code>## Source: local data frame [64,102 x 9]
@@ -671,7 +740,10 @@ res</code></pre>
 <h3>Plotting counts</h3>
 <p>DESeq2 offers a function called <code>plotCounts()</code> that takes a DESeqDataSet that has been run through the pipeline, the name of a gene, and the name of the variable in the <code>colData</code> that you’re interested in, and plots those values. See the help for <code>?plotCounts</code>. Let’s first see what the gene ID is for the CRISPLD2 gene using <code>res %&gt;% filter(symbol==&quot;CRISPLD2&quot;)</code>. Now, let’s plot the counts, where our <code>intgroup</code>, or “interesting group” variable is the “dex” column.</p>
 <pre class="r"><code>plotCounts(dds, gene=&quot;ENSG00000103196&quot;, intgroup=&quot;dex&quot;)</code></pre>
-<p><img src="r-rnaseq-airway_files/figure-html/plotCounts1-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/plotCounts1-1.png" />
+
+</div>
 <p>That’s just okay. Keep looking at the help for <code>?plotCounts</code>. Notice that we could have actually returned the data instead of plotting. We could then pipe this to ggplot and make our own figure. Let’s make a boxplot.</p>
 <pre class="r"><code># Return the data
 plotCounts(dds, gene=&quot;ENSG00000103196&quot;, intgroup=&quot;dex&quot;, returnData=TRUE)</code></pre>
@@ -687,7 +759,10 @@ plotCounts(dds, gene=&quot;ENSG00000103196&quot;, intgroup=&quot;dex&quot;, retu
 <pre class="r"><code># Plot it
 plotCounts(dds, gene=&quot;ENSG00000103196&quot;, intgroup=&quot;dex&quot;, returnData=TRUE) %&gt;% 
   ggplot(aes(dex, count)) + geom_boxplot(aes(fill=dex)) + scale_y_log10() + ggtitle(&quot;CRISPLD2&quot;)</code></pre>
-<p><img src="r-rnaseq-airway_files/figure-html/plotCounts2-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/plotCounts2-1.png" />
+
+</div>
 </div>
 <div id="ma-volcano-plots" class="section level3">
 <h3>MA &amp; Volcano plots</h3>
@@ -714,12 +789,18 @@ res %&gt;%
 <li>Make an MA plot. Use a <span class="math inline">\(log_{10}\)</span>-scaled x-axis, color-code by whether the gene is significant, and give your plot a title. It should look like this. What’s the deal with the gray points?</li>
 </ol>
 <pre class="r"><code>res %&gt;% ggplot(aes(baseMean, log2FoldChange, col=sig)) + geom_point() + scale_x_log10() + ggtitle(&quot;MA plot&quot;)</code></pre>
-<p><img src="r-rnaseq-airway_files/figure-html/maplot-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/maplot-1.png" />
+
+</div>
 <ol start="2" style="list-style-type: decimal">
 <li>Make a volcano plot. Similarly, color-code by whether it’s significant or not.</li>
 </ol>
 <pre class="r"><code>res %&gt;% ggplot(aes(log2FoldChange, -1*log10(pvalue), col=sig)) + geom_point() + ggtitle(&quot;Volcano plot&quot;)</code></pre>
-<p><img src="r-rnaseq-airway_files/figure-html/volcanoplot-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/volcanoplot-1.png" />
+
+</div>
 <hr />
 </div>
 </div>
@@ -730,13 +811,19 @@ res %&gt;%
 <pre class="r"><code>rld &lt;- rlogTransformation(dds)</code></pre>
 <p>Now, let’s use the DESeq2-provided <code>plotPCA</code> function. See the help for <code>?plotPCA</code> and notice that it also has a <code>returnData</code> option, just like <code>plotCounts</code>.</p>
 <pre class="r"><code>plotPCA(rld, intgroup=&quot;dex&quot;)</code></pre>
-<p><img src="r-rnaseq-airway_files/figure-html/plotPCA-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/plotPCA-1.png" />
+
+</div>
 <p>Principal Components Analysis (PCA) is a dimension reduction and visualization technique that is here used to project the multivariate data vector of each sample into a two-dimensional plot, such that the spatial arrangement of the points in the plot reflects the overall data (dis)similarity between the samples. In essence, principal component analysis distills all the global variation between samples down to a few variables called <em>principal components</em>. The majority of variation between the samples can be summarized by the first principal component, which is shown on the x-axis. The second principal component summarizes the residual variation that isn’t explained by PC1. PC2 is shown on the y-axis. The percentage of the global variation explained by each principal component is given in the axis labels. In a two-condition scenario (e.g., mutant vs WT, or treated vs control), you would expect PC1 to separate the two experimental conditions, so for example, having all the controls on the left and all experimental samples on the right (or vice versa - the units and directionality isn’t important). The secondary axis may separate other aspects of the design - cell line, time point, etc. You would hope that the experimental design is reflected in the PCA plot, and in this case, it is. But this kind of diagnostic can be useful for finding outliers, investigating batch effects, finding sample swaps, and other technical problems with the data. <a href="https://youtu.be/_UVHneBUBW0">This YouTube video</a> from the Genetics Department at UNC gives a very accessible explanation of what PCA is all about in the context of a gene expression experiment, without the need for an advanced math background. Take a look.</p>
 </div>
 <div id="bonus-heatmaps" class="section level3">
 <h3>Bonus: Heatmaps</h3>
 <p><a href="http://www.opiniomics.org/you-probably-dont-understand-heatmaps/">Heatmaps are complicated, and are often poorly understood</a>. It’s a type of visualization used very often in high-throughput biology where data are clustered on rows and columns, and the actual data is displayed as tiles on a grid, where the values are mapped to some color spectrum. Our R useRs group MeetUp had a session on making heatmaps, which I summarized in <a href="http://www.gettinggeneticsdone.com/2015/04/r-user-group-recap-heatmaps-and-using.html">this blog post</a>. Take a look at <a href="https://github.com/UVa-R-Users-Group/meetup/blob/master/2015-02-19-heat-maps/heatmaps.R">the code from that meetup</a>, and the <a href="http://nmf.r-forge.r-project.org/aheatmap.html">documentation for the <code>aheatmap</code> function in the NMF package</a> to see if you can re-create this image. Here, I’m clustering all samples using the top 50 most differentially regulatd genes, labeling the rows with the gene symbol, and putting two annotation color bars across the top of the main heatmap panel showing treatment and cell line annotations from our metadata. Take a look at the <a href="https://github.com/bioconnector/bims8382/blame/10667525b2798d4f79af616d936ecac0b58c9622/r-rnaseq-airway.Rmd#L406">Rmarkdown source for this lesson</a> for the code.</p>
-<p><img src="r-rnaseq-airway_files/figure-html/NMFaheatmap-1.png" alt="" /></p>
+<div class="figure">
+<img src="r-rnaseq-airway_files/figure-html/NMFaheatmap-1.png" />
+
+</div>
 </div>
 </div>
 <div id="record-sessioninfo" class="section level2">
@@ -794,14 +881,20 @@ For more information, visit <a href="https://www.bioconnector.virginia.edu/">bio
 <a href="http://www.gettinggeneticsdone.com/" target="_blank"><i class="fa fa-rss fa-lg"></i></a>&nbsp;
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 
