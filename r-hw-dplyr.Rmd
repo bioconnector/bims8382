@@ -60,7 +60,7 @@ Use **dplyr** functions to address the following questions:
 
 ```{r problem1}
 gm %>%
-    distinct(country) %>%
+    distinct(country, .keep_all=TRUE) %>%
     group_by(continent) %>%
     summarise(n = n())
 ```
